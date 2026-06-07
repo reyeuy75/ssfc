@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FSS — Access Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800;900&family=Share+Tech+Mono&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:    #080808;
+  --bg1:   #0d0d0d;
+  --bg2:   #111111;
+  --red:   #e8132b;
+  --red2:  #ff1a33;
+  --gold:  #d4a32a;
+  --wh:    #ffffff;
+  --mu:    rgba(255,255,255,0.4);
+  --mu2:   rgba(255,255,255,0.15);
+  --dim:   rgba(255,255,255,0.06);
+  --bdr:   rgba(255,255,255,0.07);
+  --bdr2:  rgba(232,19,43,0.3);
+  --ff-d:  'Bebas Neue', sans-serif;
+  --ff-h:  'Barlow Condensed', sans-serif;
+  --ff-b:  'Barlow', sans-serif;
+  --ff-m:  'Share Tech Mono', monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{height:100%;overflow:hidden}
+body{
+  background:var(--bg);color:var(--wh);font-family:var(--ff-b);
+  height:100%;display:flex;align-items:center;justify-content:center;
+  overflow:hidden;position:relative;
+}
+
+/* GRAIN OVERLAY */
+body::after{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size:200px;mix-blend-mode:overlay;
+}
+
+/* BACKGROUND GRID */
+.bg-grid{
+  position:fixed;inset:0;z-index:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+
+/* RED GLOW */
+.bg-glow{
+  position:fixed;z-index:0;
+  width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,19,43,0.12) 0%,transparent 70%);
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+
+/* SCAN LINES */
+.bg-scan{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:repeating-linear-gradient(
+    0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px
+  );
+}
+
+/* TOP BAR */
+.top-bar{
+  position:fixed;top:0;left:0;right:0;z-index:10;height:48px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 32px;border-bottom:1px solid var(--bdr);
+  background:rgba(8,8,8,0.8);backdrop-filter:blur(12px);
+}
+.top-logo{
+  font-family:var(--ff-d);font-size:18px;letter-spacing:5px;
+  color:var(--wh);text-decoration:none;display:flex;align-items:center;gap:8px;
+}
+.top-logo-dot{
+  width:6px;height:6px;background:var(--red);border-radius:50%;
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(232,19,43,0.6)}50%{box-shadow:0 0 0 6px rgba(232,19,43,0)}}
+.top-tag{font-family:var(--ff-m);font-size:9px;letter-spacing:3px;color:var(--mu);text-transform:uppercase}
+
+/* CORNER DECORATIONS */
+.corner{position:fixed;width:24px;height:24px;z-index:5}
+.corner-tl{top:56px;left:16px;border-top:1px solid var(--red);border-left:1px solid var(--red)}
+.corner-tr{top:56px;right:16px;border-top:1px solid var(--red);border-right:1px solid var(--red)}
+.corner-bl{bottom:16px;left:16px;border-bottom:1px solid var(--red);border-left:1px solid var(--red)}
+.corner-br{bottom:16px;right:16px;border-bottom:1px solid var(--red);border-right:1px solid var(--red)}
+
+/* MAIN CARD */
+.card{
+  position:relative;z-index:2;width:100%;max-width:420px;
+  padding:48px 40px;margin:0 16px;
+  background:rgba(13,13,13,0.9);border:1px solid var(--bdr);
+  backdrop-filter:blur(24px);
+  animation:cardIn .6s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes cardIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+/* Card border top accent */
+.card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--red),transparent);
+}
+
+/* HEADER */
+.card-header{margin-bottom:36px;text-align:center}
+.card-eyebrow{
+  font-family:var(--ff-m);font-size:9px;letter-spacing:4px;
+  text-transform:uppercase;color:var(--red);
+  display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px;
+}
+.card-eyebrow::before,.card-eyebrow::after{content:'';width:20px;height:1px;background:var(--red)}
+.card-title{
+  font-family:var(--ff-d);font-size:42px;letter-spacing:3px;
+  text-transform:uppercase;line-height:1;color:var(--wh);
+}
+.card-title span{color:var(--red)}
+.card-sub{
+  font-family:var(--ff-m);font-size:10px;letter-spacing:2px;
+  color:var(--mu);margin-top:8px;text-transform:uppercase;
+}
+
+/* TABS */
+.tabs{
+  display:flex;border:1px solid var(--bdr);margin-bottom:32px;
+  position:relative;
+}
+.tab-btn{
+  flex:1;font-family:var(--ff-m);font-size:10px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--mu);background:none;border:none;
+  padding:12px;cursor:pointer;transition:all .2s;position:relative;z-index:1;
+}
+.tab-btn.active{color:var(--wh)}
+.tab-slider{
+  position:absolute;top:0;bottom:0;width:50%;background:var(--red);
+  transition:transform .25s cubic-bezier(.22,1,.36,1);z-index:0;
+}
+.tab-slider.right{transform:translateX(100%)}
+
+/* FORM */
+.form-group{margin-bottom:16px}
+.form-label{
+  font-family:var(--ff-m);font-size:9px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--mu);display:block;margin-bottom:8px;
+}
+.form-input{
+  width:100%;background:var(--dim);border:1px solid var(--bdr);
+  color:var(--wh);font-family:var(--ff-m);font-size:12px;letter-spacing:1px;
+  padding:12px 14px;outline:none;transition:border-color .2s,background .2s;
+  -webkit-appearance:none;
+}
+.form-input:focus{border-color:var(--red);background:rgba(232,19,43,0.04)}
+.form-input::placeholder{color:rgba(255,255,255,0.15)}
+.form-input.error{border-color:var(--red);animation:shake .35s both}
+@keyframes shake{0%,100%{transform:none}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
+/* PASSWORD WRAPPER */
+.pw-wrap{position:relative}
+.pw-toggle{
+  position:absolute;right:12px;top:50%;transform:translateY(-50%);
+  background:none;border:none;cursor:pointer;color:var(--mu);
+  font-family:var(--ff-m);font-size:9px;letter-spacing:1px;
+  text-transform:uppercase;transition:color .2s;padding:4px;
+}
+.pw-toggle:hover{color:var(--wh)}
+
+/* STRENGTH BAR */
+.strength-wrap{margin-top:8px;display:none}
+.strength-wrap.show{display:block}
+.strength-bars{display:flex;gap:4px;margin-bottom:4px}
+.strength-bar{flex:1;height:2px;background:var(--bdr);transition:background .3s}
+.strength-bar.fill-weak{background:#ff4444}
+.strength-bar.fill-ok{background:var(--gold)}
+.strength-bar.fill-strong{background:#00e870}
+.strength-label{font-family:var(--ff-m);font-size:9px;letter-spacing:2px;color:var(--mu)}
+
+/* REQUIREMENTS (register) */
+.req-list{
+  margin-top:8px;display:none;flex-direction:column;gap:4px;
+}
+.req-list.show{display:flex}
+.req-item{
+  font-family:var(--ff-m);font-size:9px;letter-spacing:1px;color:var(--mu);
+  display:flex;align-items:center;gap:6px;transition:color .2s;
+}
+.req-item.ok{color:#00e870}
+.req-item::before{content:'○';font-size:8px}
+.req-item.ok::before{content:'●';color:#00e870}
+
+/* INVITE CODE */
+.invite-wrap{
+  border:1px solid var(--bdr2);background:rgba(232,19,43,0.04);
+  padding:12px 14px;margin-bottom:16px;
+  font-family:var(--ff-m);font-size:9px;letter-spacing:2px;
+  color:rgba(232,19,43,0.7);text-transform:uppercase;
+  display:flex;align-items:center;gap:8px;
+}
+.invite-wrap::before{content:'⚠';font-size:12px}
+
+/* ERR / SUCCESS MSG */
+.msg{
+  font-family:var(--ff-m);font-size:10px;letter-spacing:1px;
+  padding:10px 14px;margin-bottom:16px;display:none;
+}
+.msg.show{display:block}
+.msg.err{background:rgba(232,19,43,0.1);border:1px solid rgba(232,19,43,0.3);color:var(--red)}
+.msg.ok{background:rgba(0,232,112,0.08);border:1px solid rgba(0,232,112,0.3);color:#00e870}
+
+/* SUBMIT BTN */
+.btn-submit{
+  width:100%;font-family:var(--ff-m);font-size:11px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--wh);background:var(--red);
+  border:none;padding:16px;cursor:pointer;transition:background .2s,transform .1s;
+  margin-top:8px;position:relative;overflow:hidden;
+}
+.btn-submit:hover{background:var(--red2)}
+.btn-submit:active{transform:scale(0.99)}
+.btn-submit:disabled{background:rgba(232,19,43,0.3);cursor:not-allowed}
+.btn-submit .ripple{
+  position:absolute;border-radius:50%;background:rgba(255,255,255,0.2);
+  transform:scale(0);animation:ripple .5s linear;pointer-events:none;
+}
+@keyframes ripple{to{transform:scale(4);opacity:0}}
+
+/* FOOTER NOTE */
+.card-note{
+  margin-top:20px;text-align:center;
+  font-family:var(--ff-m);font-size:9px;letter-spacing:2px;
+  color:var(--mu);text-transform:uppercase;
+}
+.card-note a{color:var(--mu);text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.15);transition:color .2s}
+.card-note a:hover{color:var(--wh)}
+
+/* COOLDOWN OVERLAY */
+.cooldown-bar{
+  height:2px;background:var(--bdr);margin-top:12px;overflow:hidden;display:none;
+}
+.cooldown-bar.show{display:block}
+.cooldown-fill{height:100%;background:var(--red);width:100%;transform-origin:left;transition:transform 1s linear}
+
+/* LOCKED STATE */
+.locked-msg{
+  text-align:center;padding:20px 0;display:none;
+}
+.locked-msg.show{display:block}
+.locked-icon{font-size:32px;margin-bottom:12px}
+.locked-text{font-family:var(--ff-m);font-size:10px;letter-spacing:2px;color:var(--mu);text-transform:uppercase}
+.locked-timer{font-family:var(--ff-d);font-size:36px;letter-spacing:3px;color:var(--red);margin:8px 0}
+
+/* BOTTOM DECOR */
+.card-decor{
+  display:flex;align-items:center;gap:12px;margin-top:24px;
+}
+.decor-line{flex:1;height:1px;background:var(--bdr)}
+.decor-text{font-family:var(--ff-m);font-size:8px;letter-spacing:3px;color:rgba(255,255,255,0.1);text-transform:uppercase;white-space:nowrap}
+
+/* RESPONSIVE */
+@media(max-width:480px){
+  .card{padding:36px 24px}
+  .card-title{font-size:34px}
+  .top-bar{padding:0 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- BG EFFECTS -->
+<div class="bg-grid"></div>
+<div class="bg-glow"></div>
+<div class="bg-scan"></div>
+
+<!-- CORNERS -->
+<div class="corner corner-tl"></div>
+<div class="corner corner-tr"></div>
+<div class="corner corner-bl"></div>
+<div class="corner corner-br"></div>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <a href="index.html" class="top-logo">
+    <div class="top-logo-dot"></div>
+    FSS
+  </a>
+  <span class="top-tag">Secure Access Portal</span>
+</div>
+
+<!-- MAIN CARD -->
+<div class="card" id="card">
+
+  <div class="card-header">
+    <div class="card-eyebrow">Access Control</div>
+    <div class="card-title">FIGHTER<br><span>STATE SIDE</span></div>
+    <div class="card-sub" id="card-sub">Autentikasi diperlukan</div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs" id="tabs">
+    <div class="tab-slider" id="tab-slider"></div>
+    <button class="tab-btn active" id="tab-login" onclick="switchTab('login')">Login</button>
+    <button class="tab-btn" id="tab-register" onclick="switchTab('register')">Register</button>
+  </div>
+
+  <!-- MESSAGE -->
+  <div class="msg" id="msg"></div>
+
+  <!-- ══ LOGIN FORM ══ -->
+  <div id="form-login">
+    <div class="form-group">
+      <label class="form-label">Username</label>
+      <input class="form-input" id="l-user" type="text" placeholder="masukkan username" autocomplete="username" spellcheck="false">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Password</label>
+      <div class="pw-wrap">
+        <input class="form-input" id="l-pass" type="password" placeholder="masukkan password" autocomplete="current-password" style="padding-right:64px">
+        <button class="pw-toggle" onclick="togglePw('l-pass',this)">LIHAT</button>
+      </div>
+    </div>
+
+    <!-- LOCKED STATE -->
+    <div class="locked-msg" id="locked-msg">
+      <div class="locked-icon">🔒</div>
+      <div class="locked-text">Akun terkunci sementara</div>
+      <div class="locked-timer" id="locked-timer">00:30</div>
+      <div class="locked-text">Terlalu banyak percobaan gagal</div>
+    </div>
+
+    <div class="cooldown-bar" id="cooldown-bar">
+      <div class="cooldown-fill" id="cooldown-fill"></div>
+    </div>
+
+    <button class="btn-submit" id="btn-login" onclick="doLogin()">
+      Masuk ke Panel
+    </button>
+
+    <div class="card-note" style="margin-top:16px">
+      Belum punya akun? <a href="#" onclick="switchTab('register');return false">Daftar di sini</a>
+    </div>
+  </div>
+
+  <!-- ══ REGISTER FORM ══ -->
+  <div id="form-register" style="display:none">
+
+    <div class="invite-wrap">
+      Diperlukan kode undangan dari admin
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Kode Undangan</label>
+      <input class="form-input" id="r-invite" type="text" placeholder="FSS-XXXX-XXXX" autocomplete="off" spellcheck="false" oninput="this.value=this.value.toUpperCase()">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Username</label>
+      <input class="form-input" id="r-user" type="text" placeholder="min. 3 karakter, huruf & angka" autocomplete="username" spellcheck="false" oninput="checkUsername(this.value)">
+      <div class="req-list show" id="user-reqs">
+        <div class="req-item" id="req-len">Minimal 3 karakter</div>
+        <div class="req-item" id="req-char">Hanya huruf, angka, underscore</div>
+        <div class="req-item" id="req-nosp">Tidak ada spasi</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Password</label>
+      <div class="pw-wrap">
+        <input class="form-input" id="r-pass" type="password" placeholder="min. 8 karakter" autocomplete="new-password" style="padding-right:64px" oninput="checkStrength(this.value)">
+        <button class="pw-toggle" onclick="togglePw('r-pass',this)">LIHAT</button>
+      </div>
+      <div class="strength-wrap show" id="strength-wrap">
+        <div class="strength-bars">
+          <div class="strength-bar" id="sb1"></div>
+          <div class="strength-bar" id="sb2"></div>
+          <div class="strength-bar" id="sb3"></div>
+          <div class="strength-bar" id="sb4"></div>
+        </div>
+        <div class="strength-label" id="strength-label">Masukkan password</div>
+      </div>
+      <div class="req-list show" id="pass-reqs" style="margin-top:8px">
+        <div class="req-item" id="req-p-len">Minimal 8 karakter</div>
+        <div class="req-item" id="req-p-up">Ada huruf kapital</div>
+        <div class="req-item" id="req-p-num">Ada angka</div>
+        <div class="req-item" id="req-p-sym">Ada simbol (!@#$%...)</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Konfirmasi Password</label>
+      <div class="pw-wrap">
+        <input class="form-input" id="r-confirm" type="password" placeholder="ulangi password" autocomplete="new-password" style="padding-right:64px" oninput="checkConfirm(this.value)">
+        <button class="pw-toggle" onclick="togglePw('r-confirm',this)">LIHAT</button>
+      </div>
+    </div>
+
+    <button class="btn-submit" id="btn-register" onclick="doRegister()">
+      Buat Akun
+    </button>
+
+    <div class="card-note" style="margin-top:16px">
+      Sudah punya akun? <a href="#" onclick="switchTab('login');return false">Login di sini</a>
+    </div>
+  </div>
+
+  <div class="card-decor">
+    <div class="decor-line"></div>
+    <div class="decor-text">FSS · Fighter State Side · Secured</div>
+    <div class="decor-line"></div>
+  </div>
+
+</div>
+
+<script>
+// ══════════════════════════════════════════════
+//  CONFIG
+// ══════════════════════════════════════════════
+
+// Kode undangan yang valid — ganti sesuai kebutuhan
+// Format: 'FSS-XXXX-XXXX' — bisa lebih dari satu
+const VALID_INVITE_CODES = [
+  'FSS-2026-ADMIN',
+  'FSS-JOIN-FSSR',
+  // tambah kode lain di sini
+];
+
+// Max percobaan login sebelum lockout
+const MAX_ATTEMPTS = 5;
+// Durasi lockout dalam detik
+const LOCKOUT_SECONDS = 30;
+// Redirect setelah login berhasil
+const REDIRECT_AFTER_LOGIN = 'index.html';
+
+// Storage key untuk session & akun register
+const SESSION_KEY   = 'fss_session';
+const ACCOUNTS_KEY  = 'fss_accounts';
+
+// ══════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════
+let loginAttempts = parseInt(sessionStorage.getItem('fss_attempts') || '0');
+let lockedUntil   = parseInt(sessionStorage.getItem('fss_locked')   || '0');
+let lockTimer     = null;
+
+// Akun bawaan (dari admin.html)
+// Format sama: { username, password }
+// Kalau mau sinkron dengan admin.html, isi di sini juga
+// atau biarkan kosong dan andalkan akun yang diregister via form + invite code
+const ADMIN_CREDENTIALS = [
+  { username: 'admin',   password: 'fss2026'  },
+  { username: 'xpandux', password: 'cobra123' },
+];
+
+// ══════════════════════════════════════════════
+//  HELPERS
+// ══════════════════════════════════════════════
+function getAccounts() {
+  try { return JSON.parse(localStorage.getItem(ACCOUNTS_KEY)) || []; }
+  catch { return []; }
+}
+function saveAccounts(arr) {
+  localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(arr));
+}
+function allAccounts() {
+  return [...ADMIN_CREDENTIALS, ...getAccounts()];
+}
+
+function showMsg(text, type) {
+  const el = document.getElementById('msg');
+  el.textContent = text;
+  el.className = 'msg show ' + type;
+  setTimeout(() => { el.className = 'msg'; }, 4000);
+}
+
+function setInputError(id) {
+  const el = document.getElementById(id);
+  el.classList.add('error');
+  setTimeout(() => el.classList.remove('error'), 500);
+}
+
+function togglePw(inputId, btn) {
+  const inp = document.getElementById(inputId);
+  const isText = inp.type === 'text';
+  inp.type = isText ? 'password' : 'text';
+  btn.textContent = isText ? 'LIHAT' : 'SEMBUNYIKAN';
+}
+
+// ══════════════════════════════════════════════
+//  TABS
+// ══════════════════════════════════════════════
+function switchTab(tab) {
+  const slider   = document.getElementById('tab-slider');
+  const loginF   = document.getElementById('form-login');
+  const regF     = document.getElementById('form-register');
+  const tabL     = document.getElementById('tab-login');
+  const tabR     = document.getElementById('tab-register');
+  const sub      = document.getElementById('card-sub');
+  const msg      = document.getElementById('msg');
+  msg.className  = 'msg';
+
+  if (tab === 'login') {
+    slider.className = 'tab-slider';
+    tabL.classList.add('active');
+    tabR.classList.remove('active');
+    loginF.style.display = '';
+    regF.style.display   = 'none';
+    sub.textContent      = 'Autentikasi diperlukan';
+  } else {
+    slider.className = 'tab-slider right';
+    tabR.classList.add('active');
+    tabL.classList.remove('active');
+    regF.style.display   = '';
+    loginF.style.display = 'none';
+    sub.textContent      = 'Buat akun dengan kode undangan';
+  }
+}
+
+// ══════════════════════════════════════════════
+//  LOCKOUT
+// ══════════════════════════════════════════════
+function checkLockout() {
+  const now = Date.now();
+  if (lockedUntil > now) {
+    startLockDisplay(Math.ceil((lockedUntil - now) / 1000));
+    return true;
+  }
+  return false;
+}
+
+function triggerLockout() {
+  lockedUntil = Date.now() + (LOCKOUT_SECONDS * 1000);
+  sessionStorage.setItem('fss_locked', lockedUntil.toString());
+  loginAttempts = 0;
+  sessionStorage.setItem('fss_attempts', '0');
+  startLockDisplay(LOCKOUT_SECONDS);
+}
+
+function startLockDisplay(seconds) {
+  const lockMsg  = document.getElementById('locked-msg');
+  const timerEl  = document.getElementById('locked-timer');
+  const btnLogin = document.getElementById('btn-login');
+  const coolbar  = document.getElementById('cooldown-bar');
+  const coolFill = document.getElementById('cooldown-fill');
+
+  lockMsg.classList.add('show');
+  coolbar.classList.add('show');
+  btnLogin.disabled = true;
+
+  let remaining = seconds;
+
+  function tick() {
+    const m = String(Math.floor(remaining / 60)).padStart(2,'0');
+    const s = String(remaining % 60).padStart(2,'0');
+    timerEl.textContent = m + ':' + s;
+    coolFill.style.transform = `scaleX(${remaining / LOCKOUT_SECONDS})`;
+
+    if (remaining <= 0) {
+      lockMsg.classList.remove('show');
+      coolbar.classList.remove('show');
+      btnLogin.disabled = false;
+      lockedUntil = 0;
+      sessionStorage.removeItem('fss_locked');
+      return;
+    }
+    remaining--;
+    lockTimer = setTimeout(tick, 1000);
+  }
+  clearTimeout(lockTimer);
+  tick();
+}
+
+// ══════════════════════════════════════════════
+//  LOGIN
+// ══════════════════════════════════════════════
+function doLogin() {
+  if (checkLockout()) return;
+
+  const user = document.getElementById('l-user').value.trim();
+  const pass = document.getElementById('l-pass').value;
+
+  if (!user) { setInputError('l-user'); showMsg('Username tidak boleh kosong.', 'err'); return; }
+  if (!pass) { setInputError('l-pass'); showMsg('Password tidak boleh kosong.', 'err'); return; }
+
+  const found = allAccounts().find(c => c.username === user && c.password === pass);
+
+  if (found) {
+    // Reset attempts
+    loginAttempts = 0;
+    sessionStorage.removeItem('fss_attempts');
+
+    // Simpan session
+    const session = { username: found.username, ts: Date.now() };
+    sessionStorage.setItem(SESSION_KEY, JSON.stringify(session));
+
+    // Feedback sukses
+    const btn = document.getElementById('btn-login');
+    btn.textContent = '✓ Berhasil — Mengalihkan...';
+    btn.disabled = true;
+
+    setTimeout(() => {
+      window.location.href = REDIRECT_AFTER_LOGIN;
+    }, 800);
+
+  } else {
+    // Gagal
+    loginAttempts++;
+    sessionStorage.setItem('fss_attempts', loginAttempts.toString());
+
+    setInputError('l-user');
+    setInputError('l-pass');
+
+    const sisa = MAX_ATTEMPTS - loginAttempts;
+
+    if (loginAttempts >= MAX_ATTEMPTS) {
+      triggerLockout();
+      showMsg(`Akun terkunci selama ${LOCKOUT_SECONDS} detik.`, 'err');
+    } else {
+      showMsg(`Username atau password salah. Sisa percobaan: ${sisa}`, 'err');
+    }
+  }
+}
+
+// ══════════════════════════════════════════════
+//  REGISTER VALIDATION
+// ══════════════════════════════════════════════
+function checkUsername(val) {
+  document.getElementById('req-len').classList.toggle('ok', val.length >= 3);
+  document.getElementById('req-char').classList.toggle('ok', /^[a-zA-Z0-9_]*$/.test(val) && val.length > 0);
+  document.getElementById('req-nosp').classList.toggle('ok', !val.includes(' ') && val.length > 0);
+}
+
+function checkStrength(val) {
+  const hasUpper  = /[A-Z]/.test(val);
+  const hasNum    = /[0-9]/.test(val);
+  const hasSym    = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(val);
+  const isLong    = val.length >= 8;
+  const isVLong   = val.length >= 12;
+
+  document.getElementById('req-p-len').classList.toggle('ok', isLong);
+  document.getElementById('req-p-up').classList.toggle('ok',  hasUpper);
+  document.getElementById('req-p-num').classList.toggle('ok', hasNum);
+  document.getElementById('req-p-sym').classList.toggle('ok', hasSym);
+
+  // Score
+  let score = 0;
+  if (isLong)   score++;
+  if (isVLong)  score++;
+  if (hasUpper) score++;
+  if (hasNum)   score++;
+  if (hasSym)   score++;
+
+  const bars  = [1,2,3,4].map(n => document.getElementById('sb'+n));
+  const label = document.getElementById('strength-label');
+
+  bars.forEach(b => b.className = 'strength-bar');
+
+  if (!val) { label.textContent = 'Masukkan password'; return; }
+
+  if (score <= 2) {
+    bars[0].classList.add('fill-weak');
+    label.textContent = 'Lemah';
+  } else if (score === 3) {
+    bars[0].classList.add('fill-ok');
+    bars[1].classList.add('fill-ok');
+    label.textContent = 'Cukup';
+  } else if (score === 4) {
+    bars[0].classList.add('fill-strong');
+    bars[1].classList.add('fill-strong');
+    bars[2].classList.add('fill-strong');
+    label.textContent = 'Kuat';
+  } else {
+    bars.forEach(b => b.classList.add('fill-strong'));
+    label.textContent = 'Sangat Kuat';
+  }
+}
+
+function checkConfirm(val) {
+  const pass = document.getElementById('r-pass').value;
+  const inp  = document.getElementById('r-confirm');
+  inp.style.borderColor = val && val === pass ? '#00e870' : '';
+}
+
+function isPasswordStrong(val) {
+  return val.length >= 8 &&
+    /[A-Z]/.test(val) &&
+    /[0-9]/.test(val) &&
+    /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(val);
+}
+
+// ══════════════════════════════════════════════
+//  REGISTER
+// ══════════════════════════════════════════════
+function doRegister() {
+  const invite  = document.getElementById('r-invite').value.trim();
+  const user    = document.getElementById('r-user').value.trim();
+  const pass    = document.getElementById('r-pass').value;
+  const confirm = document.getElementById('r-confirm').value;
+
+  // Validasi kode undangan
+  if (!VALID_INVITE_CODES.includes(invite)) {
+    setInputError('r-invite');
+    showMsg('Kode undangan tidak valid atau sudah kadaluarsa.', 'err');
+    return;
+  }
+
+  // Validasi username
+  if (user.length < 3) {
+    setInputError('r-user');
+    showMsg('Username minimal 3 karakter.', 'err');
+    return;
+  }
+  if (!/^[a-zA-Z0-9_]+$/.test(user)) {
+    setInputError('r-user');
+    showMsg('Username hanya boleh huruf, angka, dan underscore.', 'err');
+    return;
+  }
+
+  // Cek duplikat
+  if (allAccounts().find(c => c.username.toLowerCase() === user.toLowerCase())) {
+    setInputError('r-user');
+    showMsg('Username sudah digunakan, pilih yang lain.', 'err');
+    return;
+  }
+
+  // Validasi password kuat
+  if (!isPasswordStrong(pass)) {
+    setInputError('r-pass');
+    showMsg('Password harus memenuhi semua syarat yang tertera.', 'err');
+    return;
+  }
+
+  // Konfirmasi password
+  if (pass !== confirm) {
+    setInputError('r-confirm');
+    showMsg('Konfirmasi password tidak cocok.', 'err');
+    return;
+  }
+
+  // Simpan akun baru
+  const accounts = getAccounts();
+  accounts.push({ username: user, password: pass, registeredAt: Date.now() });
+  saveAccounts(accounts);
+
+  // Feedback
+  showMsg(`Akun "${user}" berhasil dibuat! Silakan login.`, 'ok');
+
+  // Reset form & pindah ke login
+  document.getElementById('r-invite').value  = '';
+  document.getElementById('r-user').value    = '';
+  document.getElementById('r-pass').value    = '';
+  document.getElementById('r-confirm').value = '';
+  checkStrength('');
+  checkUsername('');
+
+  setTimeout(() => switchTab('login'), 1500);
+}
+
+// ══════════════════════════════════════════════
+//  ENTER KEY SUPPORT
+// ══════════════════════════════════════════════
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Enter') return;
+  const loginVisible = document.getElementById('form-login').style.display !== 'none';
+  if (loginVisible) doLogin();
+  else doRegister();
+});
+
+// ══════════════════════════════════════════════
+//  INIT — cek kalau sudah ada session aktif
+// ══════════════════════════════════════════════
+(function init() {
+  try {
+    const s = JSON.parse(sessionStorage.getItem(SESSION_KEY));
+    if (s && s.username) {
+      // Sudah login, langsung redirect
+      window.location.href = REDIRECT_AFTER_LOGIN;
+      return;
+    }
+  } catch {}
+
+  // Cek lockout dari sesi sebelumnya
+  if (checkLockout()) {
+    // Lockout masih aktif
+  }
+})();
+</script>
+</body>
+</html>
