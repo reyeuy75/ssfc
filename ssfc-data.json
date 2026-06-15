@@ -91,7 +91,19 @@
   ],
   "halloffame": [],
   "rules": [],
-  "changelog": [],
+  "changelog": [
+    {
+      "ver": "V2.0",
+      "date": "17 June 2026",
+      "title": "Perilisan Website SSFC",
+      "desc": "Website SSFC yaitu untuk mengetahui informasi lebih lanjut tentang event SSFC",
+      "tags": [
+        "Baru",
+        "SSFC",
+        "Website"
+      ]
+    }
+  ],
   "join": {},
   "clubs": [
     {
@@ -218,5 +230,5 @@
     }
   ],
   "matches": [],
-  "updatedAt": "2026-06-15T15:36:37.792Z"
+  "updatedAt": "2026-06-15T15:40:32.273Z"
 }
