@@ -39,6 +39,15 @@
       "wins": 0,
       "badge": "b-new",
       "badgeLabel": "New"
+    },
+    {
+      "name": "Manuel Knockout Club",
+      "alias": "MKC",
+      "desc": "Manuel Knockout Club adalah klub tinju yang berfokus pada disiplin, kerja keras, dan semangat juang tinggi.",
+      "ko": 0,
+      "wins": 0,
+      "badge": "b-new",
+      "badgeLabel": "New"
     }
   ],
   "fighters": [
@@ -409,5 +418,5 @@
     }
   ],
   "matches": [],
-  "updatedAt": "2026-06-15T17:44:09.623Z"
+  "updatedAt": "2026-06-15T17:45:04.144Z"
 }
