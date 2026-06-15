@@ -26,16 +26,6 @@
       "badgeLabel": "Top Team"
     },
     {
-      "id": 4,
-      "name": "Dragon Fist",
-      "alias": "Kung Fu · Counter Striker",
-      "desc": "Disiplin dan presisi tinggi. Teknik Kung Fu dengan palm strike dan open-hand yang cepat. Pertahanan kokoh, serangan tajam.",
-      "ko": 74,
-      "wins": 24,
-      "badge": "b-def",
-      "badgeLabel": "Solid"
-    },
-    {
       "id": 5,
       "name": "Rapid Strike",
       "alias": "Boxing · Speed Fighter",
