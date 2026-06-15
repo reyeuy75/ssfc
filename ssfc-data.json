@@ -210,6 +210,15 @@
       "Team/club": "Nama Tim · Style",
       "value": "0",
       "valueLabel": "KO Rate"
+    },
+    {
+      "id": 2,
+      "emoji": "🏅",
+      "category": "Kategori",
+      "name": "FIGHTER",
+      "Team/club": "Tim · Style",
+      "value": "0",
+      "valueLabel": "Label"
     }
   ],
   "changelog": [
