@@ -55,20 +55,7 @@
       "status": "soon"
     }
   ],
-  "changelog": [
-    {
-      "id": 4,
-      "ver": "v1.0",
-      "date": "1 Jan 2026",
-      "title": "State Side Fighter Championship Berdiri",
-      "desc": "Komunitas resmi State Side Fighter Championship dibentuk dengan 4 tim pendiri: Team Cobra, Iron Fist, Street Tigers, dan Dragon Fist. 60 fighter bergabung di hari pertama.",
-      "tags": [
-        "Launch",
-        "4 Team/clubs",
-        "60 Fighters"
-      ]
-    }
-  ],
+  "changelog": [],
   "join": {
     "title": "Siap Jadi Fighter?",
     "desc": "Bergabunglah dengan komunitas fighter terbesar di State Side RP SAMP. Pilih Team/club dan mulai dominasi bersama kami.",
