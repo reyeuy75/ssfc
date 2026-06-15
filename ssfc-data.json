@@ -214,91 +214,7 @@
       "isLive": true
     }
   ],
-  "brackets": [
-    {
-      "name": "Night Fight Season 2",
-      "participants": [
-        {
-          "slot": 1,
-          "seed": 1,
-          "name": "Nathan Jonshon",
-          "team": "CK"
-        },
-        {
-          "slot": 2,
-          "seed": 2,
-          "name": "Lores Marcus",
-          "team": "TW"
-        },
-        {
-          "slot": 3,
-          "seed": 3,
-          "name": "Meech Parker",
-          "team": "AFC"
-        },
-        {
-          "slot": 4,
-          "seed": 4,
-          "name": "Ronald Megumi",
-          "team": "GC"
-        },
-        {
-          "slot": 5,
-          "seed": 5,
-          "name": "Manuel Reyzz",
-          "team": "MKC"
-        },
-        {
-          "slot": 6,
-          "seed": 6,
-          "name": "Celvin Valerica",
-          "team": "HVFC"
-        },
-        {
-          "slot": 7,
-          "seed": 7,
-          "name": "Javyen Maurenna",
-          "team": "WFC"
-        },
-        {
-          "slot": 8,
-          "seed": 8,
-          "name": "Axton Barayev",
-          "team": "XB"
-        }
-      ],
-      "matches": [
-        {
-          "matchNum": 1,
-          "round": 1,
-          "p1Slot": 1,
-          "p2Slot": 2,
-          "winner": null
-        },
-        {
-          "matchNum": 2,
-          "round": 1,
-          "p1Slot": 3,
-          "p2Slot": 4,
-          "winner": null
-        },
-        {
-          "matchNum": 3,
-          "round": 1,
-          "p1Slot": 5,
-          "p2Slot": 6,
-          "winner": null
-        },
-        {
-          "matchNum": 4,
-          "round": 1,
-          "p1Slot": 7,
-          "p2Slot": 8,
-          "winner": 1
-        }
-      ]
-    }
-  ],
+  "brackets": [],
   "halloffame": [],
   "rules": [],
   "changelog": [
@@ -445,5 +361,5 @@
     }
   ],
   "matches": [],
-  "updatedAt": "2026-06-15T17:53:48.402Z"
+  "updatedAt": "2026-06-15T17:56:04.603Z"
 }
