@@ -22,24 +22,7 @@
       "badgeLabel": "New"
     }
   ],
-  "fighters": [
-    {
-      "id": 4,
-      "rank": 4,
-      "rankClass": "",
-      "rankLabel": "★ Rank #4",
-      "emoji": "🔥",
-      "name": "INFERNO",
-      "Team/club": "Rapid Strike · Boxing",
-      "koRate": 3.6,
-      "stat1Label": "JAB",
-      "stat1": 91,
-      "stat2Label": "HOOK",
-      "stat2": 68,
-      "stat3Label": "PWR",
-      "stat3": 82
-    }
-  ],
+  "fighters": [],
   "events": [
     {
       "id": 1,
