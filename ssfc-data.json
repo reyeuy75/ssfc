@@ -55,7 +55,18 @@
       "status": "soon"
     }
   ],
-  "changelog": [],
+  "changelog": [
+    {
+      "id": null,
+      "ver": "v4.0",
+      "date": "1 Jul 2026",
+      "title": "Update Baru",
+      "desc": "Deskripsi update.",
+      "tags": [
+        "Update"
+      ]
+    }
+  ],
   "join": {
     "title": "Siap Jadi Fighter?",
     "desc": "Bergabunglah dengan komunitas fighter terbesar di State Side RP SAMP. Pilih Team/club dan mulai dominasi bersama kami.",
