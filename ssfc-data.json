@@ -48,6 +48,15 @@
       "wins": 0,
       "badge": "b-new",
       "badgeLabel": "New"
+    },
+    {
+      "name": "Wembley Fight Club",
+      "alias": "WFC",
+      "desc": "Klub solidaritas, kick boxing dan grab kick menjadi style utamanya",
+      "ko": 0,
+      "wins": 0,
+      "badge": "b-new",
+      "badgeLabel": "New"
     }
   ],
   "fighters": [
@@ -418,5 +427,5 @@
     }
   ],
   "matches": [],
-  "updatedAt": "2026-06-15T17:45:04.144Z"
+  "updatedAt": "2026-06-15T17:47:40.941Z"
 }
