@@ -1,17 +1,7 @@
 {
   "hero": {},
   "ticker": [],
-  "Team/clubs": [
-    {
-      "name": "Wembley Fight Club",
-      "alias": "WFC",
-      "desc": "SS",
-      "ko": 0,
-      "wins": 0,
-      "badge": "b-def",
-      "badgeLabel": ""
-    }
-  ],
+  "Team/clubs": [],
   "fighters": [],
   "events": [],
   "brackets": [],
@@ -144,5 +134,5 @@
     }
   ],
   "matches": [],
-  "updatedAt": "2026-06-15T11:49:25.524Z"
+  "updatedAt": "2026-06-15T15:26:08.763Z"
 }
