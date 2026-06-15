@@ -60,6 +60,16 @@
       "wins": 0,
       "badge": "b-def",
       "badgeLabel": "New"
+    },
+    {
+      "id": 6,
+      "name": "Tim Baru",
+      "alias": "Style · Role",
+      "desc": "Deskripsi.",
+      "ko": 0,
+      "wins": 0,
+      "badge": "b-def",
+      "badgeLabel": "New"
     }
   ],
   "fighters": [
