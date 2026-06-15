@@ -7,11 +7,13 @@
     "discordUrl": "https://discord.gg/rsjda9ey5U",
     "discordOnline": 0
   },
-  "ticker": [],
+  "ticker": [
+    "⬤ State Side Fighter Championship — Season 2 Dibuka"
+  ],
   "Team/clubs": [
     {
       "id": 1,
-      "name": "Team ramz",
+      "name": "Nama Tim",
       "alias": "Style · Role",
       "desc": "Deskripsi tim ini.",
       "ko": 0,
@@ -27,7 +29,7 @@
       "rankClass": "rank-gold",
       "rankLabel": "🥇 Rank #1",
       "emoji": "🦁",
-      "name": "Nama fight",
+      "name": "NAMA FIGHTER",
       "Team/club": "Nama Tim · Style",
       "koRate": 0,
       "stat1Label": "ATK",
@@ -205,7 +207,7 @@
   "join": {
     "title": "Siap Jadi Fighter?",
     "desc": "Bergabunglah dengan komunitas fighter terbesar di State Side RP. Pilih Tim dan mulai dominasi bersama kami.",
-    "discordUrl": "https://discord.gg/AZ84bBsyKK",
+    "discordUrl": "https://discord.gg/",
     "recruitmentStatus": "Open Semua Tim"
   }
 }
