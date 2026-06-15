@@ -28,22 +28,6 @@
   ],
   "fighters": [
     {
-      "id": 1,
-      "rank": 1,
-      "rankClass": "rank-gold",
-      "rankLabel": "🥇 Rank #1",
-      "emoji": "🦁",
-      "name": "xPANDUx",
-      "Team/club": "Team Cobra · Elbow",
-      "koRate": 4.8,
-      "stat1Label": "ELB",
-      "stat1": 96,
-      "stat2Label": "KNEE",
-      "stat2": 82,
-      "stat3Label": "PWR",
-      "stat3": 90
-    },
-    {
       "id": 3,
       "rank": 3,
       "rankClass": "rank-bro",
