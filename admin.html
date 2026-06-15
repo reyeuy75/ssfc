@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSFC Admin Panel</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#080808;color:#fff;font-family:monospace}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#0d0d0d}::-webkit-scrollbar-thumb{background:#333}
+input::placeholder,textarea::placeholder{color:#333}
+select option{background:#111}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(232,19,43,.6)}50%{box-shadow:0 0 0 6px rgba(232,19,43,0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+#root{min-height:100vh}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script>
+const { useState, useEffect, useCallback, useRef, createElement: h, Fragment } = React;
+
+// ══════════════════════════════════════
+// CONFIG — sesuaikan di sini
+// ══════════════════════════════════════
+const ADMIN_CREDENTIALS = [
+  { username: "admin",       password: "ssfc2026"    },
+  { username: "admin_entery",password: "enteryssfc2" },
+];
+const GITHUB_OWNER = "reyeuy75";
+const GITHUB_REPO  = "ssfc";
+const GITHUB_FILE  = "ssfc-data.json";
+const GITHUB_BRANCH= "main";
+
+const SESSION_KEY  = "ssfc_session";
+const TOKEN_KEY    = "ssfc_gh_token";
+const STORAGE_KEY  = "ssfc-admin-data";
+
+// ══════════════════════════════════════
+// DEFAULT DATA
+// ══════════════════════════════════════
+const DEFAULT_DATA = {
+  hero:{totalFighter:0,fightStyle:6,totalMatches:0,subTitle:"Komunitas fighter terkuat di State Side RP. Bergabung, bertarung, dan dominasi bersama kami.",discordUrl:"https://discord.gg/AZ84bBsyKK",discordOnline:0},
+  ticker:["⬤ State Side Fighter Championship — Season 3 Dibuka","Daftar sekarang dan bergabung bersama kami","Recruitment semua Tim OPEN"],
+  "Team/clubs":[{id:1,name:"Team Cobra",alias:"Elbow · Knee Head Specialist",desc:"Tim paling dominan musim ini.",ko:0,wins:0,badge:"b-top",badgeLabel:"Top Team"}],
+  fighters:[{id:1,rank:1,rankClass:"rank-gold",rankLabel:"🥇 Rank #1",emoji:"🦁",name:"FIGHTER",["Team/club"]:"Tim · Style",koRate:0,stat1Label:"ATK",stat1:50,stat2Label:"DEF",stat2:50,stat3Label:"PWR",stat3:50}],
+  events:[{id:1,day:"1",month:"Jul 2026",type:"Main Event",isLive:false,title:"Fight Night Season 3",desc:"Deskripsi event.",location:"State Side RP",time:"20:00 WIB",format:"1 vs 1 KO",status:"soon"}],
+  brackets:[{id:1,name:"Fight Night Season 3",eventId:1,format:"single-elim",size:8,status:"open",createdAt:"1 Jul 2026",participants:[{slot:1,name:"",team:"",seed:1},{slot:2,name:"",team:"",seed:2},{slot:3,name:"",team:"",seed:3},{slot:4,name:"",team:"",seed:4},{slot:5,name:"",team:"",seed:5},{slot:6,name:"",team:"",seed:6},{slot:7,name:"",team:"",seed:7},{slot:8,name:"",team:"",seed:8}],matches:[{id:"r1m1",round:1,matchNum:1,p1Slot:1,p2Slot:8,winner:null,score:""},{id:"r1m2",round:1,matchNum:2,p1Slot:4,p2Slot:5,winner:null,score:""},{id:"r1m3",round:1,matchNum:3,p1Slot:3,p2Slot:6,winner:null,score:""},{id:"r1m4",round:1,matchNum:4,p1Slot:2,p2Slot:7,winner:null,score:""},{id:"r2m1",round:2,matchNum:1,p1Slot:null,p2Slot:null,winner:null,score:""},{id:"r2m2",round:2,matchNum:2,p1Slot:null,p2Slot:null,winner:null,score:""},{id:"r3m1",round:3,matchNum:1,p1Slot:null,p2Slot:null,winner:null,score:""}]}],
+  halloffame:[{id:1,emoji:"👑",category:"Top KO Artist",name:"FIGHTER",["Team/club"]:"Tim · Style",value:"0",valueLabel:"KO Rate"}],
+  changelog:[{id:1,ver:"v1.0",date:"1 Jul 2026",title:"SSFC Dibuka",desc:"State Side Fighter Championship resmi diluncurkan.",tags:["Launch"]}],
+  join:{title:"Siap Jadi Fighter?",desc:"Bergabunglah dengan komunitas fighter terbesar di State Side RP.",discordUrl:"https://discord.gg/AZ84bBsyKK",recruitmentStatus:"Open Semua Tim"},
+};
+
+const BADGE_OPTIONS=[{value:"b-top",label:"Top Team (Gold)"},{value:"b-rise",label:"Rising (Green)"},{value:"b-def",label:"Default (Purple)"},{value:"b-new",label:"New Force (Red)"}];
+const RANK_CLASSES=[{value:"rank-gold",label:"🥇 Gold"},{value:"rank-sil",label:"🥈 Silver"},{value:"rank-bro",label:"🥉 Bronze"},{value:"",label:"★ Normal"}];
+const BRACKET_SIZES=[{value:4,label:"4 Fighter"},{value:8,label:"8 Fighter"},{value:16,label:"16 Fighter"}];
+const BRACKET_STATUSES=[{value:"open",label:"Open"},{value:"ongoing",label:"Berlangsung"},{value:"done",label:"Selesai"}];
+
+// ══════════════════════════════════════
+// GITHUB API
+// ══════════════════════════════════════
+async function githubGet(token) {
+  const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_FILE}?ref=${GITHUB_BRANCH}`;
+  const r = await fetch(url, { headers: { Authorization: `token ${token}`, Accept: "application/vnd.github.v3+json" } });
+  if (!r.ok) throw new Error("GET " + r.status);
+  return r.json();
+}
+
+async function githubPush(token, data, sha) {
+  const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_FILE}`;
+  const body = { message: "SSFC Admin: update data", content: btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2)))), branch: GITHUB_BRANCH };
+  if (sha) body.sha = sha;
+  const r = await fetch(url, { method: "PUT", headers: { Authorization: `token ${token}`, Accept: "application/vnd.github.v3+json", "Content-Type": "application/json" }, body: JSON.stringify(body) });
+  if (!r.ok) { const e = await r.json(); throw new Error(e.message || r.status); }
+  return r.json();
+}
+
+// ══════════════════════════════════════
+// UI HELPERS
+// ══════════════════════════════════════
+const inp = (label, value, onChange, type="text", placeholder="") =>
+  h("div",{style:{marginBottom:14}},
+    label && h("div",{style:{fontSize:11,letterSpacing:1,textTransform:"uppercase",color:"#888",marginBottom:5}},label),
+    h("input",{type,value:value??'',placeholder,onChange:e=>onChange(type==="number"?+e.target.value:e.target.value),
+      style:{width:"100%",padding:"9px 12px",background:"#111",border:"1px solid #222",color:"#fff",fontFamily:"monospace",fontSize:13,outline:"none",borderRadius:2,boxSizing:"border-box"}})
+  );
+const txa = (label, value, onChange, rows=3) =>
+  h("div",{style:{marginBottom:14}},
+    label && h("div",{style:{fontSize:11,letterSpacing:1,textTransform:"uppercase",color:"#888",marginBottom:5}},label),
+    h("textarea",{value:value??'',rows,onChange:e=>onChange(e.target.value),
+      style:{width:"100%",padding:"9px 12px",background:"#111",border:"1px solid #222",color:"#fff",fontFamily:"monospace",fontSize:13,outline:"none",borderRadius:2,resize:"vertical",boxSizing:"border-box"}})
+  );
+const sel = (label, value, onChange, options) =>
+  h("div",{style:{marginBottom:14}},
+    label && h("div",{style:{fontSize:11,letterSpacing:1,textTransform:"uppercase",color:"#888",marginBottom:5}},label),
+    h("select",{value,onChange:e=>onChange(e.target.value),
+      style:{width:"100%",padding:"9px 12px",background:"#111",border:"1px solid #222",color:"#fff",fontFamily:"monospace",fontSize:13,outline:"none",borderRadius:2}},
+      options.map(o=>h("option",{key:o.value,value:o.value},o.label))
+    )
+  );
+const Btn = ({onClick,children,variant="primary",small,disabled}) => {
+  const styles={primary:{background:"#e8132b",color:"#fff",border:"none"},secondary:{background:"transparent",color:"#fff",border:"1px solid #333"},danger:{background:"transparent",color:"#e8132b",border:"1px solid rgba(232,19,43,0.4)"},success:{background:"#00a852",color:"#fff",border:"none"}};
+  return h("button",{onClick,disabled,style:{...styles[variant],padding:small?"6px 14px":"9px 20px",fontFamily:"monospace",fontSize:small?10:11,letterSpacing:1,textTransform:"uppercase",cursor:disabled?"not-allowed":"pointer",borderRadius:2,opacity:disabled?0.5:1,transition:"opacity .2s"},
+    onMouseEnter:e=>{if(!disabled)e.currentTarget.style.opacity="0.8"},onMouseLeave:e=>{if(!disabled)e.currentTarget.style.opacity="1"}},children);
+};
+const Card = ({children,style}) => h("div",{style:{background:"#111",border:"1px solid #1e1e1e",padding:20,borderRadius:3,...style}},children);
+const SectionTitle = ({children}) => h("div",{style:{fontSize:10,letterSpacing:3,textTransform:"uppercase",color:"#e8132b",display:"flex",alignItems:"center",gap:8,marginBottom:20}},h("span",{style:{width:16,height:1,background:"#e8132b",display:"inline-block"}}),children);
+const Tag = ({children,onRemove}) => h("span",{style:{display:"inline-flex",alignItems:"center",gap:5,background:"rgba(140,140,255,.08)",border:"1px solid rgba(140,140,255,.2)",color:"#8c8cff",fontSize:10,padding:"3px 8px",borderRadius:2}},children,onRemove&&h("span",{onClick:onRemove,style:{cursor:"pointer",opacity:0.7}},"×"));
+
+// ══════════════════════════════════════
+// SETUP PAGE (GitHub Token)
+// ══════════════════════════════════════
+function SetupPage({onDone}) {
+  const [token, setToken] = useState("");
+  const [testing, setTesting] = useState(false);
+  const [err, setErr] = useState("");
+
+  const test = async () => {
+    if (!token.trim()) { setErr("Masukkan token dulu."); return; }
+    setTesting(true); setErr("");
+    try {
+      await githubGet(token.trim());
+      localStorage.setItem(TOKEN_KEY, token.trim());
+      onDone(token.trim());
+    } catch(e) {
+      if (e.message.includes("404")) {
+        // File belum ada, token valid tapi file perlu dibuat
+        localStorage.setItem(TOKEN_KEY, token.trim());
+        onDone(token.trim());
+      } else {
+        setErr("Token tidak valid atau tidak punya akses ke repo. (" + e.message + ")");
+      }
+    }
+    setTesting(false);
+  };
+
+  return h("div",{style:{minHeight:"100vh",background:"#080808",display:"flex",alignItems:"center",justifyContent:"center",padding:20}},
+    h("div",{style:{width:"100%",maxWidth:520}},
+      h("div",{style:{background:"#e8132b",padding:"24px 32px 20px"}},
+        h("div",{style:{fontSize:9,letterSpacing:4,color:"rgba(255,255,255,0.7)",marginBottom:8}},"⬤ SSFC ADMIN — SETUP AWAL"),
+        h("div",{style:{fontSize:32,fontWeight:"bold",letterSpacing:2,color:"#fff"}},"GITHUB TOKEN"),
+      ),
+      h("div",{style:{background:"#0d0d0d",border:"1px solid #1a1a1a",borderTop:"none",padding:"28px 32px 32px"}},
+        h("div",{style:{fontSize:12,color:"#666",lineHeight:1.8,marginBottom:20}},
+          "Token ini dipakai untuk auto-save data langsung ke GitHub supaya semua device sync otomatis.",
+          h("br"),h("br"),
+          "Cara buat token:",h("br"),
+          h("span",{style:{color:"#aaa"}},"1. Buka "),h("a",{href:"https://github.com/settings/tokens/new",target:"_blank",style:{color:"#e8132b"}},"github.com/settings/tokens/new"),h("br"),
+          h("span",{style:{color:"#aaa"}},"2. Centang "),h("span",{style:{color:"#fff",fontWeight:"bold"}},"repo"),h("br"),
+          h("span",{style:{color:"#aaa"}},"3. Klik Generate token → copy"),
+        ),
+        inp("GitHub Personal Access Token", token, setToken, "password", "ghp_xxxxxxxxxxxxxxxxxxxx"),
+        err && h("div",{style:{fontSize:11,color:"#e8132b",padding:"8px 12px",border:"1px solid rgba(232,19,43,0.3)",background:"rgba(232,19,43,0.06)",marginBottom:14}},err),
+        h(Btn,{onClick:test,disabled:testing},testing?"⏳ Testing...":"✓ Simpan & Lanjut"),
+        h("div",{style:{marginTop:16,fontSize:10,color:"#333",letterSpacing:1}},"Token disimpan di localStorage browser ini saja, tidak kemana-mana."),
+      )
+    )
+  );
+}
+
+// ══════════════════════════════════════
+// LOGIN PAGE
+// ══════════════════════════════════════
+function LoginPage({onLogin}) {
+  const [user,setUser]=useState("");
+  const [pass,setPass]=useState("");
+  const [err,setErr]=useState("");
+  const [show,setShow]=useState(false);
+
+  const doLogin=()=>{
+    const ok=ADMIN_CREDENTIALS.find(c=>c.username===user&&c.password===pass);
+    if(ok){const s={username:ok.username,ts:Date.now()};sessionStorage.setItem(SESSION_KEY,JSON.stringify(s));onLogin(ok.username);}
+    else{setErr("Username atau password salah.");setTimeout(()=>setErr(""),3000);}
+  };
+
+  return h("div",{style:{minHeight:"100vh",background:"#080808",display:"flex",alignItems:"center",justifyContent:"center",padding:20}},
+    h("div",{style:{width:"100%",maxWidth:420}},
+      h("div",{style:{background:"#e8132b",padding:"28px 36px 24px"}},
+        h("div",{style:{fontSize:9,letterSpacing:4,color:"rgba(255,255,255,0.7)",marginBottom:10}},"⬤ STATE SIDE FIGHTER CHAMPIONSHIP — AKSES TERBATAS"),
+        h("div",{style:{fontSize:38,fontWeight:"bold",letterSpacing:2,lineHeight:1.05,color:"#fff"}},"LOGIN",h("br"),"REQUIRED"),
+      ),
+      h("div",{style:{background:"#0d0d0d",border:"1px solid #1a1a1a",borderTop:"none",padding:"32px 36px 36px"}},
+        inp("Username",user,setUser,"text","masukkan username"),
+        h("div",{style:{marginBottom:24}},
+          h("div",{style:{fontSize:10,letterSpacing:2,textTransform:"uppercase",color:"#555",marginBottom:8}},"PASSWORD"),
+          h("div",{style:{position:"relative"}},
+            h("input",{type:show?"text":"password",value:pass,onChange:e=>setPass(e.target.value),onKeyDown:e=>e.key==="Enter"&&doLogin(),placeholder:"••••••••",
+              style:{width:"100%",padding:"12px 48px 12px 16px",background:"#111",border:"1px solid #222",color:"#fff",fontFamily:"monospace",fontSize:13,outline:"none",boxSizing:"border-box"}}),
+            h("span",{onClick:()=>setShow(s=>!s),style:{position:"absolute",right:14,top:"50%",transform:"translateY(-50%)",cursor:"pointer",fontSize:14,color:"#444",userSelect:"none"}},show?"🙈":"👁"),
+          )
+        ),
+        err&&h("div",{style:{fontSize:11,color:"#e8132b",padding:"8px 12px",border:"1px solid rgba(232,19,43,0.3)",background:"rgba(232,19,43,0.06)",marginBottom:16}},err),
+        h("button",{onClick:doLogin,style:{width:"100%",padding:"14px",background:"#e8132b",color:"#fff",border:"none",fontFamily:"monospace",fontSize:11,letterSpacing:3,textTransform:"uppercase",cursor:"pointer"}},"▶ MASUK"),
+      )
+    )
+  );
+}
+
+// ══════════════════════════════════════
+// SECTION COMPONENTS
+// ══════════════════════════════════════
+function HeroSection({data,onChange}){
+  return h("div",null,
+    h(SectionTitle,null,"Hero Section"),
+    h("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16}},
+      h(Card,null,
+        h("div",{style:{fontSize:12,color:"#666",marginBottom:14}},"STATS"),
+        inp("Total Fighter",data.totalFighter,v=>onChange({...data,totalFighter:v}),"number"),
+        inp("Fight Style",data.fightStyle,v=>onChange({...data,fightStyle:v}),"number"),
+        inp("Total Matches",data.totalMatches,v=>onChange({...data,totalMatches:v}),"number"),
+        inp("Discord Members (manual)",data.discordOnline,v=>onChange({...data,discordOnline:v}),"number"),
+      ),
+      h(Card,null,
+        h("div",{style:{fontSize:12,color:"#666",marginBottom:14}},"KONTEN"),
+        txa("Subtitle",data.subTitle,v=>onChange({...data,subTitle:v}),3),
+        inp("Discord URL",data.discordUrl,v=>onChange({...data,discordUrl:v})),
+      )
+    )
+  );
+}
+
+function TickerSection({data,onChange}){
+  const [newItem,setNewItem]=useState("");
+  const add=()=>{if(!newItem.trim())return;onChange([...data,newItem.trim()]);setNewItem("");};
+  return h("div",null,
+    h(SectionTitle,null,"Ticker / Banner"),
+    h(Card,null,
+      h("div",{style:{display:"flex",flexDirection:"column",gap:8,marginBottom:16}},
+        data.map((item,i)=>h("div",{key:i,style:{display:"flex",alignItems:"center",gap:8,background:"#0d0d0d",border:"1px solid #1e1e1e",padding:"8px 12px",borderRadius:2}},
+          h("span",{style:{color:"#444",fontSize:11,width:20}},"#"+(i+1)),
+          h("input",{value:item,onChange:e=>{const n=[...data];n[i]=e.target.value;onChange(n);},style:{flex:1,background:"transparent",border:"none",color:"#ccc",fontFamily:"monospace",fontSize:12,outline:"none"}}),
+          h(Btn,{variant:"danger",small:true,onClick:()=>onChange(data.filter((_,j)=>j!==i))},"×")
+        ))
+      ),
+      h("div",{style:{display:"flex",gap:8}},
+        h("input",{value:newItem,onChange:e=>setNewItem(e.target.value),onKeyDown:e=>e.key==="Enter"&&add(),placeholder:"Tambah item ticker...",style:{flex:1,padding:"9px 12px",background:"#0d0d0d",border:"1px solid #222",color:"#fff",fontFamily:"monospace",fontSize:12,outline:"none",borderRadius:2}}),
+        h(Btn,{onClick:add},"+ Tambah")
+      )
+    )
+  );
+}
+
+function TeamClubsSection({data,onChange}){
+  const [editing,setEditing]=useState(null);
+  const [form,setForm]=useState({});
+  const save=()=>{onChange(data.map(f=>f.id===editing?{...form}:f));setEditing(null);};
+  const addNew=()=>{const id=data.length?Math.max(...data.map(f=>f.id))+1:1;const nf={id,name:"Tim Baru",alias:"Style · Role",desc:"Deskripsi.",ko:0,wins:0,badge:"b-def",badgeLabel:"New"};onChange([...data,nf]);setEditing(id);setForm(nf);};
+  return h("div",null,
+    h(SectionTitle,null,"Team / Tim"),
+    editing
+      ? h(Card,null,
+          h("div",{style:{fontSize:12,color:"#e8132b",marginBottom:16}},"EDIT: "+form.name),
+          h("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16}},
+            h("div",null,inp("Nama Tim",form.name,v=>setForm({...form,name:v})),inp("Alias",form.alias,v=>setForm({...form,alias:v})),txa("Deskripsi",form.desc,v=>setForm({...form,desc:v}))),
+            h("div",null,inp("Total KO",form.ko,v=>setForm({...form,ko:v}),"number"),inp("Match Wins",form.wins,v=>setForm({...form,wins:v}),"number"),sel("Badge",form.badge,v=>setForm({...form,badge:v}),BADGE_OPTIONS),inp("Badge Label",form.badgeLabel,v=>setForm({...form,badgeLabel:v})))
+          ),
+          h("div",{style:{display:"flex",gap:8,marginTop:8}},
+            h(Btn,{onClick:save,variant:"success"},"✓ Simpan"),
+            h(Btn,{onClick:()=>setEditing(null),variant:"secondary"},"Batal"),
+            h(Btn,{onClick:()=>{onChange(data.filter(f=>f.id!==editing));setEditing(null);},variant:"danger"},"Hapus"),
+          )
+        )
+      : h(Fragment,null,
+          h("div",{style:{display:"flex",flexDirection:"column",gap:6,marginBottom:12}},
+            data.map((f,i)=>h("div",{key:f.id,style:{display:"flex",alignItems:"center",gap:12,background:"#111",border:"1px solid #1e1e1e",padding:"12px 16px",borderRadius:2}},
+              h("span",{style:{fontSize:11,color:"#444",width:24}},String(i+1).padStart(2,"0")),
+              h("div",{style:{flex:1}},h("div",{style:{fontWeight:"bold",fontSize:14}},f.name),h("div",{style:{fontSize:10,color:"#555",marginTop:2}},f.alias)),
+              h("div",{style:{fontSize:12,color:"#888"}},f.ko+" KO · "+f.wins+" W"),
+              h(Btn,{small:true,variant:"secondary",onClick:()=>{setEditing(f.id);setForm({...f});}},"Edit"),
+            ))
+          ),
+          h(Btn,{onClick:addNew},"+ Tambah Tim")
+        )
+  );
+}
+
+function FightersSection({data,onChange}){
+  const [editing,setEditing]=useState(null);
+  const [form,setForm]=useState({});
+  const save=()=>{onChange(data.map(f=>f.id===editing?{...form}:f));setEditing(null);};
+  const addNew=()=>{const id=data.length?Math.max(...data.map(f=>f.id))+1:1;const nf={id,rank:id,rankClass:"",rankLabel:"★ Rank #"+id,emoji:"⚡",name:"FIGHTER",["Team/club"]:"Tim · Style",koRate:0,stat1Label:"ATK",stat1:50,stat2Label:"DEF",stat2:50,stat3Label:"PWR",stat3:50};onChange([...data,nf]);setEditing(id);setForm(nf);};
+  const EMOJIS=["🦁","🐺","🐉","🔥","⚡","🐯","🦊","🦅","🐻","🐍","💀","👊","🥷","🤺"];
+  return h("div",null,
+    h(SectionTitle,null,"Fighter Roster"),
+    editing
+      ? h(Card,null,
+          h("div",{style:{fontSize:12,color:"#e8132b",marginBottom:16}},"EDIT: "+form.name),
+          h("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16}},
+            h("div",null,
+              h("div",{style:{marginBottom:14}},
+                h("div",{style:{fontSize:11,color:"#888",marginBottom:5,textTransform:"uppercase",letterSpacing:1}},"Emoji"),
+                h("div",{style:{display:"flex",flexWrap:"wrap",gap:6}},EMOJIS.map(e=>h("span",{key:e,onClick:()=>setForm({...form,emoji:e}),style:{fontSize:20,cursor:"pointer",padding:"4px 8px",borderRadius:2,background:form.emoji===e?"rgba(232,19,43,0.2)":"#0d0d0d",border:form.emoji===e?"1px solid #e8132b":"1px solid #222"}},e)))
+              ),
+              inp("Nama",form.name,v=>setForm({...form,name:v})),
+              inp("Tim · Style",form["Team/club"],v=>setForm({...form,["Team/club"]:v})),
+              inp("KO Rate",form.koRate,v=>setForm({...form,koRate:v}),"number"),
+            ),
+            h("div",null,
+              sel("Rank Badge",form.rankClass,v=>setForm({...form,rankClass:v}),RANK_CLASSES),
+              inp("Rank Label",form.rankLabel,v=>setForm({...form,rankLabel:v})),
+              h("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8}},
+                inp("Stat 1",form.stat1Label,v=>setForm({...form,stat1Label:v})),inp("",form.stat1,v=>setForm({...form,stat1:v}),"number"),
+                inp("Stat 2",form.stat2Label,v=>setForm({...form,stat2Label:v})),inp("",form.stat2,v=>setForm({...form,stat2:v}),"number"),
+                inp("Stat 3",form.stat3Label,v=>setForm({...form,stat3Label:v})),inp("",form.stat3,v=>setForm({...form,stat3:v}),"number"),
+              )
+            )
+          ),
+          h("div",{style:{display:"flex",gap:8,marginTop:8}},
+            h(Btn,{onClick:save,variant:"success"},"✓ Simpan"),
+            h(Btn,{onClick:()=>setEditing(null),variant:"secondary"},"Batal"),
+            h(Btn,{onClick:()=>{onChange(data.filter(f=>f.id!==editing));setEditing(null);},variant:"danger"},"Hapus"),
+          )
+        )
+      : h(Fragment,null,
+          h("div",{style:{display:"grid",gridTemplateColumns:"repeat(2,1fr)",gap:8,marginBottom:12}},
+            data.map(f=>h("div",{key:f.id,onClick:()=>{setEditing(f.id);setForm({...f});},style:{display:"flex",alignItems:"center",gap:12,background:"#111",border:"1px solid #1e1e1e",padding:"12px 16px",borderRadius:2,cursor:"pointer"},onMouseEnter:e=>e.currentTarget.style.borderColor="#e8132b",onMouseLeave:e=>e.currentTarget.style.borderColor="#1e1e1e"},
+              h("span",{style:{fontSize:22}},f.emoji),
+              h("div",{style:{flex:1}},h("div",{style:{fontWeight:"bold",fontSize:13}},f.name),h("div",{style:{fontSize:10,color:"#555"}},f["Team/club"])),
+              h("div",{style:{fontSize:18,fontWeight:"bold",color:f.rankClass==="rank-gold"?"#d4a32a":"#fff"}},f.koRate),
+            ))
+          ),
+          h(Btn,{onClick:addNew},"+ Tambah Fighter")
+        )
+  );
+}
+
+function EventsSection({data,onChange}){
+  const [editing,setEditing]=useState(null);
+  const [form,setForm]=useState({});
+  const save=()=>{onChange(data.map(ev=>ev.id===editing?{...form}:ev));setEditing(null);};
+  const addNew=()=>{const id=data.length?Math.max(...data.map(ev=>ev.id))+1:1;const ne={id,day:"1",month:"Jul 2026",type:"Event",isLive:false,title:"Event Baru",desc:"Deskripsi.",location:"State Side RP",time:"20:00 WIB",format:"1 vs 1 KO",status:"soon"};onChange([...data,ne]);setEditing(id);setForm(ne);};
+  return h("div",null,
+    h(SectionTitle,null,"Events & Jadwal"),
+    editing
+      ? h(Card,null,
+          h("div",{style:{fontSize:12,color:"#e8132b",marginBottom:16}},"EDIT: "+form.title),
+          h("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16}},
+            h("div",null,
+              inp("Judul",form.title,v=>setForm({...form,title:v})),
+              txa("Deskripsi",form.desc,v=>setForm({...form,desc:v})),
+              inp("Tipe",form.type,v=>setForm({...form,type:v})),
+              h("div",{style:{display:"flex",alignItems:"center",gap:10,marginBottom:14}},
+                h("input",{type:"checkbox",checked:!!form.isLive,onChange:e=>setForm({...form,isLive:e.target.checked}),style:{accentColor:"#e8132b"}}),
+                h("span",{style:{fontSize:11,color:"#888"}},"Tampilkan indikator LIVE")
+              )
+            ),
+            h("div",null,
+              h("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8}},
+                inp("Tanggal",form.day,v=>setForm({...form,day:v})),
+                inp("Bulan & Tahun",form.month,v=>setForm({...form,month:v})),
+              ),
+              inp("Lokasi",form.location,v=>setForm({...form,location:v})),
+              inp("Waktu",form.time,v=>setForm({...form,time:v})),
+              inp("Format",form.format,v=>setForm({...form,format:v})),
+              sel("Status",form.status,v=>setForm({...form,status:v}),[{value:"open",label:"Open"},{value:"soon",label:"Coming Soon"},{value:"done",label:"Selesai"}]),
+            )
+          ),
+          h("div",{style:{display:"flex",gap:8,marginTop:8}},
+            h(Btn,{onClick:save,variant:"success"},"✓ Simpan"),
+            h(Btn,{onClick:()=>setEditing(null),variant:"secondary"},"Batal"),
+            h(Btn,{onClick:()=>{onChange(data.filter(ev=>ev.id!==editing));setEditing(null);},variant:"danger"},"Hapus"),
+          )
+        )
+      : h(Fragment,null,
+          h("div",{style:{display:"flex",flexDirection:"column",gap:6,marginBottom:12}},
+            data.map(ev=>h("div",{key:ev.id,style:{display:"flex",alignItems:"center",gap:12,background:"#111",border:"1px solid #1e1e1e",padding:"12px 16px",borderRadius:2}},
+              h("div",{style:{background:"#e8132b",color:"#fff",textAlign:"center",padding:"6px 14px",borderRadius:2,minWidth:60}},h("div",{style:{fontSize:20,fontWeight:"bold",lineHeight:1}},ev.day),h("div",{style:{fontSize:9}},ev.month)),
+              h("div",{style:{flex:1}},h("div",{style:{fontWeight:"bold",fontSize:14}},ev.title),h("div",{style:{fontSize:10,color:"#555"}},ev.type+" · "+ev.time)),
+              h("span",{style:{fontSize:9,padding:"3px 8px",border:"1px solid",borderRadius:2,color:ev.status==="open"?"#00e870":ev.status==="done"?"#666":"#8c8cff"}},ev.status.toUpperCase()),
+              h(Btn,{small:true,variant:"secondary",onClick:()=>{setEditing(ev.id);setForm({...ev});}},"Edit"),
+            ))
+          ),
+          h(Btn,{onClick:addNew},"+ Tambah Event")
+        )
+  );
+}
+
+function HallOfFameSection({data,onChange}){
+  const [editing,setEditing]=useState(null);
+  const [form,setForm]=useState({});
+  const save=()=>{onChange(data.map(c=>c.id===editing?{...form}:c));setEditing(null);};
+  const addNew=()=>{const id=data.length?Math.max(...data.map(c=>c.id))+1:1;const nc={id,emoji:"🏅",category:"Kategori",name:"FIGHTER",["Team/club"]:"Tim · Style",value:"0",valueLabel:"Label"};onChange([...data,nc]);setEditing(id);setForm(nc);};
+  const EMOJIS=["👑","🏆","⚔️","🦵","💥","🥊","🔥","⚡","🎯","🛡️","🏅","🌟"];
+  return h("div",null,
+    h(SectionTitle,null,"Hall of Fame"),
+    editing
+      ? h(Card,null,
+          h("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16}},
+            h("div",null,
+              h("div",{style:{marginBottom:14}},h("div",{style:{fontSize:11,color:"#888",marginBottom:5,textTransform:"uppercase",letterSpacing:1}},"Emoji"),h("div",{style:{display:"flex",flexWrap:"wrap",gap:6}},EMOJIS.map(e=>h("span",{key:e,onClick:()=>setForm({...form,emoji:e}),style:{fontSize:20,cursor:"pointer",padding:"4px 8px",borderRadius:2,background:form.emoji===e?"rgba(232,19,43,0.2)":"#0d0d0d",border:form.emoji===e?"1px solid #e8132b":"1px solid #222"}},e)))),
+              inp("Kategori",form.category,v=>setForm({...form,category:v})),
+              inp("Nama Fighter",form.name,v=>setForm({...form,name:v})),
+              inp("Tim · Style",form["Team/club"],v=>setForm({...form,["Team/club"]:v})),
+            ),
+            h("div",null,inp("Nilai",form.value,v=>setForm({...form,value:v})),inp("Label Nilai",form.valueLabel,v=>setForm({...form,valueLabel:v})))
+          ),
+          h("div",{style:{display:"flex",gap:8,marginTop:8}},
+            h(Btn,{onClick:save,variant:"success"},"✓ Simpan"),
+            h(Btn,{onClick:()=>setEditing(null),variant:"secondary"},"Batal"),
+            h(Btn,{onClick:()=>{onChange(data.filter(c=>c.id!==editing));setEditing(null);},variant:"danger"},"Hapus"),
+          )
+        )
+      : h(Fragment,null,
+          h("div",{style:{display:"grid",gridTemplateColumns:"repeat(2,1fr)",gap:8,marginBottom:12}},
+            data.map(c=>h("div",{key:c.id,onClick:()=>{setEditing(c.id);setForm({...c});},style:{display:"flex",alignItems:"center",gap:12,background:"#111",border:"1px solid #1e1e1e",padding:"14px 16px",borderRadius:2,cursor:"pointer"},onMouseEnter:e=>e.currentTarget.style.borderColor="#e8132b",onMouseLeave:e=>e.currentTarget.style.borderColor="#1e1e1e"},
+              h("span",{style:{fontSize:24}},c.emoji),
+              h("div",{style:{flex:1}},h("div",{style:{fontSize:9,color:"#e8132b",letterSpacing:2,textTransform:"uppercase",marginBottom:2}},c.category),h("div",{style:{fontWeight:"bold",fontSize:14}},c.name),h("div",{style:{fontSize:10,color:"#555"}},c["Team/club"])),
+              h("div",{style:{textAlign:"right"}},h("div",{style:{fontSize:20,fontWeight:"bold",color:"#d4a32a"}},c.value),h("div",{style:{fontSize:9,color:"#555",textTransform:"uppercase"}},c.valueLabel))
+            ))
+          ),
+          h(Btn,{onClick:addNew},"+ Tambah")
+        )
+  );
+}
+
+function ChangelogSection({data,onChange}){
+  const [editing,setEditing]=useState(null);
+  const [form,setForm]=useState({});
+  const [newTag,setNewTag]=useState("");
+  const save=()=>{onChange(data.map(c=>c.id===editing?{...form}:c));setEditing(null);};
+  const addNew=()=>{const id=data.length?Math.max(...data.map(c=>c.id))+1:1;const nc={id,ver:"v1.0",date:"1 Jul 2026",title:"Update Baru",desc:"Deskripsi.",tags:["Update"]};onChange([nc,...data]);setEditing(id);setForm(nc);};
+  return h("div",null,
+    h(SectionTitle,null,"Changelog"),
+    editing
+      ? h(Card,null,
+          h("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16}},
+            h("div",null,inp("Versi",form.ver,v=>setForm({...form,ver:v})),inp("Tanggal",form.date,v=>setForm({...form,date:v})),inp("Judul",form.title,v=>setForm({...form,title:v})),txa("Deskripsi",form.desc,v=>setForm({...form,desc:v}))),
+            h("div",null,
+              h("div",{style:{fontSize:11,color:"#888",marginBottom:8,textTransform:"uppercase",letterSpacing:1}},"Tags"),
+              h("div",{style:{display:"flex",flexWrap:"wrap",gap:6,marginBottom:10}},form.tags&&form.tags.map((t,i)=>h(Tag,{key:i,onRemove:()=>setForm({...form,tags:form.tags.filter((_,j)=>j!==i)})},t))),
+              h("div",{style:{display:"flex",gap:8}},
+                h("input",{value:newTag,onChange:e=>setNewTag(e.target.value),onKeyDown:e=>{if(e.key==="Enter"&&newTag.trim()){setForm({...form,tags:[...(form.tags||[]),newTag.trim()]});setNewTag("");}},placeholder:"Tag baru...",style:{flex:1,padding:"7px 10px",background:"#0d0d0d",border:"1px solid #222",color:"#fff",fontFamily:"monospace",fontSize:11,outline:"none",borderRadius:2}}),
+                h(Btn,{small:true,onClick:()=>{if(newTag.trim()){setForm({...form,tags:[...(form.tags||[]),newTag.trim()]});setNewTag("");}}},"+ Tambah"),
+              )
+            )
+          ),
+          h("div",{style:{display:"flex",gap:8,marginTop:12}},
+            h(Btn,{onClick:save,variant:"success"},"✓ Simpan"),
+            h(Btn,{onClick:()=>setEditing(null),variant:"secondary"},"Batal"),
+            h(Btn,{onClick:()=>{onChange(data.filter(c=>c.id!==editing));setEditing(null);},variant:"danger"},"Hapus"),
+          )
+        )
+      : h(Fragment,null,
+          h("div",{style:{display:"flex",flexDirection:"column",gap:6,marginBottom:12}},
+            data.map(c=>h("div",{key:c.id,style:{display:"flex",alignItems:"center",gap:12,background:"#111",border:"1px solid #1e1e1e",padding:"12px 16px",borderRadius:2}},
+              h("span",{style:{fontSize:11,color:"#e8132b",width:40}},c.ver),
+              h("div",{style:{flex:1}},h("div",{style:{fontWeight:"bold",fontSize:13}},c.title),h("div",{style:{fontSize:10,color:"#555"}},c.date)),
+              h("div",{style:{display:"flex",gap:4}},c.tags&&c.tags.slice(0,2).map((t,i)=>h(Tag,{key:i},t))),
+              h(Btn,{small:true,variant:"secondary",onClick:()=>{setEditing(c.id);setForm({...c,tags:[...(c.tags||[])]}); }},"Edit"),
+            ))
+          ),
+          h(Btn,{onClick:addNew},"+ Tambah Entry")
+        )
+  );
+}
+
+function JoinSection({data,onChange}){
+  return h("div",null,
+    h(SectionTitle,null,"Join / CTA"),
+    h(Card,null,
+      h("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16}},
+        h("div",null,inp("Judul",data.title,v=>onChange({...data,title:v})),txa("Deskripsi",data.desc,v=>onChange({...data,desc:v}),3)),
+        h("div",null,inp("Discord URL",data.discordUrl,v=>onChange({...data,discordUrl:v})),inp("Status Recruitment",data.recruitmentStatus,v=>onChange({...data,recruitmentStatus:v})))
+      )
+    )
+  );
+}
+
+// ══════════════════════════════════════
+// MAIN APP
+// ══════════════════════════════════════
+const TABS=[{id:"hero",label:"Hero"},{id:"ticker",label:"Ticker"},{id:"teams",label:"Team/Tim"},{id:"fighters",label:"Fighters"},{id:"events",label:"Events"},{id:"halloffame",label:"Hall of Fame"},{id:"changelog",label:"Changelog"},{id:"join",label:"Join"}];
+
+function App(){
+  const [page,setPage]=useState("loading"); // loading | setup | login | admin
+  const [token,setToken]=useState(null);
+  const [user,setUser]=useState(null);
+  const [data,setData]=useState(null);
+  const [activeTab,setActiveTab]=useState("hero");
+  const [saveStatus,setSaveStatus]=useState(null); // null | saving | ok | err
+  const [saveMsg,setSaveMsg]=useState("");
+  const shaRef=useRef(null);
+
+  useEffect(()=>{
+    // Cek session
+    try{const s=JSON.parse(sessionStorage.getItem(SESSION_KEY));if(s&&s.username)setUser(s.username);}catch{}
+    // Cek token
+    const t=localStorage.getItem(TOKEN_KEY);
+    if(t){setToken(t);}
+    // Load data dari localStorage
+    try{const raw=localStorage.getItem(STORAGE_KEY);if(raw)setData(JSON.parse(raw));else setData(DEFAULT_DATA);}catch{setData(DEFAULT_DATA);}
+
+    setPage(p=>{
+      const t2=localStorage.getItem(TOKEN_KEY);
+      if(!t2)return"setup";
+      try{const s=JSON.parse(sessionStorage.getItem(SESSION_KEY));if(s&&s.username)return"admin";}catch{}
+      return"login";
+    });
+  },[]);
+
+  // Fetch SHA dari GitHub saat pertama load
+  useEffect(()=>{
+    if(!token)return;
+    githubGet(token).then(d=>{shaRef.current=d.sha;}).catch(()=>{});
+  },[token]);
+
+  const saveToGitHub=useCallback(async(newData)=>{
+    if(!token){setSaveStatus("err");setSaveMsg("Token tidak ada. Setup ulang.");return;}
+    setSaveStatus("saving");setSaveMsg("Menyimpan ke GitHub...");
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(newData));
+    try{
+      const res=await githubPush(token,newData,shaRef.current);
+      shaRef.current=res.content.sha;
+      setSaveStatus("ok");setSaveMsg("✓ Tersimpan & live di semua device!");
+      setTimeout(()=>setSaveStatus(null),4000);
+    }catch(e){
+      setSaveStatus("err");setSaveMsg("Gagal push ke GitHub: "+e.message);
+      setTimeout(()=>setSaveStatus(null),6000);
+    }
+  },[token]);
+
+  const update=useCallback((section,value)=>{
+    setData(prev=>{const next={...prev,[section]:value};saveToGitHub(next);return next;});
+  },[saveToGitHub]);
+
+  if(page==="loading")return h("div",{style:{minHeight:"100vh",background:"#080808",display:"flex",alignItems:"center",justifyContent:"center",color:"#e8132b",letterSpacing:4,fontSize:12}},"LOADING...");
+  if(page==="setup")return h(SetupPage,{onDone:t=>{setToken(t);setPage("login");}});
+  if(page==="login")return h(LoginPage,{onLogin:u=>{setUser(u);setPage("admin");}});
+  if(!data)return null;
+
+  return h("div",{style:{minHeight:"100vh",background:"#080808",color:"#fff",fontFamily:"monospace"}},
+    // HEADER
+    h("div",{style:{background:"#0d0d0d",borderBottom:"1px solid #1a1a1a",padding:"0 24px",display:"flex",alignItems:"center",justifyContent:"space-between",height:52,position:"sticky",top:0,zIndex:100}},
+      h("div",{style:{display:"flex",alignItems:"center",gap:12}},
+        h("div",{style:{width:6,height:6,borderRadius:"50%",background:"#e8132b",animation:"pulse 2s infinite"}}),
+        h("span",{style:{fontSize:13,letterSpacing:3,textTransform:"uppercase",fontWeight:"bold"}},"SSFC ",h("span",{style:{color:"#e8132b"}},"Admin")),
+        h("span",{style:{fontSize:10,color:"#444",marginLeft:8}},user),
+      ),
+      h("div",{style:{display:"flex",alignItems:"center",gap:10}},
+        saveStatus==="saving"&&h("span",{style:{fontSize:10,color:"#f5a623",letterSpacing:1,display:"flex",alignItems:"center",gap:6}},h("span",{style:{display:"inline-block",width:10,height:10,border:"1px solid #f5a623",borderTopColor:"transparent",borderRadius:"50%",animation:"spin .7s linear infinite"}}),saveMsg),
+        saveStatus==="ok"&&h("span",{style:{fontSize:10,color:"#00e870",letterSpacing:1}},saveMsg),
+        saveStatus==="err"&&h("span",{style:{fontSize:10,color:"#e8132b",letterSpacing:1}},saveMsg),
+        h(Btn,{variant:"secondary",small:true,onClick:()=>{localStorage.removeItem(TOKEN_KEY);setToken(null);setPage("setup");}},"Ganti Token"),
+        h(Btn,{variant:"danger",small:true,onClick:()=>{sessionStorage.removeItem(SESSION_KEY);setPage("login");}},"Logout"),
+      )
+    ),
+    // BODY
+    h("div",{style:{display:"grid",gridTemplateColumns:"180px 1fr",minHeight:"calc(100vh - 52px)"}},
+      // SIDEBAR
+      h("div",{style:{background:"#0a0a0a",borderRight:"1px solid #1a1a1a",padding:"20px 0"}},
+        TABS.map(t=>h("div",{key:t.id,onClick:()=>setActiveTab(t.id),style:{padding:"10px 18px",cursor:"pointer",fontSize:11,letterSpacing:2,textTransform:"uppercase",color:activeTab===t.id?"#fff":"#555",background:activeTab===t.id?"rgba(232,19,43,0.1)":"transparent",borderLeft:activeTab===t.id?"2px solid #e8132b":"2px solid transparent",transition:"all .2s"}},t.label)),
+        h("div",{style:{margin:"20px 14px 0",padding:14,background:"rgba(0,232,112,0.04)",border:"1px solid rgba(0,232,112,0.15)",borderRadius:2}},
+          h("div",{style:{fontSize:9,color:"#00e870",letterSpacing:2,textTransform:"uppercase",marginBottom:6}},"✓ Auto-Sync"),
+          h("div",{style:{fontSize:10,color:"#555",lineHeight:1.7}},"Edit → simpan → otomatis push ke GitHub → semua device update."),
+        )
+      ),
+      // CONTENT
+      h("div",{style:{padding:28,overflowY:"auto"}},
+        activeTab==="hero"      && h(HeroSection,     {data:data.hero,       onChange:v=>update("hero",v)}),
+        activeTab==="ticker"    && h(TickerSection,   {data:data.ticker,     onChange:v=>update("ticker",v)}),
+        activeTab==="teams"     && h(TeamClubsSection,{data:data["Team/clubs"],onChange:v=>update("Team/clubs",v)}),
+        activeTab==="fighters"  && h(FightersSection, {data:data.fighters,   onChange:v=>update("fighters",v)}),
+        activeTab==="events"    && h(EventsSection,   {data:data.events,     onChange:v=>update("events",v)}),
+        activeTab==="halloffame"&& h(HallOfFameSection,{data:data.halloffame,onChange:v=>update("halloffame",v)}),
+        activeTab==="changelog" && h(ChangelogSection,{data:data.changelog,  onChange:v=>update("changelog",v)}),
+        activeTab==="join"      && h(JoinSection,     {data:data.join,       onChange:v=>update("join",v)}),
+      )
+    ),
+    h("style",null,`@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(232,19,43,.6)}50%{box-shadow:0 0 0 6px rgba(232,19,43,0)}}@keyframes spin{to{transform:rotate(360deg)}}`)
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(h(App));
+</script>
+</body>
+</html>

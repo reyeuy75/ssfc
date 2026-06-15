@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>State Side Fighter Championship — Community</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800;900&family=Share+Tech+Mono&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:    #080808;
+  --bg1:   #0d0d0d;
+  --bg2:   #111111;
+  --red:   #e8132b;
+  --red2:  #ff1a33;
+  --gold:  #d4a32a;
+  --wh:    #ffffff;
+  --mu:    rgba(255,255,255,0.4);
+  --dim:   rgba(255,255,255,0.06);
+  --bdr:   rgba(255,255,255,0.07);
+  --ff-d:  'Bebas Neue', sans-serif;
+  --ff-h:  'Barlow Condensed', sans-serif;
+  --ff-b:  'Barlow', sans-serif;
+  --ff-m:  'Share Tech Mono', monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--bg);color:var(--wh);font-family:var(--ff-b);overflow-x:hidden}
+
+/* GRAIN */
+body::after{
+  content:'';position:fixed;inset:0;z-index:999;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size:200px;mix-blend-mode:overlay;
+}
+
+/* LOADER */
+#loader{
+  position:fixed;inset:0;z-index:9000;background:var(--bg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;
+  transition:opacity .6s ease,visibility .6s;
+}
+#loader.hide{opacity:0;visibility:hidden}
+.ld-logo{font-family:var(--ff-d);font-size:clamp(40px,8vw,80px);letter-spacing:10px;color:var(--wh);line-height:1}
+.ld-logo b{color:var(--red)}
+.ld-line{width:200px;height:1px;background:rgba(255,255,255,0.1);overflow:hidden}
+.ld-fill{height:100%;width:0;background:var(--red);animation:lfill 2s cubic-bezier(.22,1,.36,1) forwards}
+@keyframes lfill{to{width:100%}}
+.ld-sub{font-family:var(--ff-m);font-size:10px;letter-spacing:4px;color:var(--mu);text-transform:uppercase}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;height:64px;
+  display:flex;align-items:center;padding:0 48px;
+  background:transparent;border-bottom:1px solid transparent;transition:all .3s;
+}
+nav.scrolled{background:rgba(8,8,8,0.95);border-color:var(--bdr);backdrop-filter:blur(16px)}
+.nav-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;width:100%}
+.nav-logo{font-family:var(--ff-d);font-size:20px;letter-spacing:4px;text-decoration:none;color:var(--wh);display:flex;align-items:center;gap:10px}
+.nav-logo-dot{width:8px;height:8px;background:var(--red);border-radius:50%;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(232,19,43,0.6)}50%{box-shadow:0 0 0 8px rgba(232,19,43,0)}}
+.nav-links{display:flex;gap:0;list-style:none;align-items:center}
+.nav-links a{font-family:var(--ff-m);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--mu);text-decoration:none;padding:8px 16px;transition:color .2s}
+.nav-links a:hover{color:var(--wh)}
+.nav-cta{font-family:var(--ff-m);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#fff;background:var(--red);padding:10px 22px;text-decoration:none;transition:background .2s}
+.nav-cta:hover{background:var(--red2)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--wh);transition:all .3s}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(4.5px,4.5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(4.5px,-4.5px)}
+.mob-menu{
+  display:none;position:fixed;top:64px;left:0;right:0;
+  background:rgba(8,8,8,0.98);border-bottom:1px solid var(--bdr);
+  padding:20px 24px;z-index:499;flex-direction:column;gap:0;
+  opacity:0;transform:translateY(-8px);transition:all .3s;
+}
+.mob-menu.open{opacity:1;transform:none}
+.mob-menu a{display:block;color:var(--mu);text-decoration:none;font-family:var(--ff-m);font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:14px 0;border-bottom:1px solid var(--bdr);transition:color .2s}
+.mob-menu a:hover{color:var(--wh)}
+
+/* LAYOUT */
+.wrap{max-width:1400px;margin:0 auto;padding:0 48px;position:relative;z-index:2}
+section{position:relative;z-index:2}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.reveal.on{opacity:1;transform:none}
+.reveal-l{opacity:0;transform:translateX(-28px);transition:opacity .7s ease,transform .7s ease}
+.reveal-l.on{opacity:1;transform:none}
+
+/* SECTION META */
+.sec-tag{font-family:var(--ff-m);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.sec-tag::before{content:'';width:20px;height:1px;background:var(--red)}
+.sec-title{font-family:var(--ff-d);font-size:clamp(52px,7vw,96px);line-height:.92;letter-spacing:2px;text-transform:uppercase;color:var(--wh)}
+.sec-title .r{color:var(--red)}
+.sec-title .o{-webkit-text-stroke:1.5px rgba(255,255,255,0.2);color:transparent}
+.sec-head{margin-bottom:64px}
+
+/* BTN */
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--ff-m);font-size:10px;letter-spacing:3px;text-transform:uppercase;text-decoration:none;cursor:pointer;border:none;padding:15px 32px;transition:all .2s}
+.btn-r{background:var(--red);color:#fff}
+.btn-r:hover{background:var(--red2);transform:translateY(-2px)}
+.btn-o{background:transparent;color:var(--wh);border:1px solid rgba(255,255,255,0.2)}
+.btn-o:hover{border-color:var(--wh);transform:translateY(-2px)}
+
+/* ════════════════════
+   HERO — BYON STYLE
+════════════════════ */
+#home{min-height:100vh;display:flex;flex-direction:column;padding-top:64px;overflow:hidden;position:relative}
+
+/* Big diagonal red shape */
+.hero-slash{
+  position:absolute;top:0;right:0;width:52%;height:100%;
+  background:linear-gradient(160deg,rgba(232,19,43,0.07) 0%,rgba(232,19,43,0.14) 60%,rgba(232,19,43,0.06) 100%);
+  clip-path:polygon(18% 0,100% 0,100% 100%,0 100%);
+  pointer-events:none;z-index:0;
+}
+.hero-slash::after{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:2px;
+  background:linear-gradient(to bottom,transparent,var(--red) 30%,var(--red) 70%,transparent);
+}
+
+.hero-body{
+  flex:1;display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;
+  position:relative;z-index:2;
+}
+.hero-l{padding:80px 0 80px clamp(20px,5vw,80px)}
+.hero-r{position:relative;height:100%;display:flex;align-items:flex-end;justify-content:center;padding-bottom:0}
+
+/* Player silhouette area */
+.fighter-silhouette{
+  position:relative;width:100%;height:480px;display:flex;align-items:flex-end;justify-content:center;overflow:hidden;
+}
+.fighter-silhouette::before{
+  content:'SSFC';position:absolute;bottom:-30px;left:50%;transform:translateX(-50%);
+  font-family:var(--ff-d);font-size:clamp(100px,18vw,220px);letter-spacing:-6px;
+  color:rgba(255,255,255,0.025);white-space:nowrap;pointer-events:none;z-index:0;line-height:1;
+}
+/* Hexagon fighter display */
+.fighter-hex-grid{
+  display:flex;flex-direction:column;align-items:center;gap:0;z-index:2;position:relative;
+  padding-bottom:32px;
+}
+.hex-row{display:flex;gap:2px}
+.hex-card{
+  width:110px;height:128px;
+  clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+  background:var(--bg2);border:none;position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;flex-direction:column;
+  cursor:default;transition:all .3s;
+}
+.hex-card:hover{transform:scale(1.08)}
+.hex-card.hero-hex{background:var(--red);width:130px;height:150px}
+.hex-inner{text-align:center;padding:8px}
+.hex-tag{font-family:var(--ff-m);font-size:8px;letter-spacing:1px;color:var(--mu);text-transform:uppercase;margin-bottom:4px}
+.hex-name{font-family:var(--ff-h);font-weight:800;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--wh);line-height:1.1}
+.hex-num{font-family:var(--ff-d);font-size:26px;color:var(--wh);line-height:1;margin-top:4px}
+.hero-hex .hex-tag{color:rgba(255,255,255,0.7)}
+.hero-hex .hex-num{font-size:32px}
+/* Glow on center hex */
+.hero-hex::after{content:'';position:absolute;inset:-20px;background:radial-gradient(circle,rgba(232,19,43,0.3),transparent 70%);pointer-events:none}
+
+/* Hero left content */
+.hero-eyebrow{font-family:var(--ff-m);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:10px;margin-bottom:24px;opacity:0;animation:fup .6s ease .1s both}
+.hero-eyebrow::before{content:'';width:20px;height:1px;background:var(--red)}
+.live-dot{width:5px;height:5px;border-radius:50%;background:var(--red);animation:blink 1.4s ease-in-out infinite;flex-shrink:0}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+
+.hero-title{
+  font-family:var(--ff-d);font-size:clamp(80px,11vw,148px);
+  line-height:.88;letter-spacing:3px;text-transform:uppercase;
+  opacity:0;animation:fup .7s ease .2s both;
+}
+.hero-title .t-wh{color:var(--wh)}
+.hero-title .t-out{display:block;-webkit-text-stroke:2px rgba(255,255,255,0.18);color:transparent}
+.hero-title .t-red{display:block;color:var(--red)}
+
+.hero-sub{font-size:14px;color:var(--mu);line-height:1.8;max-width:400px;margin-top:24px;margin-bottom:36px;font-weight:300;opacity:0;animation:fup .6s ease .35s both}
+.hero-sub strong{color:var(--wh);font-weight:600}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap;opacity:0;animation:fup .6s ease .45s both}
+
+/* stat strip */
+.hero-stats{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--bdr);position:relative;z-index:2;
+  opacity:0;animation:fup .6s ease .6s both;
+}
+.hs-item{padding:24px 32px;border-right:1px solid var(--bdr);display:flex;align-items:center;gap:14px}
+.hs-item:last-child{border:none}
+.hs-accent{width:2px;height:36px;background:var(--red);flex-shrink:0}
+.hs-num{font-family:var(--ff-d);font-size:44px;line-height:1;color:var(--wh)}
+.hs-lbl{font-family:var(--ff-m);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--mu)}
+
+@keyframes fup{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+/* TICKER */
+.ticker{background:var(--red);padding:11px 0;overflow:hidden;position:relative;z-index:2}
+.ticker-track{display:flex;white-space:nowrap;animation:tick 24s linear infinite}
+@keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.tick-item{display:inline-flex;align-items:center;gap:8px;padding:0 28px;font-family:var(--ff-m);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#fff}
+.t-sep{width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,0.5)}
+
+/* ════════════════════
+   Team/clubS — TABLE ROW
+════════════════════ */
+#Team/clubs{padding:110px 0}
+.Team/club-table{border:1px solid var(--bdr)}
+.ft-row{
+  display:grid;grid-template-columns:52px 1fr 1.2fr auto auto;
+  align-items:center;border-bottom:1px solid var(--bdr);
+  position:relative;overflow:hidden;transition:background .25s;cursor:default;
+}
+.ft-row:last-child{border-bottom:none}
+.ft-row::before{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:var(--red);transition:width .3s}
+.ft-row:hover{background:var(--dim)}
+.ft-row:hover::before{width:3px}
+.ft-num{font-family:var(--ff-m);font-size:11px;color:rgba(255,255,255,0.12);text-align:center;padding:28px 0;border-right:1px solid var(--bdr);transition:color .25s}
+.ft-row:hover .ft-num{color:var(--red)}
+.ft-id{padding:22px 28px;border-right:1px solid var(--bdr)}
+.ft-name{font-family:var(--ff-h);font-weight:800;font-size:22px;letter-spacing:2px;text-transform:uppercase;line-height:1}
+.ft-alias{font-family:var(--ff-m);font-size:9px;letter-spacing:2px;color:var(--mu);margin-top:4px}
+.ft-desc{padding:22px 28px;font-size:13px;color:var(--mu);line-height:1.6;font-weight:300;border-right:1px solid var(--bdr)}
+.ft-stat{padding:22px 28px;border-right:1px solid var(--bdr);display:flex;gap:28px}
+.fts-val{font-family:var(--ff-d);font-size:32px;display:block;line-height:1}
+.fts-lbl{font-family:var(--ff-m);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--mu)}
+.ft-badge{padding:22px 24px}
+.badge{font-family:var(--ff-m);font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:5px 12px;border:1px solid;white-space:nowrap}
+.b-top{color:var(--gold);border-color:rgba(212,163,42,0.4);background:rgba(212,163,42,0.06)}
+.b-rise{color:#00e870;border-color:rgba(0,232,112,0.3);background:rgba(0,232,112,0.05)}
+.b-def{color:#8c8cff;border-color:rgba(140,140,255,0.25);background:rgba(140,140,255,0.05)}
+.b-new{color:var(--red);border-color:rgba(232,19,43,0.3);background:rgba(232,19,43,0.05)}
+
+/* ════════════════════
+   FIGHTERS — BYON CARD
+════════════════════ */
+#fighters{padding:110px 0;background:var(--bg1)}
+.fighters-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px}
+.fighters-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;border:1px solid var(--bdr)}
+
+.fc{
+  background:var(--bg2);padding:32px 24px 28px;
+  position:relative;overflow:hidden;border-right:1px solid var(--bdr);
+  cursor:default;transition:background .25s;display:flex;flex-direction:column;
+}
+.fc:last-child{border-right:none}
+.fc:hover{background:var(--bg)}
+/* top red bar on hover */
+.fc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:transparent;transform:scaleX(0);transition:transform .3s,background .3s;transform-origin:left}
+.fc:hover::before{background:var(--red);transform:scaleX(1)}
+
+.fc-rank-bg{position:absolute;top:-8px;right:10px;font-family:var(--ff-d);font-size:100px;color:rgba(255,255,255,.025);line-height:1;pointer-events:none;transition:color .25s}
+.fc:hover .fc-rank-bg{color:rgba(232,19,43,.04)}
+
+.fc-rank-badge{
+  display:inline-block;font-family:var(--ff-m);font-size:8px;letter-spacing:2px;text-transform:uppercase;
+  padding:4px 10px;border:1px solid var(--bdr);color:var(--mu);margin-bottom:20px;
+}
+.rank-gold .fc-rank-badge{color:var(--gold);border-color:rgba(212,163,42,0.4);background:rgba(212,163,42,0.06)}
+.rank-sil .fc-rank-badge{color:#aaa;border-color:rgba(170,170,170,0.25)}
+.rank-bro .fc-rank-badge{color:#b87333;border-color:rgba(184,115,51,0.3)}
+
+/* Avatar box */
+.fc-avatar{
+  width:72px;height:72px;background:var(--dim);border:1px solid var(--bdr);
+  display:flex;align-items:center;justify-content:center;font-size:28px;
+  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%);
+  margin-bottom:16px;transition:border-color .25s;
+}
+.rank-gold .fc-avatar{border-color:rgba(212,163,42,0.5)}
+.fc:hover .fc-avatar{border-color:rgba(232,19,43,0.4)}
+
+.fc-name{font-family:var(--ff-h);font-weight:800;font-size:22px;letter-spacing:2px;text-transform:uppercase;line-height:1;margin-bottom:3px}
+.fc-Team/club{font-family:var(--ff-m);font-size:9px;letter-spacing:2px;color:var(--mu);margin-bottom:20px}
+.fc-kd{font-family:var(--ff-d);font-size:60px;letter-spacing:-1px;line-height:1;margin-bottom:2px}
+.rank-gold .fc-kd{color:var(--gold)}
+.fc-kd-lbl{font-family:var(--ff-m);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--mu);margin-bottom:20px}
+.fc-bars{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--bdr);padding-top:18px;margin-top:auto}
+.bar-row{display:flex;align-items:center;gap:8px}
+.b-lbl{font-family:var(--ff-m);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--mu);width:36px;flex-shrink:0}
+.b-track{flex:1;height:1px;background:rgba(255,255,255,.05)}
+.b-fill{height:100%;transition:width 1.2s cubic-bezier(.22,1,.36,1)}
+.red-fill{background:var(--red)}
+.gold-fill{background:var(--gold)}
+.grn-fill{background:#00e870}
+.b-val{font-family:var(--ff-m);font-size:8px;color:rgba(255,255,255,.3);width:20px;text-align:right;flex-shrink:0}
+
+/* ════════════════════
+   EVENTS
+════════════════════ */
+#events{padding:110px 0}
+.ev-feat{
+  display:grid;grid-template-columns:auto 1fr auto;
+  border:1px solid var(--bdr);background:var(--bg2);position:relative;overflow:hidden;
+  margin-bottom:1px;transition:border-color .25s;cursor:default;
+}
+.ev-feat:hover{border-color:rgba(232,19,43,0.4)}
+.ev-feat::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.ev-feat:hover::after{transform:scaleX(1)}
+.ev-datebox{background:var(--red);padding:32px 28px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:110px}
+.ev-day{font-family:var(--ff-d);font-size:52px;line-height:1;color:#fff}
+.ev-mon{font-family:var(--ff-m);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.7)}
+.ev-body{padding:32px;border-right:1px solid var(--bdr)}
+.ev-type{font-family:var(--ff-m);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.ev-title{font-family:var(--ff-h);font-weight:800;font-size:30px;letter-spacing:1px;text-transform:uppercase;line-height:1.1;margin-bottom:10px}
+.ev-desc{font-size:13px;color:var(--mu);line-height:1.65;font-weight:300}
+.ev-meta{padding:32px;display:flex;flex-direction:column;gap:14px;min-width:200px}
+.ev-mi{display:flex;flex-direction:column;gap:2px}
+.ev-ml{font-family:var(--ff-m);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--mu)}
+.ev-mv{font-family:var(--ff-h);font-weight:700;font-size:16px;letter-spacing:1px;text-transform:uppercase}
+.ev-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--bdr);border-top:none}
+.ev-card{background:var(--bg2);padding:28px 24px;position:relative;border-right:1px solid var(--bdr);transition:background .25s;cursor:default}
+.ev-card:last-child{border-right:none}
+.ev-card:hover{background:var(--bg1)}
+.ev-badge{font-family:var(--ff-m);font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border:1px solid;display:inline-block;margin-bottom:14px}
+.eb-w{color:var(--red);border-color:rgba(232,19,43,.3);background:rgba(232,19,43,.06)}
+.eb-t{color:var(--gold);border-color:rgba(212,163,42,.3);background:rgba(212,163,42,.05)}
+.eb-o{color:#00e870;border-color:rgba(0,232,112,.25);background:rgba(0,232,112,.05)}
+.ev-etitle{font-family:var(--ff-h);font-weight:800;font-size:18px;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;line-height:1.15}
+.ev-edesc{font-size:13px;color:var(--mu);line-height:1.6;margin-bottom:14px;font-weight:300}
+.ev-emeta{font-family:var(--ff-m);font-size:9px;letter-spacing:1px;color:var(--mu)}
+.ev-emeta strong{color:rgba(255,255,255,0.8)}
+
+/* ════════════════════
+   HALL OF FAME
+════════════════════ */
+#halloffame{padding:110px 0;background:var(--bg1)}
+.hof-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--bdr)}
+.hof-card{background:var(--bg2);padding:40px 28px;text-align:center;position:relative;overflow:hidden;border-right:1px solid var(--bdr);cursor:default;transition:background .25s}
+.hof-card:last-child{border-right:none}
+.hof-card:hover{background:var(--bg)}
+.hof-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:transparent;transition:background .25s}
+.hof-card:hover::before{background:var(--red)}
+.hof-ic{font-size:32px;display:block;margin-bottom:18px}
+.hof-cat{font-family:var(--ff-m);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:12px}
+.hof-name{font-family:var(--ff-h);font-weight:900;font-size:24px;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.hof-fac{font-family:var(--ff-m);font-size:9px;letter-spacing:1px;color:var(--mu);margin-bottom:20px}
+.hof-val{font-family:var(--ff-d);font-size:60px;letter-spacing:-1px;line-height:1}
+.hof-vl{font-family:var(--ff-m);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--mu)}
+
+/* ════════════════════
+   RULES
+════════════════════ */
+#rules{padding:110px 0}
+.rules-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--bdr)}
+.rule-card{background:var(--bg2);padding:32px 28px;position:relative;overflow:hidden;border-right:1px solid var(--bdr);border-bottom:1px solid var(--bdr);cursor:default;transition:background .25s}
+.rule-card:nth-child(3n){border-right:none}
+.rule-card:hover{background:var(--bg1)}
+.rule-numbg{position:absolute;top:-10px;right:12px;font-family:var(--ff-d);font-size:96px;color:rgba(255,255,255,.022);line-height:1;pointer-events:none;transition:color .25s}
+.rule-card:hover .rule-numbg{color:rgba(232,19,43,.05)}
+.rule-badge{font-family:var(--ff-m);font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border:1px solid;display:inline-block;margin-bottom:14px}
+.rb-c{color:var(--red);border-color:rgba(232,19,43,.3);background:rgba(232,19,43,.06)}
+.rb-i{color:var(--gold);border-color:rgba(212,163,42,.3);background:rgba(212,163,42,.05)}
+.rb-n{color:#8c8cff;border-color:rgba(140,140,255,.2);background:rgba(140,140,255,.05)}
+.rule-title{font-family:var(--ff-h);font-weight:800;font-size:20px;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+.rule-desc{font-size:13px;color:var(--mu);line-height:1.65;font-weight:300}
+
+/* ════════════════════
+   CHANGELOG
+════════════════════ */
+#changelog{padding:110px 0;background:var(--bg1)}
+.clog-wrap{max-width:800px;margin:0 auto}
+.clog-item{display:grid;grid-template-columns:120px 1fr;border-bottom:1px solid var(--bdr);position:relative}
+.clog-item:last-child{border-bottom:none}
+.cl-left{padding:28px 0;border-right:1px solid var(--bdr);position:relative}
+.cl-dot{position:absolute;right:-5px;top:38px;width:9px;height:9px;background:var(--bg1);border:1px solid var(--bdr);border-radius:50%;transition:all .25s}
+.clog-item:hover .cl-dot{border-color:var(--red);background:var(--red);box-shadow:0 0 10px rgba(232,19,43,.4)}
+.cl-ver{font-family:var(--ff-m);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--red);padding-right:24px}
+.cl-date{font-family:var(--ff-m);font-size:9px;letter-spacing:1px;color:var(--mu);margin-top:6px;padding-right:24px}
+.cl-right{padding:28px 0 28px 32px}
+.cl-title{font-family:var(--ff-h);font-weight:800;font-size:20px;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.cl-desc{font-size:13px;color:var(--mu);line-height:1.65;font-weight:300;margin-bottom:14px}
+.cl-tags{display:flex;gap:6px;flex-wrap:wrap}
+.cl-tag{font-family:var(--ff-m);font-size:8px;letter-spacing:1px;padding:3px 8px;border:1px solid rgba(140,140,255,.2);color:#8c8cff;background:rgba(140,140,255,.05)}
+
+/* ════════════════════
+   JOIN CTA
+════════════════════ */
+#join{padding:110px 0}
+.join-box{
+  border:1px solid var(--bdr);background:var(--bg2);padding:80px 60px;text-align:center;position:relative;overflow:hidden;
+}
+.join-box::before{
+  content:'SSFC';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  font-family:var(--ff-d);font-size:clamp(120px,22vw,280px);letter-spacing:-4px;
+  color:rgba(255,255,255,.018);pointer-events:none;line-height:1;white-space:nowrap;
+}
+/* red glow corner */
+.join-box::after{
+  content:'';position:absolute;bottom:-60px;right:-60px;width:300px;height:300px;
+  background:radial-gradient(circle,rgba(232,19,43,0.1),transparent 70%);
+  pointer-events:none;
+}
+.join-tag{font-family:var(--ff-m);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--red);display:block;margin-bottom:16px}
+.join-title{font-family:var(--ff-d);font-size:clamp(52px,7vw,100px);line-height:.92;text-transform:uppercase;margin-bottom:24px}
+.join-title span{color:var(--red)}
+.join-desc{font-size:14px;color:var(--mu);max-width:460px;margin:0 auto 44px;line-height:1.8;font-weight:300}
+.join-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.join-cards{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:44px}
+.j-card{
+  background:var(--dim);border:1px solid var(--bdr);padding:24px 32px;min-width:180px;
+  text-align:center;text-decoration:none;color:var(--wh);transition:all .25s;cursor:default;
+  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%);
+}
+a.j-card{cursor:pointer}
+a.j-card:hover,.j-card:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,0.15);transform:translateY(-3px)}
+.jc-ic{font-size:22px;display:block;margin-bottom:10px}
+.jc-name{font-family:var(--ff-h);font-weight:700;font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.jc-sub{font-family:var(--ff-m);font-size:9px;letter-spacing:1px;color:var(--mu)}
+
+/* ════════════════════
+   BRACKET
+════════════════════ */
+#bracket{padding:110px 0;background:var(--bg1)}
+.bracket-tabs{display:flex;gap:0;border-bottom:1px solid var(--bdr);margin-bottom:48px;overflow-x:auto}
+.bracket-tab{font-family:var(--ff-m);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--mu);padding:14px 24px;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;background:none;border-top:none;border-left:none;border-right:none;color:var(--mu)}
+.bracket-tab:hover{color:var(--wh)}
+.bracket-tab.active{color:var(--wh);border-bottom-color:var(--red)}
+.bracket-empty{text-align:center;padding:80px 0;font-family:var(--ff-m);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.15)}
+.bk-champion{display:flex;align-items:center;gap:20px;padding:20px 28px;background:rgba(212,163,42,.06);border:1px solid rgba(212,163,42,.25);margin-bottom:32px}
+.bk-champion-ic{font-size:40px}
+.bk-champ-tag{font-family:var(--ff-m);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.bk-champ-name{font-family:var(--ff-h);font-weight:900;font-size:32px;letter-spacing:2px;text-transform:uppercase;line-height:1}
+.bk-champ-team{font-family:var(--ff-m);font-size:10px;color:var(--mu);margin-top:4px}
+.bracket-scroll{overflow-x:auto;padding-bottom:16px}
+.bracket-rounds{display:flex;gap:0;min-width:max-content}
+.bk-round{display:flex;flex-direction:column;min-width:210px;border-right:1px solid var(--bdr)}
+.bk-round:last-child{border-right:none}
+.bk-round-label{font-family:var(--ff-m);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--red);text-align:center;padding:10px 12px;border-bottom:1px solid var(--bdr);margin-bottom:16px}
+.bk-matches{display:flex;flex-direction:column;padding:0 12px;gap:8px}
+.bk-match{background:var(--bg2);border:1px solid var(--bdr);width:186px;transition:border-color .2s}
+.bk-match:hover{border-color:rgba(232,19,43,.3)}
+.bk-match-hdr{background:rgba(255,255,255,.02);padding:4px 10px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--bdr)}
+.bk-match-num{font-family:var(--ff-m);font-size:8px;letter-spacing:1px;color:rgba(255,255,255,.15)}
+.bk-match-done{font-family:var(--ff-m);font-size:8px;letter-spacing:1px;color:#00e870}
+.bk-fighter{display:flex;align-items:center;gap:8px;padding:9px 10px;border-bottom:1px solid var(--bdr);transition:background .15s}
+.bk-fighter:last-child{border-bottom:none}
+.bk-fighter.winner{background:rgba(0,232,112,.06)}
+.bk-fighter.loser{opacity:.45}
+.bk-seed{font-family:var(--ff-m);font-size:8px;color:rgba(255,255,255,.2);min-width:16px}
+.bk-info{flex:1;min-width:0}
+.bk-fname{font-family:var(--ff-h);font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--wh);line-height:1}
+.bk-fname.tbd{color:rgba(255,255,255,.2);font-weight:400;font-style:italic;font-family:var(--ff-b)}
+.bk-fteam{font-family:var(--ff-m);font-size:8px;color:var(--mu);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bk-check{font-size:10px;color:#00e870;flex-shrink:0}
+
+/* FOOTER */
+footer{border-top:2px solid var(--red);padding:48px;text-align:center;position:relative;z-index:2;background:var(--bg)}
+.ft-logo{font-family:var(--ff-d);font-size:32px;letter-spacing:8px;text-transform:uppercase;margin-bottom:12px;display:block}
+.ft-logo span{color:var(--red)}
+.ft-sub{font-family:var(--ff-m);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--mu);display:block;margin-bottom:12px}
+.ft-copy{font-family:var(--ff-m);font-size:9px;letter-spacing:1px;color:rgba(255,255,255,.15)}
+
+/* MOBILE */
+@media(max-width:960px){
+  nav{padding:0 20px}
+  .wrap{padding:0 20px}
+  .nav-links,.nav-cta{display:none!important}
+  .hamburger{display:flex!important}
+  section{padding:72px 0!important}
+  #home{padding-top:64px}
+  .hero-body{grid-template-columns:1fr}
+  .hero-r{display:none}
+  .hero-stats{grid-template-columns:repeat(2,1fr)}
+  .hs-item:nth-child(2){border-right:none}
+  .hs-item:nth-child(3){border-top:1px solid var(--bdr);border-right:1px solid var(--bdr)}
+  .hs-item:nth-child(4){border-top:1px solid var(--bdr);border-right:none}
+  .ft-row{grid-template-columns:1fr;padding:0}
+  .ft-num{border-right:none;border-bottom:1px solid var(--bdr);padding:12px 20px;text-align:left}
+  .ft-id,.ft-desc,.ft-stat,.ft-badge{border-right:none;padding:14px 20px}
+  .fighters-grid{grid-template-columns:repeat(2,1fr)}
+  .fc:nth-child(2n){border-right:none}
+  .hof-grid{grid-template-columns:repeat(2,1fr)}
+  .hof-card:nth-child(2n){border-right:none}
+  .hof-card{border-bottom:1px solid var(--bdr)}
+  .rules-grid{grid-template-columns:repeat(2,1fr)}
+  .rule-card:nth-child(3n){border-right:1px solid var(--bdr)}
+  .rule-card:nth-child(2n){border-right:none}
+  .ev-grid{grid-template-columns:1fr}
+  .ev-card{border-right:none;border-bottom:1px solid var(--bdr)}
+  .ev-feat{grid-template-columns:1fr}
+  .ev-datebox{flex-direction:row;gap:12px;padding:18px 24px;align-items:center}
+  .ev-meta{border-top:1px solid var(--bdr);flex-direction:row;flex-wrap:wrap;gap:16px}
+  .join-box{padding:48px 24px}
+  .fighters-header{flex-direction:column;align-items:flex-start;gap:16px}
+  footer{padding:40px 20px}
+  .clog-item{grid-template-columns:90px 1fr}
+}
+@media(max-width:560px){
+  .fighters-grid{grid-template-columns:1fr}
+  .fc{border-right:none;border-bottom:1px solid var(--bdr)}
+  .hof-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="ld-logo">STATE SIDE FIGHTER CHAMPIONSHIP</div>
+  <div class="ld-line"><div class="ld-fill"></div></div>
+  <div class="ld-sub">Loading State Side Fighter Championship...</div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#home" class="nav-logo">
+      <div class="nav-logo-dot"></div>
+      SSFC
+    </a>
+    <ul class="nav-links">
+      <li><a href="#Team/clubs">Teams</a></li>
+      <li><a href="#fighters">Fighters</a></li>
+      <li><a href="#events">Events</a></li>
+      <li><a href="#bracket">Bracket</a></li>
+      <li><a href="#halloffame">Hall of Fame</a></li>
+      <li><a href="#rules">Rules</a></li>
+      <li><a href="#changelog">Changelog</a></li>
+    </ul>
+    <a href="https://discord.gg/AZ84bBsyKK" target="_blank" rel="noopener" class="nav-cta">Join Discord</a>
+    <button class="hamburger" id="ham" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mob-menu" id="mobmenu">
+  <a href="#Team/clubs" onclick="closemob()">Teams</a>
+  <a href="#fighters" onclick="closemob()">Fighters</a>
+  <a href="#events" onclick="closemob()">Events</a>
+  <a href="#bracket" onclick="closemob()">Bracket</a>
+  <a href="#halloffame" onclick="closemob()">Hall of Fame</a>
+  <a href="#rules" onclick="closemob()">Rules</a>
+  <a href="#changelog" onclick="closemob()">Changelog</a>
+  <a href="#join" onclick="closemob()">Join</a>
+</div>
+
+<!-- ════ HERO ════ -->
+<section id="home">
+  <div class="hero-slash"></div>
+  <div class="hero-body">
+    <div class="hero-l">
+      <div class="hero-eyebrow">
+        <span class="live-dot"></span>
+        State Side Fighter Championship
+      </div>
+      <h1 class="hero-title">
+        <span class="t-wh">STATE</span>
+        <span class="t-out">SIDE</span>
+        <span class="t-red">FIGHTER</span>
+      </h1>
+      <p class="hero-sub">Komunitas fighter terkuat di State Side Fighter Championship. Bergabung, bertarung, dan dominasi bersama kami.</p>
+      <div class="hero-btns">
+        <a href="#Team/clubs" class="btn btn-r">Lihat Tim</a>
+        <a href="#join" class="btn btn-o">Join Community</a>
+      </div>
+    </div>
+    <div class="hero-r">
+      <div class="fighter-silhouette">
+        <div class="fighter-hex-grid">
+          <div class="hex-row">
+            <div class="hex-card">
+              <div class="hex-inner">
+                <div class="hex-tag">Elbow</div>
+                <div class="hex-name">Elbow<br>Strike</div>
+                <div class="hex-num">96</div>
+              </div>
+            </div>
+            <div class="hex-card hero-hex">
+              <div class="hex-inner">
+                <div class="hex-tag">Main Event</div>
+                <div class="hex-name">Fight<br>Night</div>
+                <div class="hex-num">S3</div>
+              </div>
+            </div>
+            <div class="hex-card">
+              <div class="hex-inner">
+                <div class="hex-tag">Knee Head</div>
+                <div class="hex-name">Knee<br>Strike</div>
+                <div class="hex-num">88</div>
+              </div>
+            </div>
+          </div>
+          <div class="hex-row" style="margin-top:2px">
+            <div class="hex-card">
+              <div class="hex-inner">
+                <div class="hex-tag">Boxing</div>
+                <div class="hex-name">Cross<br>Hook</div>
+                <div class="hex-num">91</div>
+              </div>
+            </div>
+            <div class="hex-card">
+              <div class="hex-inner">
+                <div class="hex-tag">Kung Fu</div>
+                <div class="hex-name">Palm<br>Strike</div>
+                <div class="hex-num">84</div>
+              </div>
+            </div>
+            <div class="hex-card">
+              <div class="hex-inner">
+                <div class="hex-tag">Grab Kick</div>
+                <div class="hex-name">Grab<br>Kick</div>
+                <div class="hex-num">79</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hs-item">
+      <div class="hs-accent"></div>
+      <div><div class="hs-num" data-target="0">0</div><div class="hs-lbl">Total Fighter</div></div>
+    </div>
+    <div class="hs-item">
+      <div class="hs-accent"></div>
+      <div><div class="hs-num" data-target="6">0</div><div class="hs-lbl">Fight Style</div></div>
+    </div>
+    <div class="hs-item">
+      <div class="hs-accent"></div>
+      <div><div class="hs-num" data-target="-1">0</div><div class="hs-lbl">Total Matches</div></div>
+    </div>
+    <div class="hs-item">
+      <div class="hs-accent"></div>
+      <div>
+        <div class="hs-num" id="discord-online" style="display:flex;align-items:center;gap:8px">
+          <span id="discord-count">—</span>
+          <span id="discord-dot" style="width:8px;height:8px;border-radius:50%;background:#23a55a;flex-shrink:0;display:none;animation:pulse 2s ease-in-out infinite"></span>
+        </div>
+        <div class="hs-lbl">Discord Online</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    
+  </div>
+</div>
+
+<!-- ════ Team/clubS ════ -->
+<section id="Team/clubs">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-tag">Fighter Clubs</div>
+      <h2 class="sec-title">Semua <span class="r">Tim</span></h2>
+    </div>
+    <div class="Team/club-table reveal">
+      <div class="ft-row">
+        <div class="ft-num">01</div>
+        <div class="ft-id"><div class="ft-name">none</div><div class="ft-alias">none</div></div>
+        <div class="ft-desc">none</div>
+        <div class="ft-stat"><div><span class="fts-val">0</span><span class="fts-lbl">Total KO</span></div><div><span class="fts-val">0</span><span class="fts-lbl">Match Wins</span></div></div>
+        <div class="ft-badge"><span class="badge b-def">none</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FIGHTERS ════ -->
+<section id="fighters">
+  <div class="wrap">
+    <div class="fighters-header reveal">
+      <div>
+        <div class="sec-tag">Top Players</div>
+        <h2 class="sec-title">Fighter <span class="r">Roster</span></h2>
+      </div>
+      <a href="#join" class="btn btn-o">Daftar Sekarang</a>
+    </div>
+    <div class="fighters-grid">
+      <div class="fc rank-gold reveal">
+        <div class="fc-rank-bg">1</div>
+        <div class="fc-rank-badge">🥇 Rank #1</div>
+        <div class="fc-avatar">🦁</div>
+        <div class="fc-name">RAMZ</div>
+        <div class="fc-Team/club">Team Cobra · Elbow</div>
+        <div class="fc-kd">4.8</div>
+        <div class="fc-kd-lbl">KO Rate</div>
+        <div class="fc-bars">
+          <div class="bar-row"><span class="b-lbl">ELB</span><div class="b-track"><div class="b-fill gold-fill" style="width:96%"></div></div><span class="b-val">96</span></div>
+          <div class="bar-row"><span class="b-lbl">KNEE</span><div class="b-track"><div class="b-fill red-fill" style="width:82%"></div></div><span class="b-val">82</span></div>
+          <div class="bar-row"><span class="b-lbl">PWR</span><div class="b-track"><div class="b-fill grn-fill" style="width:90%"></div></div><span class="b-val">90</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ EVENTS ════ -->
+<section id="events">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-tag">Jadwal & Event</div>
+      
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="ev-feat reveal">
+      <div class="ev-datebox"><div class="ev-day">14</div><div class="ev-mon">Jun 2026</div></div>
+      <div class="ev-body">
+        <div class="ev-type"><span class="live-dot"></span>Main Event · Featured</div>
+        <div class="ev-title">Fight Night Season 2</div>
+        <div class="ev-desc">Turnamen bergengsi komunitas SSFC State Side Fighter Championship. 16 fighter terbaik bersaing untuk gelar Champion Season 2.</div>
+      </div>
+      <div class="ev-meta">
+        <div class="ev-mi"><div class="ev-ml">Lokasi</div><div class="ev-mv">State Side RP</div></div>
+        <div class="ev-mi"><div class="ev-ml">Waktu</div><div class="ev-mv">20:00 WIB</div></div>
+        <div class="ev-mi"><div class="ev-ml">Format</div><div class="ev-mv">1 vs 1 KO Match</div></div>
+        <div class="ev-mi"><div class="ev-ml">Status</div><div class="ev-mv" style="color:#00e870">Registrasi Open</div></div>
+      </div>
+    </div>
+    <div class="ev-grid">
+    </div>
+  </div>
+</section>
+
+<!-- ════ BRACKET ════ -->
+<section id="bracket">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-tag">Tournament Bracket</div>
+      <h2 class="sec-title">Fight <span class="r">Bracket</span></h2>
+    </div>
+    <div class="bracket-tabs" id="bracket-tabs"></div>
+    <div id="bracket-content">
+      <div class="bracket-empty">Belum ada bracket tersedia.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ HALL OF FAME ════ -->
+<section id="halloffame">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-tag">Legend Board</div>
+      <h2 class="sec-title">Hall of <span class="r">Fame</span></h2>
+    </div>
+    <div class="hof-grid">
+      <div class="hof-card reveal">
+        <div class="hof-ic">👑</div>
+        <div class="hof-cat">Top KO Artist</div>
+        <div class="hof-name">Ramz</div>
+        <div class="hof-fac">Team Cobra · Elbow</div>
+        <div class="hof-val" style="color:var(--gold)">4.8</div>
+        <div class="hof-vl">KO Rate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ RULES ════ -->
+<section id="rules">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-tag">Peraturan Komunitas</div>
+      <h2 class="sec-title">Combat <span class="r">Rules</span></h2>
+    </div>
+    <div class="rules-grid">
+      <div class="rule-card reveal">
+        <div class="rule-numbg">01</div>
+        <div class="rule-badge rb-c">Critical</div>
+        <div class="rule-title">No Metagaming</div>
+        <div class="rule-desc">Informasi yang didapat dari luar game tidak boleh digunakan di dalam roleplay. Pelanggaran pertama = peringatan. Kedua = ban.</div>
+      </div>
+      <div class="rule-card reveal">
+        <div class="rule-numbg">02</div>
+        <div class="rule-badge rb-c">Critical</div>
+        <div class="rule-title">Respect Sesama Fighter</div>
+        <div class="rule-desc">Di luar ring wajib saling respect. Toxic di Discord atau group chat bisa berakibat ban permanen dari komunitas.</div>
+      </div>
+      <div class="rule-card reveal">
+        <div class="rule-numbg">03</div>
+        <div class="rule-badge rb-i">Important</div>
+        <div class="rule-title">Challenge Match 24 Jam</div>
+        <div class="rule-desc">Setiap challenge match harus diajukan minimal 24 jam sebelumnya via channel #match-request di Discord.</div>
+      </div>
+      <div class="rule-card reveal">
+        <div class="rule-numbg">04</div>
+        <div class="rule-badge rb-i">Important</div>
+        <div class="rule-title">Aktif Minimal 3x / Minggu</div>
+        <div class="rule-desc">Member Team/club wajib aktif minimal 3 kali seminggu. Tidak aktif tanpa izin 2 minggu = otomatis dikeluarkan dari Team/club.</div>
+      </div>
+      <div class="rule-card reveal">
+        <div class="rule-numbg">05</div>
+        <div class="rule-badge rb-c">Critical</div>
+        <div class="rule-title">Fair Play — No Exploit</div>
+        <div class="rule-desc">Dilarang menggunakan exploit bug atau celah server untuk keuntungan dalam war. Temukan bug wajib dilaporkan ke admin.</div>
+      </div>
+      <div class="rule-card reveal">
+        <div class="rule-numbg">06</div>
+        <div class="rule-badge rb-n">Info</div>
+        <div class="rule-title">Ikuti Arahan Leader</div>
+        <div class="rule-desc">Selama pertandingan berlangsung, semua member wajib mengikuti instruksi match captain. Insubordinasi bisa berakibat demosi rank.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ CHANGELOG ════ -->
+<section id="changelog">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-tag">Update History</div>
+      <h2 class="sec-title">Server <span class="r">Changelog</span></h2>
+    </div>
+    <div class="clog-wrap">
+      <div class="clog-item reveal">
+        <div class="cl-left"><div class="cl-dot"></div><div class="cl-ver">v2.0</div><div class="cl-date">7 Jun 2026</div></div>
+        <div class="cl-right">
+          <div class="cl-title">Website Baru + Fighter Club</div>
+          <div class="cl-desc">Website komunitas dirombak total menjadi fighter club. Fighter League Season 2 resmi dibuka.</div>
+          <div class="cl-tags"><span class="cl-tag">New Website</span><span class="cl-tag">Fighter Club</span><span class="cl-tag">Team</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ JOIN ════ -->
+<section id="join">
+  <div class="wrap">
+    <div class="join-box reveal">
+      <span class="join-tag">Recruitment Open</span>
+      <div class="join-title">Siap Jadi Fighter<br><span>?</span></div>
+      <p class="join-desc">Bergabunglah dengan komunitas fighter terbesar di State Side . Pilih Team/club dan mulai dominasi bersama kami.</p>
+      <div class="join-btns">
+        <a href="https://discord.gg/AZ84bBsyKK" target="_blank" rel="noopener" class="btn btn-r">Join Discord</a>
+        <a href="#Team/clubs" class="btn btn-o">Lihat Tim</a>
+      </div>
+      <div class="join-cards">
+        <a href="https://discord.gg/AZ84bBsyKK" target="_blank" rel="noopener" class="j-card">
+          <span class="jc-ic">💬</span>
+          <div class="jc-name">Discord</div>
+          <div class="jc-sub"><span id="discord-online-join">—</span> Members Online</div>
+        </a>
+        <div class="j-card">
+          <span class="jc-ic">🎮</span>
+          <div class="jc-name">State Side RP</div>
+          <div class="jc-sub">SA-MP Server</div>
+        </div>
+        <div class="j-card">
+          <span class="jc-ic">📋</span>
+          <div class="jc-name">Recruitment</div>
+          <div class="jc-sub">Open Semua Team/CLlub</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="ft-logo">STATE SIDE <span>FIGHTER CHAMPIONSHIP</span></span>
+  <span class="ft-sub">Community v2.0 — State Side Fighter Championship </span>
+  <div class="ft-copy">© 2026 State Side Fighter Championship untuk para fighter.</div>
+</footer>
+
+<script>
+// Website publik — tidak perlu login untuk melihat
+
+// LOADER
+window.addEventListener('load',()=>{
+  setTimeout(()=>document.getElementById('loader').classList.add('hide'),2000);
+});
+
+// NAV SCROLL
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>40);
+});
+
+// MOBILE MENU
+const ham=document.getElementById('ham');
+const mob=document.getElementById('mobmenu');
+ham.addEventListener('click',function(){
+  this.classList.toggle('open');
+  const isOpen=this.classList.contains('open');
+  mob.style.display=isOpen?'flex':'none';
+  setTimeout(()=>mob.classList.toggle('open',isOpen),10);
+});
+function closemob(){
+  ham.classList.remove('open');
+  mob.classList.remove('open');
+  setTimeout(()=>mob.style.display='none',300);
+}
+
+// REVEAL ON SCROLL
+const revEls=document.querySelectorAll('.reveal,.reveal-l');
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');ro.unobserve(e.target)}});
+},{threshold:0.1});
+revEls.forEach(el=>ro.observe(el));
+
+// COUNT UP
+function countUp(el,target,duration){
+  const start=performance.now();
+  const update=now=>{
+    const progress=Math.min((now-start)/duration,1);
+    const val=Math.floor(progress*target);
+    el.textContent=val+(target>100?'+':'');
+    if(progress<1)requestAnimationFrame(update);
+  };
+  requestAnimationFrame(update);
+}
+const cntEls=document.querySelectorAll('[data-target]');
+const cro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      countUp(e.target,parseInt(e.target.dataset.target),1600);
+      cro.unobserve(e.target);
+    }
+  });
+},{threshold:0.5});
+cntEls.forEach(el=>cro.observe(el));
+
+// Discord member count — diambil dari data admin panel
+(function(){
+  // Count akan diisi oleh applyData() dari ssfc-data.json
+  // Bisa diset manual di admin panel → Hero → Discord Members
+})();
+
+// SKILL BAR ANIMATE - run after render
+function initBars(){
+  const bars=document.querySelectorAll('.b-fill');
+  const bro=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const w=e.target.getAttribute('data-w')||e.target.style.width;
+        e.target.style.width='0';
+        setTimeout(()=>e.target.style.width=w,100);
+        bro.unobserve(e.target);
+      }
+    });
+  },{threshold:0.3});
+  bars.forEach(b=>{
+    const w=b.style.width;
+    b.setAttribute('data-w',w);
+    b.style.width='0';
+    bro.observe(b);
+  });
+}
+initBars();
+
+// ═══════════════════════════════════════
+// DYNAMIC DATA — fetch dari GitHub raw (auto-sync dengan admin panel)
+// ═══════════════════════════════════════
+(function renderDynamicData(){
+  const STORAGE_KEY='ssfc-admin-data';
+  const GITHUB_RAW='https://raw.githubusercontent.com/reyeuy75/ssfc/main/ssfc-data.json';
+
+
+
+  // Fetch dari GitHub raw — selalu dapat data terbaru
+  fetch(GITHUB_RAW + '?t=' + Date.now())
+    .then(r=>{ if(!r.ok) throw new Error('github '+r.status); return r.json(); })
+    .then(data=>{
+      try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }catch(e){}
+      applyData(data);
+    })
+    .catch(()=>{
+      // Fallback: localStorage cache
+      let cached=null;
+      try{ cached=JSON.parse(localStorage.getItem(STORAGE_KEY)); }catch(e){}
+      applyData(cached);
+    });
+
+})();
+</script>
+</body>
+</html>
