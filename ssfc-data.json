@@ -214,34 +214,7 @@
       "isLive": true
     }
   ],
-  "brackets": [
-    {
-      "name": "Night Fight Season 2",
-      "participants": [
-        {
-          "slot": 1,
-          "seed": 1,
-          "name": "Ramz",
-          "team": "TC"
-        },
-        {
-          "slot": 2,
-          "seed": 2,
-          "name": "Res",
-          "team": "TC"
-        }
-      ],
-      "matches": [
-        {
-          "matchNum": 1,
-          "round": 1,
-          "p1Slot": 1,
-          "p2Slot": 2,
-          "winner": null
-        }
-      ]
-    }
-  ],
+  "brackets": [],
   "halloffame": [],
   "rules": [],
   "changelog": [
@@ -388,5 +361,5 @@
     }
   ],
   "matches": [],
-  "updatedAt": "2026-06-15T17:57:21.213Z"
+  "updatedAt": "2026-06-15T17:58:12.882Z"
 }
