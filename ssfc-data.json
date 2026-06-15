@@ -273,7 +273,7 @@
           "round": 1,
           "p1Slot": 1,
           "p2Slot": 2,
-          "winner": null
+          "winner": 1
         },
         {
           "matchNum": 2,
@@ -445,5 +445,5 @@
     }
   ],
   "matches": [],
-  "updatedAt": "2026-06-15T18:05:24.385Z"
+  "updatedAt": "2026-06-15T18:06:48.554Z"
 }
