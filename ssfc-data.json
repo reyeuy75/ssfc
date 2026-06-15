@@ -22,7 +22,24 @@
       "badgeLabel": "New"
     }
   ],
-  "fighters": [],
+  "fighters": [
+    {
+      "id": null,
+      "rank": null,
+      "rankClass": "",
+      "rankLabel": "★ Rank #-Infinity",
+      "emoji": "⚡",
+      "name": "FIGHTER",
+      "Team/club": "Team · Style",
+      "koRate": 1,
+      "stat1Label": "ATK",
+      "stat1": 50,
+      "stat2Label": "DEF",
+      "stat2": 50,
+      "stat3Label": "PWR",
+      "stat3": 50
+    }
+  ],
   "events": [
     {
       "id": 1,
