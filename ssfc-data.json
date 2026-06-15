@@ -21,6 +21,15 @@
       "wins": 0,
       "badge": "b-new",
       "badgeLabel": "New"
+    },
+    {
+      "name": "Golden Camp",
+      "alias": "GC",
+      "desc": "Golden Camp ialah camp yang menggunakan rulles campuran seperti mma",
+      "ko": 0,
+      "wins": 0,
+      "badge": "b-new",
+      "badgeLabel": "New"
     }
   ],
   "fighters": [
@@ -391,5 +400,5 @@
     }
   ],
   "matches": [],
-  "updatedAt": "2026-06-15T17:41:11.288Z"
+  "updatedAt": "2026-06-15T17:42:46.897Z"
 }
