@@ -103,6 +103,21 @@
       "stat2": 50,
       "stat3Label": "PWR",
       "stat3": 50
+    },
+    {
+      "name": "Axton Barayev",
+      "rank": 0,
+      "rankLabel": "Rank #0",
+      "rankClass": "",
+      "emoji": "🦿",
+      "Team/club": "Xenon Brotherhood • Grabkick",
+      "koRate": 0,
+      "stat1Label": "KNEE",
+      "stat1": 50,
+      "stat2Label": "ACC",
+      "stat2": 50,
+      "stat3Label": "PWR",
+      "stat3": 50
     }
   ],
   "events": [
@@ -351,5 +366,5 @@
     }
   ],
   "matches": [],
-  "updatedAt": "2026-06-15T17:34:28.106Z"
+  "updatedAt": "2026-06-15T17:35:57.141Z"
 }
