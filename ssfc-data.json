@@ -24,22 +24,6 @@
   ],
   "fighters": [
     {
-      "id": 3,
-      "rank": 3,
-      "rankClass": "rank-bro",
-      "rankLabel": "🥉 Rank #3",
-      "emoji": "🐉",
-      "name": "TRIAD_Z",
-      "Team/club": "Dragon Fist · Kung Fu",
-      "koRate": 3.9,
-      "stat1Label": "KFU",
-      "stat1": 84,
-      "stat2Label": "SPD",
-      "stat2": 88,
-      "stat3Label": "PWR",
-      "stat3": 78
-    },
-    {
       "id": 4,
       "rank": 4,
       "rankClass": "",
