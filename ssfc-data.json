@@ -243,15 +243,6 @@
   ],
   "halloffame": [
     {
-      "id": 3,
-      "emoji": "⚔️",
-      "category": "Best Striker",
-      "name": "TRIAD_Z",
-      "Team/club": "Dragon Fist · Kung Fu",
-      "value": "18",
-      "valueLabel": "Palm Strike KO"
-    },
-    {
       "id": 4,
       "emoji": "🦵",
       "category": "Best Knee Strike",
