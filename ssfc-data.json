@@ -1,6 +1,8 @@
 {
   "hero": {},
-  "ticker": [],
+  "ticker": [
+    "Night Fight Season 2"
+  ],
   "Team/clubs": [],
   "fighters": [],
   "events": [
@@ -249,5 +251,5 @@
     }
   ],
   "matches": [],
-  "updatedAt": "2026-06-15T16:46:40.126Z"
+  "updatedAt": "2026-06-15T16:48:10.118Z"
 }
