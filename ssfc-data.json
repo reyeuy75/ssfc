@@ -12,7 +12,17 @@
     "Open Registration",
     "Selamat Beraktivitas"
   ],
-  "Team/clubs": [],
+  "Team/clubs": [
+    {
+      "name": "The Warriors",
+      "alias": "TW",
+      "desc": "The Warriors yaitu Fighting Club yang mengutamakan kerja sama dan solidaritas",
+      "ko": 0,
+      "wins": 0,
+      "badge": "b-new",
+      "badgeLabel": "New"
+    }
+  ],
   "fighters": [
     {
       "name": "Lores Marcus",
@@ -381,5 +391,5 @@
     }
   ],
   "matches": [],
-  "updatedAt": "2026-06-15T17:37:47.906Z"
+  "updatedAt": "2026-06-15T17:41:11.288Z"
 }
