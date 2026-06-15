@@ -104,7 +104,12 @@
       ]
     }
   ],
-  "join": {},
+  "join": {
+    "title": "Bersiap Jadi Fighter?",
+    "desc": "deskripsi:Bergabunglah dengan komunitas fighter terbesar di State Side RP SAMP. Pilih Team/club dan mulai dominasi bersama kami",
+    "recruitmentStatus": "Open Semua Team",
+    "discordUrl": "https://discord.gg/mPzXFEcbeq"
+  },
   "clubs": [
     {
       "tag": "CK",
@@ -230,5 +235,5 @@
     }
   ],
   "matches": [],
-  "updatedAt": "2026-06-15T15:40:32.273Z"
+  "updatedAt": "2026-06-15T15:44:11.273Z"
 }
