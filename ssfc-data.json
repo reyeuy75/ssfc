@@ -26,16 +26,6 @@
       "badgeLabel": "Top Team"
     },
     {
-      "id": 2,
-      "name": "Iron Fist",
-      "alias": "Kickboxing · Power Striker",
-      "desc": "Rival terkuat Team Cobra. Kombinasi pukulan keras dan tendangan tinggi khas Kickboxing yang sulit dibaca. Knockout artist sejati.",
-      "ko": 98,
-      "wins": 36,
-      "badge": "b-def",
-      "badgeLabel": "Rival"
-    },
-    {
       "id": 3,
       "name": "Street Tigers",
       "alias": "Grab Kick · Grapple Striker",
