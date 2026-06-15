@@ -4,7 +4,7 @@
     "fightStyle": 6,
     "totalMatches": 0,
     "subTitle": "Komunitas fighter terkuat di State Side RP. Bergabung, bertarung, dan dominasi bersama kami.",
-    "discordUrl": "https://discord.gg/AZ84bBsyKK",
+    "discordUrl": "https://discord.gg/AZ84bBsyK",
     "discordOnline": 0
   },
   "ticker": [
@@ -67,23 +67,119 @@
       "status": "open",
       "createdAt": "1 Jul 2026",
       "participants": [
-        { "slot": 1, "name": "", "team": "", "seed": 1 },
-        { "slot": 2, "name": "", "team": "", "seed": 2 },
-        { "slot": 3, "name": "", "team": "", "seed": 3 },
-        { "slot": 4, "name": "", "team": "", "seed": 4 },
-        { "slot": 5, "name": "", "team": "", "seed": 5 },
-        { "slot": 6, "name": "", "team": "", "seed": 6 },
-        { "slot": 7, "name": "", "team": "", "seed": 7 },
-        { "slot": 8, "name": "", "team": "", "seed": 8 }
+        {
+          "slot": 1,
+          "name": "",
+          "team": "",
+          "seed": 1
+        },
+        {
+          "slot": 2,
+          "name": "",
+          "team": "",
+          "seed": 2
+        },
+        {
+          "slot": 3,
+          "name": "",
+          "team": "",
+          "seed": 3
+        },
+        {
+          "slot": 4,
+          "name": "",
+          "team": "",
+          "seed": 4
+        },
+        {
+          "slot": 5,
+          "name": "",
+          "team": "",
+          "seed": 5
+        },
+        {
+          "slot": 6,
+          "name": "",
+          "team": "",
+          "seed": 6
+        },
+        {
+          "slot": 7,
+          "name": "",
+          "team": "",
+          "seed": 7
+        },
+        {
+          "slot": 8,
+          "name": "",
+          "team": "",
+          "seed": 8
+        }
       ],
       "matches": [
-        { "id": "r1m1", "round": 1, "matchNum": 1, "p1Slot": 1, "p2Slot": 8, "winner": null, "score": "" },
-        { "id": "r1m2", "round": 1, "matchNum": 2, "p1Slot": 4, "p2Slot": 5, "winner": null, "score": "" },
-        { "id": "r1m3", "round": 1, "matchNum": 3, "p1Slot": 3, "p2Slot": 6, "winner": null, "score": "" },
-        { "id": "r1m4", "round": 1, "matchNum": 4, "p1Slot": 2, "p2Slot": 7, "winner": null, "score": "" },
-        { "id": "r2m1", "round": 2, "matchNum": 1, "p1Slot": null, "p2Slot": null, "winner": null, "score": "" },
-        { "id": "r2m2", "round": 2, "matchNum": 2, "p1Slot": null, "p2Slot": null, "winner": null, "score": "" },
-        { "id": "r3m1", "round": 3, "matchNum": 1, "p1Slot": null, "p2Slot": null, "winner": null, "score": "" }
+        {
+          "id": "r1m1",
+          "round": 1,
+          "matchNum": 1,
+          "p1Slot": 1,
+          "p2Slot": 8,
+          "winner": null,
+          "score": ""
+        },
+        {
+          "id": "r1m2",
+          "round": 1,
+          "matchNum": 2,
+          "p1Slot": 4,
+          "p2Slot": 5,
+          "winner": null,
+          "score": ""
+        },
+        {
+          "id": "r1m3",
+          "round": 1,
+          "matchNum": 3,
+          "p1Slot": 3,
+          "p2Slot": 6,
+          "winner": null,
+          "score": ""
+        },
+        {
+          "id": "r1m4",
+          "round": 1,
+          "matchNum": 4,
+          "p1Slot": 2,
+          "p2Slot": 7,
+          "winner": null,
+          "score": ""
+        },
+        {
+          "id": "r2m1",
+          "round": 2,
+          "matchNum": 1,
+          "p1Slot": null,
+          "p2Slot": null,
+          "winner": null,
+          "score": ""
+        },
+        {
+          "id": "r2m2",
+          "round": 2,
+          "matchNum": 2,
+          "p1Slot": null,
+          "p2Slot": null,
+          "winner": null,
+          "score": ""
+        },
+        {
+          "id": "r3m1",
+          "round": 3,
+          "matchNum": 1,
+          "p1Slot": null,
+          "p2Slot": null,
+          "winner": null,
+          "score": ""
+        }
       ]
     }
   ],
@@ -105,7 +201,9 @@
       "date": "1 Jul 2026",
       "title": "SSFC Resmi Dibuka",
       "desc": "State Side Fighter Championship resmi diluncurkan.",
-      "tags": ["Launch"]
+      "tags": [
+        "Launch"
+      ]
     }
   ],
   "join": {
