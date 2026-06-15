@@ -239,15 +239,6 @@
   ],
   "halloffame": [
     {
-      "id": 2,
-      "emoji": "🏆",
-      "category": "Most Match Wins",
-      "name": "INFERNO",
-      "Team/club": "Rapid Strike · Boxing",
-      "value": "32",
-      "valueLabel": "Match Wins"
-    },
-    {
       "id": 4,
       "emoji": "🦵",
       "category": "Best Knee Strike",
