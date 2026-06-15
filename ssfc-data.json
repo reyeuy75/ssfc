@@ -214,7 +214,129 @@
       "isLive": true
     }
   ],
-  "brackets": [],
+  "brackets": [
+    {
+      "name": "Night Fight Season 2",
+      "participants": [
+        {
+          "slot": 1,
+          "seed": 1,
+          "name": "Nathan Jonshon",
+          "team": "CK"
+        },
+        {
+          "slot": 2,
+          "seed": 2,
+          "name": "Lores Marcus",
+          "team": "TW"
+        },
+        {
+          "slot": 3,
+          "seed": 3,
+          "name": "TDB",
+          "team": ""
+        },
+        {
+          "slot": 4,
+          "seed": 4,
+          "name": "Meech Parker",
+          "team": "AFC"
+        },
+        {
+          "slot": 5,
+          "seed": 5,
+          "name": "Ronald Megumi",
+          "team": "GC"
+        },
+        {
+          "slot": 6,
+          "seed": 6,
+          "name": "TDB",
+          "team": ""
+        },
+        {
+          "slot": 7,
+          "seed": 7,
+          "name": "Manuel Reyzz",
+          "team": "MKC"
+        },
+        {
+          "slot": 8,
+          "seed": 8,
+          "name": "Celvin Valerica",
+          "team": "HVFC"
+        },
+        {
+          "slot": 9,
+          "seed": 9,
+          "name": "TDB",
+          "team": ""
+        },
+        {
+          "slot": 10,
+          "seed": 10,
+          "name": "Javyen Maurenna",
+          "team": "WFC"
+        },
+        {
+          "slot": 11,
+          "seed": 11,
+          "name": "Axton Barayev",
+          "team": "XB"
+        },
+        {
+          "slot": 12,
+          "seed": 12,
+          "name": "TDB",
+          "team": ""
+        }
+      ],
+      "matches": [
+        {
+          "matchNum": 1,
+          "round": 1,
+          "p1Slot": 1,
+          "p2Slot": 2,
+          "winner": null
+        },
+        {
+          "matchNum": 2,
+          "round": 1,
+          "p1Slot": 3,
+          "p2Slot": 4,
+          "winner": null
+        },
+        {
+          "matchNum": 3,
+          "round": 1,
+          "p1Slot": 5,
+          "p2Slot": 6,
+          "winner": null
+        },
+        {
+          "matchNum": 4,
+          "round": 1,
+          "p1Slot": 7,
+          "p2Slot": 8,
+          "winner": null
+        },
+        {
+          "matchNum": 5,
+          "round": 1,
+          "p1Slot": 9,
+          "p2Slot": 10,
+          "winner": null
+        },
+        {
+          "matchNum": 6,
+          "round": 1,
+          "p1Slot": 11,
+          "p2Slot": 12,
+          "winner": null
+        }
+      ]
+    }
+  ],
   "halloffame": [],
   "rules": [],
   "changelog": [
@@ -361,5 +483,5 @@
     }
   ],
   "matches": [],
-  "updatedAt": "2026-06-15T18:02:21.911Z"
+  "updatedAt": "2026-06-15T18:03:48.630Z"
 }
