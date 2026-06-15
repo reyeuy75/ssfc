@@ -24,16 +24,6 @@
       "wins": 48,
       "badge": "b-top",
       "badgeLabel": "Top Team"
-    },
-    {
-      "id": 6,
-      "name": "Ground Zero",
-      "alias": "Elbow · Close Range Destroyer",
-      "desc": "Pendatang baru yang langsung buat kagum. Spesialis elbow strike jarak dekat — sekali masuk range, game over.",
-      "ko": 110,
-      "wins": 40,
-      "badge": "b-new",
-      "badgeLabel": "New Force"
     }
   ],
   "fighters": [
