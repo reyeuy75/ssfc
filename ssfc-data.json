@@ -14,7 +14,18 @@
     "Kick Boxing Open — 14 Jun 2026 · Daftar Sekarang",
     "Community v3.0 — Fighter club Live"
   ],
-  "Team/clubs": [],
+  "Team/clubs": [
+    {
+      "id": null,
+      "name": "New Team",
+      "alias": "Style · Role",
+      "desc": "Deskripsi tim baru.",
+      "ko": 0,
+      "wins": 0,
+      "badge": "b-def",
+      "badgeLabel": "New"
+    }
+  ],
   "fighters": [
     {
       "id": 1,
