@@ -58,6 +58,21 @@
       "stat2": 50,
       "stat3Label": "PWR",
       "stat3": 50
+    },
+    {
+      "name": "Meech Parker",
+      "rank": 0,
+      "rankLabel": "Rank #0",
+      "rankClass": "",
+      "emoji": "🦿",
+      "Team/club": "AFC • Kneehad",
+      "koRate": 0,
+      "stat1Label": "KNEE",
+      "stat1": 50,
+      "stat2Label": "AGR",
+      "stat2": 50,
+      "stat3Label": "PWR",
+      "stat3": 50
     }
   ],
   "events": [
@@ -306,5 +321,5 @@
     }
   ],
   "matches": [],
-  "updatedAt": "2026-06-15T17:19:06.919Z"
+  "updatedAt": "2026-06-15T17:20:49.988Z"
 }
