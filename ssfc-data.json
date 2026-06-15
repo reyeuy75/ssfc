@@ -46,19 +46,6 @@
   ],
   "events": [
     {
-      "id": 2,
-      "day": "21",
-      "month": "Jun 2026",
-      "type": "Team Event",
-      "isLive": false,
-      "title": "Cobra vs Ground Zero",
-      "desc": "Clash antar dua tim terkuat season ini.",
-      "location": "Arena Alpha",
-      "time": "19:00 WIB",
-      "format": "3 vs 3 Team Match",
-      "status": "soon"
-    },
-    {
       "id": 3,
       "day": "28",
       "month": "Jun 2026",
