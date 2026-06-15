@@ -7,7 +7,11 @@
     "discordUrl": "https://discord.gg/rsjda9ey5U",
     "discordOnline": 0
   },
-  "ticker": [],
+  "ticker": [
+    "⬤ State Side Fighter Championship — Season 3 Dibuka",
+    "Daftar sekarang dan bergabung bersama kami",
+    "Recruitment semua Tim OPEN"
+  ],
   "Team/clubs": [
     {
       "id": 1,
@@ -205,7 +209,7 @@
   "join": {
     "title": "Siap Jadi Fighter?",
     "desc": "Bergabunglah dengan komunitas fighter terbesar di State Side RP. Pilih Tim dan mulai dominasi bersama kami.",
-    "discordUrl": "https://discord.gg/rsjda9ey5U",
+    "discordUrl": "https://discord.gg/AZ84bBsyKK",
     "recruitmentStatus": "Open Semua Tim"
   }
 }
