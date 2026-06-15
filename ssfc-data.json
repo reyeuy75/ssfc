@@ -42,10 +42,10 @@
     {
       "id": 1,
       "rank": 1,
-      "rankClass": "",
+      "rankClass": "rank-gold",
       "rankLabel": "★ Rank #1",
       "emoji": "⚡",
-      "name": "FIGHTER",
+      "name": "Tes",
       "Team/club": "Team · Style",
       "koRate": 1,
       "stat1Label": "ATK",
