@@ -1,18 +1,14 @@
 {
   "hero": {
-    "totalFighter": 342,
+    "totalFighter": 0,
     "fightStyle": 6,
-    "totalMatches": 78,
-    "subTitle": "Komunitas fighter terkuat di State Side RP SAMP. Bergabung, bertarung, dan dominasi bersama kami.",
-    "discordUrl": "https://discord.gg/h4HgvC6jT",
+    "totalMatches": 0,
+    "subTitle": "Komunitas fighter terkuat di State Side. Bergabung, bertarung, dan dominasi bersama kami.",
+    "discordUrl": "https://discord.gg/rsjda9ey5U",
     "discordOnline": 182
   },
   "ticker": [
-    "⬤ LIVE — xPANDUx vs BLACKOUT · Semi Final Fight Night S3",
-    "xPANDUx KO Rate 4.8 — Record Baru Komunitas",
-    "Fight Night Season 3 — Registrasi Dibuka",
-    "Kick Boxing Open — 14 Jun 2026 · Daftar Sekarang",
-    "Community v3.0 — Fighter club Live"
+    "⬤ LIVE —  Perdana Fight Night S2"
   ],
   "Team/clubs": [
     {
@@ -61,92 +57,54 @@
   ],
   "changelog": [
     {
-      "id": 1,
-      "ver": "v3.0",
-      "date": "7 Jun 2026",
-      "title": "Website Baru + Fighter club",
-      "desc": "Website komunitas dirombak total menjadi fighter club dengan inspirasi Byon Combat. Fighter League Season 3 resmi dibuka.",
-      "tags": [
-        "New Website",
-        "Fighter club",
-        "FWL Season 3"
-      ]
-    },
-    {
-      "id": 2,
-      "ver": "v2.5",
-      "date": "1 Mei 2026",
-      "title": "2 Tim Baru + Hall of Fame",
-      "desc": "Dragon Fist · Kung Fu dan Iron Fist · Kickboxing resmi bergabung. Hall of Fame pertama diluncurkan. Sistem ranking fighter diperbarui.",
-      "tags": [
-        "New Team/clubs",
-        "Hall of Fame",
-        "Ranking System"
-      ]
-    },
-    {
-      "id": 3,
+      "id": null,
       "ver": "v2.0",
-      "date": "15 Mar 2026",
-      "title": "War System Revamp",
-      "desc": "Sistem challenge match direvisi total. Match cooldown antar tim diperkenalkan. Event Fight Night pertama sukses digelar.",
+      "date": "1 Jul 2026",
+      "title": "Update Baru",
+      "desc": "Deskripsi update.",
       "tags": [
-        "War System",
-        "Fight Night",
-        "Balance"
-      ]
-    },
-    {
-      "id": 4,
-      "ver": "v1.0",
-      "date": "1 Jan 2026",
-      "title": "State Side Fighter Championship Berdiri",
-      "desc": "Komunitas resmi State Side Fighter Championship dibentuk dengan 4 tim pendiri: Team Cobra, Iron Fist, Street Tigers, dan Dragon Fist. 60 fighter bergabung di hari pertama.",
-      "tags": [
-        "Launch",
-        "4 Team/clubs",
-        "60 Fighters"
+        "Update"
       ]
     }
   ],
   "join": {
     "title": "Siap Jadi Fighter?",
-    "desc": "Bergabunglah dengan komunitas fighter terbesar di State Side RP SAMP. Pilih Team/club dan mulai dominasi bersama kami.",
-    "discordUrl": "https://discord.gg/AZ84bBsyKK",
+    "desc": "Bergabunglah dengan komunitas fighter terbesar di State Side. Pilih Team/club dan mulai dominasi bersama kami.",
+    "discordUrl": "https://discord.gg/rsjda9ey5U",
     "recruitmentStatus": "Open Semua Team/club"
   },
   "brackets": [
     {
       "id": 1,
-      "name": "Fight Night Season 3",
-      "eventId": 1,
+      "name": "Bracket Baru",
+      "eventId": null,
       "format": "single-elim",
       "size": 8,
       "status": "open",
-      "createdAt": "7 Jun 2026",
+      "createdAt": "15 Jun 2026",
       "participants": [
         {
           "slot": 1,
-          "name": "xPANDUx",
-          "team": "Team Cobra",
+          "name": "",
+          "team": "",
           "seed": 1
         },
         {
           "slot": 2,
-          "name": "BLACKOUT",
-          "team": "Iron Fist",
+          "name": "",
+          "team": "",
           "seed": 2
         },
         {
           "slot": 3,
-          "name": "TRIAD_Z",
-          "team": "Dragon Fist",
+          "name": "",
+          "team": "",
           "seed": 3
         },
         {
           "slot": 4,
-          "name": "INFERNO",
-          "team": "Rapid Strike",
+          "name": "",
+          "team": "",
           "seed": 4
         },
         {
@@ -188,8 +146,8 @@
           "id": "r1m2",
           "round": 1,
           "matchNum": 2,
-          "p1Slot": 4,
-          "p2Slot": 5,
+          "p1Slot": 2,
+          "p2Slot": 7,
           "winner": null,
           "score": ""
         },
@@ -206,8 +164,8 @@
           "id": "r1m4",
           "round": 1,
           "matchNum": 4,
-          "p1Slot": 2,
-          "p2Slot": 7,
+          "p1Slot": 4,
+          "p2Slot": 5,
           "winner": null,
           "score": ""
         },
