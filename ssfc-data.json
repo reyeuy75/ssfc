@@ -44,22 +44,6 @@
       "stat3": 90
     },
     {
-      "id": 2,
-      "rank": 2,
-      "rankClass": "rank-sil",
-      "rankLabel": "🥈 Rank #2",
-      "emoji": "🐺",
-      "name": "BLACKOUT",
-      "Team/club": "Iron Fist · Kickboxing",
-      "koRate": 4.2,
-      "stat1Label": "KICK",
-      "stat1": 88,
-      "stat2Label": "KNEE",
-      "stat2": 79,
-      "stat3Label": "PWR",
-      "stat3": 85
-    },
-    {
       "id": 3,
       "rank": 3,
       "rankClass": "rank-bro",
