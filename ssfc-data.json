@@ -88,6 +88,21 @@
       "stat2": 50,
       "stat3Label": "PWR",
       "stat3": 50
+    },
+    {
+      "name": "Javyen Maurenna",
+      "rank": 0,
+      "rankLabel": "Rank #0",
+      "rankClass": "",
+      "emoji": "🦿",
+      "Team/club": "WFC • Grabkick",
+      "koRate": 0,
+      "stat1Label": "KNEE",
+      "stat1": 50,
+      "stat2Label": "ACC",
+      "stat2": 50,
+      "stat3Label": "PWR",
+      "stat3": 50
     }
   ],
   "events": [
@@ -336,5 +351,5 @@
     }
   ],
   "matches": [],
-  "updatedAt": "2026-06-15T17:23:15.895Z"
+  "updatedAt": "2026-06-15T17:34:28.106Z"
 }
