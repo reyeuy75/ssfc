@@ -44,7 +44,21 @@
       "stat3": 50
     }
   ],
-  "events": [],
+  "events": [
+    {
+      "id": null,
+      "day": "1",
+      "month": "Jul 2026",
+      "type": "Event",
+      "isLive": false,
+      "title": "New Event",
+      "desc": "Deskripsi event.",
+      "location": "State Side RP",
+      "time": "20:00 WIB",
+      "format": "1 vs 1 KO",
+      "status": "soon"
+    }
+  ],
   "changelog": [
     {
       "id": 1,
