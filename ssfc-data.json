@@ -88,6 +88,22 @@
       "stat2": 50,
       "stat3Label": "PWR",
       "stat3": 50
+    },
+    {
+      "id": 2,
+      "rank": 2,
+      "rankClass": "",
+      "rankLabel": "★ Rank #2",
+      "emoji": "⚡",
+      "name": "FIGHTER",
+      "Team/club": "Tim · Style",
+      "koRate": 0,
+      "stat1Label": "ATK",
+      "stat1": 50,
+      "stat2Label": "DEF",
+      "stat2": 50,
+      "stat3Label": "PWR",
+      "stat3": 50
     }
   ],
   "events": [
