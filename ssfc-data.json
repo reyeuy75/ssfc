@@ -57,18 +57,6 @@
   ],
   "changelog": [
     {
-      "id": 3,
-      "ver": "v2.0",
-      "date": "15 Mar 2026",
-      "title": "War System Revamp",
-      "desc": "Sistem challenge match direvisi total. Match cooldown antar tim diperkenalkan. Event Fight Night pertama sukses digelar.",
-      "tags": [
-        "War System",
-        "Fight Night",
-        "Balance"
-      ]
-    },
-    {
       "id": 4,
       "ver": "v1.0",
       "date": "1 Jan 2026",
