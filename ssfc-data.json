@@ -1,5 +1,12 @@
 {
-  "hero": {},
+  "hero": {
+    "totalFighter": 29,
+    "fightStyle": 6,
+    "totalMatches": 0,
+    "discordOnline": 41,
+    "subTitle": "Tes",
+    "discordUrl": "https://discord.gg/rsjda9ey5U"
+  },
   "ticker": [
     "Night Fight Season 2",
     "Open Registration",
@@ -253,5 +260,5 @@
     }
   ],
   "matches": [],
-  "updatedAt": "2026-06-15T16:48:46.682Z"
+  "updatedAt": "2026-06-15T16:53:22.664Z"
 }
