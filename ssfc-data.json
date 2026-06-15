@@ -10,6 +10,15 @@
       "wins": 0,
       "badge": "b-def",
       "badgeLabel": ""
+    },
+    {
+      "name": "Wembley Fight Club",
+      "alias": "WFC",
+      "desc": "SS",
+      "ko": 0,
+      "wins": 0,
+      "badge": "b-def",
+      "badgeLabel": ""
     }
   ],
   "fighters": [],
@@ -158,5 +167,5 @@
     }
   ],
   "matches": [],
-  "updatedAt": "2026-06-15T11:30:16.963Z"
+  "updatedAt": "2026-06-15T11:32:25.739Z"
 }
