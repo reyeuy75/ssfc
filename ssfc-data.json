@@ -10,7 +10,18 @@
   "ticker": [
     "⬤ LIVE —  Perdana Fight Night S2"
   ],
-  "Team/clubs": [],
+  "Team/clubs": [
+    {
+      "id": null,
+      "name": "New Team",
+      "alias": "Style · Role",
+      "desc": "Deskripsi tim baru.",
+      "ko": 0,
+      "wins": 0,
+      "badge": "b-def",
+      "badgeLabel": "New"
+    }
+  ],
   "fighters": [
     {
       "id": 2,
