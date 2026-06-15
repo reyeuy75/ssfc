@@ -13,7 +13,23 @@
     "Selamat Beraktivitas"
   ],
   "Team/clubs": [],
-  "fighters": [],
+  "fighters": [
+    {
+      "name": "Lores Marcus",
+      "rank": 0,
+      "rankLabel": "Rank #0",
+      "rankClass": "",
+      "emoji": "⚡",
+      "Team/club": "The Warriors",
+      "koRate": 0,
+      "stat1Label": "HOOK",
+      "stat1": 50,
+      "stat2Label": "JAB",
+      "stat2": 50,
+      "stat3Label": "PWR",
+      "stat3": 50
+    }
+  ],
   "events": [
     {
       "id": "nf2",
@@ -260,5 +276,5 @@
     }
   ],
   "matches": [],
-  "updatedAt": "2026-06-15T16:55:46.980Z"
+  "updatedAt": "2026-06-15T17:03:56.898Z"
 }
