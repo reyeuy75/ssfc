@@ -1,0 +1,148 @@
+{
+  "hero": {},
+  "ticker": [],
+  "Team/clubs": [
+    {
+      "name": "The Warriors",
+      "alias": "TW",
+      "desc": "tes",
+      "ko": 0,
+      "wins": 0,
+      "badge": "b-def",
+      "badgeLabel": ""
+    }
+  ],
+  "fighters": [],
+  "events": [],
+  "brackets": [],
+  "halloffame": [],
+  "rules": [],
+  "changelog": [],
+  "join": {},
+  "clubs": [
+    {
+      "tag": "CK",
+      "nama": "Crimson Knuckle",
+      "deskripsi": "Crimson Knuckles adalah tim boxing yang didirikan oleh Julionss Kartes, lahir dari semangat musik keras, budaya gigs, dan kehidupan jalanan yang membentuk mental petarung sejati. Diperkuat oleh Nathan Jhonson, Salvador Salvature, dan Freedy Gilmer, tim ini menjunjung tinggi disiplin, loyalitas, dan keberanian dalam setiap pertarungan. Dengan semboyan \"Blood, Sweat, and Glory\", Crimson Knuckles had",
+      "leader": "1480043303251607624",
+      "coach": "1253330821918756949",
+      "members": [
+        "1480043303251607624",
+        "1253330821918756949",
+        "1497246049654280192",
+        "1225911347225821341",
+        "1255098744119230485"
+      ],
+      "createdAt": 1781151624496
+    },
+    {
+      "tag": "WFC",
+      "nama": "Wembley Fight Club",
+      "deskripsi": "Wembley fight club lebih mengutamakan gaya bertanggung grab kick dan elbow yang brutal dan cepat.",
+      "leader": "1444168525286477987",
+      "coach": "1390752561442848788",
+      "members": [
+        "1444168525286477987",
+        "1390752561442848788",
+        "1366634797967085699",
+        "833697179309703248",
+        "1266678645401981029",
+        "1315822201706123398",
+        "1257895985883910305"
+      ],
+      "createdAt": 1781152379570
+    },
+    {
+      "tag": "MKC",
+      "nama": "Manuel Knockout Club",
+      "deskripsi": "Tim solid dengan semangat juang tinggi. Bersatu untuk berkembang, bertanding, dan meraih kemenangan bersama.",
+      "leader": "1464163429488005243",
+      "coach": "1464163429488005243",
+      "members": [
+        "1464163429488005243",
+        "1257222287179120691",
+        "1235510696280850466",
+        "1231972597151830099"
+      ],
+      "createdAt": 1781171193521
+    },
+    {
+      "tag": "TW",
+      "nama": "The Warriors",
+      "deskripsi": "The Warriors merupakan tim yang berisi petarung petarung yang siap berkembang dan bersaing di SSFC. Dipimpin oleh Alexandro Ortegaz bersama dengan coach Beauregard Hawthorne. The Warriors mengedepankan kerja sama, disiplin dan mental juara. Bersama dengan fighter fighter yang kuat dan mengerikan yakni Alberto Castello, Lores Marcuz, dan Zare Shades, The Warriors siap menghadapi segala rintangan.",
+      "leader": "1381898272649777254",
+      "coach": "1265221387950227487",
+      "members": [
+        "1381898272649777254",
+        "1265221387950227487",
+        "1270700020781551693",
+        "1274284820238962698"
+      ],
+      "createdAt": 1781173134837
+    },
+    {
+      "tag": "XB",
+      "nama": "XenonBrotherhood",
+      "deskripsi": "Dengan menjunjung tinggi sportivitas, rasa hormat, dan kerja sama tim, setiap anggota Fighter Division diharapkan mampu menjadi pribadi yang kuat di dalam ring maupun di luar ring.\n\n**Fight with Honor, Win with Respect**",
+      "leader": "824904639274811412",
+      "coach": "824904639274811412",
+      "members": [
+        "824904639274811412",
+        "1426549284249010260",
+        "1495233624331649054",
+        "1507465862087446599"
+      ],
+      "createdAt": 1781182467245
+    },
+    {
+      "tag": "GC",
+      "nama": "Golden camp",
+      "deskripsi": "Golden Camp adalah sebuah camp yang di dirikan oleh Hozoa DeLancie dan Matthew Gonzales, camp ini mengarah ke rules campuran seperti mma, kickboxing, boxing, muathay. camp ini memiliki motto you ready to lose?.",
+      "leader": "651396005157404692",
+      "coach": "1514544489484521562",
+      "members": [
+        "651396005157404692",
+        "1118117983949168651",
+        "1250630725666082844",
+        "1514544489484521562",
+        "719816902356107305",
+        "1325042954020192256",
+        "759389470956716043",
+        "1470000334846820520"
+      ],
+      "createdAt": 1781189899768
+    },
+    {
+      "tag": "HVFC",
+      "nama": "Hollywings Velocita Fighters Camp",
+      "deskripsi": "Holywings Velocita Fighter Camp adalah simbol kekuatan, disiplin, dan ambisi tanpa batas dalam dunia boxing profesional. Dibangun dengan identitas yang modern dan penuh prestige, camp ini menjadi rumah bagi para fighter yang ingin berkembang menjadi petarung elit dengan mentalitas juara. Mengusung filosofi “Fight With Pride, Win With Honor”",
+      "leader": "1043414634520133682",
+      "coach": "627105500345139200",
+      "members": [
+        "1043414634520133682",
+        "627105500345139200",
+        "1389786810674057379",
+        "1322503527981121584",
+        "491902985207808002"
+      ],
+      "createdAt": 1781403885214
+    },
+    {
+      "tag": "AFC",
+      "nama": "Aston Fight Academy",
+      "deskripsi": "Aston Fight Academy\nAston Fight Academy adalah akademi beladiri profesional yang lahir dari dedikasi dan kerja keras. Berawal dari camp kecil sederhana di kawasan Marina bernama Aston Gym, tempat ini kini bertransformasi menjadi kawah candradimuka bagi para petarung tangguh yang siap mendominasi arena.",
+      "leader": "1479625210624868402",
+      "coach": "1338488091085901876",
+      "members": [
+        "1479625210624868402",
+        "1338488091085901876",
+        "1510934580662636704",
+        "1337334497833783307",
+        "900342700048523305"
+      ],
+      "createdAt": 1781431935766
+    }
+  ],
+  "matches": [],
+  "updatedAt": "2026-06-15T11:12:24.413Z"
+}
