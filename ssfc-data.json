@@ -13,7 +13,21 @@
     }
   ],
   "fighters": [],
-  "events": [],
+  "events": [
+    {
+      "id": "fn",
+      "title": "Fight Nigh S2",
+      "day": "17",
+      "month": "6",
+      "desc": "Event bergengsi komunitas SSFC State Side Fighter Championship. 8 Fighter terbaik bersaing untuk gelar Champion Season 2.",
+      "location": "SSFC ARENA",
+      "time": "20.00 WIB",
+      "format": "Mode Boxing 1 vs 1 KO",
+      "type": "Main Event",
+      "status": "open",
+      "isLive": true
+    }
+  ],
   "brackets": [],
   "halloffame": [],
   "rules": [],
@@ -144,5 +158,5 @@
     }
   ],
   "matches": [],
-  "updatedAt": "2026-06-15T11:12:24.413Z"
+  "updatedAt": "2026-06-15T11:30:16.963Z"
 }
