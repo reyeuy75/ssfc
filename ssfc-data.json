@@ -3,7 +3,21 @@
   "ticker": [],
   "Team/clubs": [],
   "fighters": [],
-  "events": [],
+  "events": [
+    {
+      "id": "nf2",
+      "title": "Night Fight Season 2",
+      "day": "17",
+      "month": "Jun 2026",
+      "desc": "Turnanen bergengsi komunitas SSFC State Side Fighter Championship beberapa fighter terbaik bersaing untuk gelar Champion Season 2.",
+      "location": "SSFC Arena",
+      "time": "20.00",
+      "format": "1 vs 1 Boxing",
+      "type": "Main Event • Featured",
+      "status": "open",
+      "isLive": true
+    }
+  ],
   "brackets": [
     {
       "name": "Night Fight Season 2",
@@ -235,5 +249,5 @@
     }
   ],
   "matches": [],
-  "updatedAt": "2026-06-15T16:42:34.755Z"
+  "updatedAt": "2026-06-15T16:46:40.126Z"
 }
