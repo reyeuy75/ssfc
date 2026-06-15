@@ -28,6 +28,21 @@
       "stat2": 50,
       "stat3Label": "PWR",
       "stat3": 50
+    },
+    {
+      "name": "Nathan Jonshon",
+      "rank": 0,
+      "rankLabel": "Rank #0",
+      "rankClass": "",
+      "emoji": "🥊",
+      "Team/club": "Crimson Knuckle",
+      "koRate": 0,
+      "stat1Label": "ELB",
+      "stat1": 50,
+      "stat2Label": "HOOK",
+      "stat2": 50,
+      "stat3Label": "PWR",
+      "stat3": 50
     }
   ],
   "events": [
@@ -276,5 +291,5 @@
     }
   ],
   "matches": [],
-  "updatedAt": "2026-06-15T17:03:56.898Z"
+  "updatedAt": "2026-06-15T17:06:43.438Z"
 }
