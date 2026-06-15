@@ -69,7 +69,7 @@
   ],
   "join": {
     "title": "Siap Jadi Fighter?",
-    "desc": "Bergabunglah dengan komunitas fighter terbesar di State Side RP SAM. Pilih Team/club dan mulai dominasi bersama kami.",
+    "desc": "Bergabunglah dengan komunitas fighter terbesar di State Side. Pilih Team/club dan mulai dominasi bersama kami.",
     "discordUrl": "https://discord.gg/rsjda9ey5U",
     "recruitmentStatus": "Open Semua Team/club"
   },
@@ -202,6 +202,15 @@
   "halloffame": [
     {
       "id": null,
+      "emoji": "🏅",
+      "category": "New Category",
+      "name": "FIGHTER",
+      "Team/club": "Team · Style",
+      "value": "0",
+      "valueLabel": "Label"
+    },
+    {
+      "id": 1,
       "emoji": "🏅",
       "category": "New Category",
       "name": "FIGHTER",
