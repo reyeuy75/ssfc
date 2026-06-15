@@ -241,15 +241,5 @@
       ]
     }
   ],
-  "halloffame": [
-    {
-      "id": 4,
-      "emoji": "🦵",
-      "category": "Best Knee Strike",
-      "name": "BLACKOUT",
-      "Team/club": "Iron Fist · Kickboxing",
-      "value": "94%",
-      "valueLabel": "Landing Rate"
-    }
-  ]
+  "halloffame": []
 }
