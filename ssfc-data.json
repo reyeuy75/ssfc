@@ -46,19 +46,6 @@
   ],
   "events": [
     {
-      "id": 1,
-      "day": "14",
-      "month": "Jun 2026",
-      "type": "Main Event · Featured",
-      "isLive": true,
-      "title": "Fight Night Season 3",
-      "desc": "Turnamen bergengsi komunitas SSFC State Side Fighter Championship. 16 fighter terbaik bersaing untuk gelar Champion Season 3.",
-      "location": "State Side RP",
-      "time": "20:00 WIB",
-      "format": "1 vs 1 KO Match",
-      "status": "open"
-    },
-    {
       "id": 2,
       "day": "21",
       "month": "Jun 2026",
