@@ -66,6 +66,15 @@
       "wins": 0,
       "badge": "b-new",
       "badgeLabel": "New"
+    },
+    {
+      "name": "Crimson Knuckle",
+      "alias": "CK",
+      "desc": "Crimson Knuckles adalah tim boxing yang dikenal dengan semangat juang, disiplin, dan mental baja. Berdiri untuk mencetak petarung tangguh yang tidak pernah mundur dari tantangan, Crimson Knuckles mengusung slogan \"Fight with Honor, Win with Pride\" dan siap mendominasi setiap pertarungan di dalam maupun luar ring",
+      "ko": 0,
+      "wins": 0,
+      "badge": "b-new",
+      "badgeLabel": "New"
     }
   ],
   "fighters": [
@@ -436,5 +445,5 @@
     }
   ],
   "matches": [],
-  "updatedAt": "2026-06-15T17:48:40.660Z"
+  "updatedAt": "2026-06-15T17:50:17.248Z"
 }
