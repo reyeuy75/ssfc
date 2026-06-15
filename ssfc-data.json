@@ -26,16 +26,6 @@
       "badgeLabel": "Top Team"
     },
     {
-      "id": 5,
-      "name": "Rapid Strike",
-      "alias": "Boxing · Speed Fighter",
-      "desc": "Kombinasi jab-cross-hook super cepat khas Boxing. Footwork elusive yang menguras stamina lawan sebelum KO.",
-      "ko": 82,
-      "wins": 28,
-      "badge": "b-rise",
-      "badgeLabel": "Rising"
-    },
-    {
       "id": 6,
       "name": "Ground Zero",
       "alias": "Elbow · Close Range Destroyer",
