@@ -241,5 +241,15 @@
       ]
     }
   ],
-  "halloffame": []
+  "halloffame": [
+    {
+      "id": null,
+      "emoji": "🏅",
+      "category": "New Category",
+      "name": "FIGHTER",
+      "Team/club": "Team · Style",
+      "value": "0",
+      "valueLabel": "Label"
+    }
+  ]
 }
