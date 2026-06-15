@@ -14,18 +14,7 @@
     "Kick Boxing Open — 14 Jun 2026 · Daftar Sekarang",
     "Community v3.0 — Fighter club Live"
   ],
-  "Team/clubs": [
-    {
-      "id": 1,
-      "name": "cuki",
-      "alias": "Elbow · Knee Head Specialist",
-      "desc": "Tim paling dominan musim ini. Spesialis elbow strike dan knee head jarak dekat. Teknik brutal yang sulit dibendung.",
-      "ko": 127,
-      "wins": 48,
-      "badge": "b-top",
-      "badgeLabel": "Top Team"
-    }
-  ],
+  "Team/clubs": [],
   "fighters": [
     {
       "id": 1,
