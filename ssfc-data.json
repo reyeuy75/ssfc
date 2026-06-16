@@ -139,11 +139,11 @@
       "rankLabel": "Rank #0",
       "rankClass": "",
       "emoji": "🦿",
-      "Team/club": "AFC • Kneehad",
+      "Team/club": "AFC • Grabkick",
       "koRate": 0,
       "stat1Label": "KNEE",
       "stat1": 50,
-      "stat2Label": "AGR",
+      "stat2Label": "ACC",
       "stat2": 50,
       "stat3Label": "PWR",
       "stat3": 50
@@ -457,5 +457,5 @@
     }
   ],
   "matches": [],
-  "updatedAt": "2026-06-16T16:44:40.072Z"
+  "updatedAt": "2026-06-16T17:46:15.641Z"
 }
