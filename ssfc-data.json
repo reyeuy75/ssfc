@@ -123,12 +123,12 @@
       "rank": 0,
       "rankLabel": "Rank #0",
       "rankClass": "",
-      "emoji": "🦿",
-      "Team/club": "HVFC • Kneehad",
+      "emoji": "🥊",
+      "Team/club": "HVFC • Elbow",
       "koRate": 0,
-      "stat1Label": "KNEE",
+      "stat1Label": "ELB",
       "stat1": 50,
-      "stat2Label": "AGR",
+      "stat2Label": "ACC",
       "stat2": 50,
       "stat3Label": "PWR",
       "stat3": 50
@@ -457,5 +457,5 @@
     }
   ],
   "matches": [],
-  "updatedAt": "2026-06-16T17:46:15.641Z"
+  "updatedAt": "2026-06-16T19:15:41.320Z"
 }
