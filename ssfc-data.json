@@ -1,9 +1,9 @@
 {
   "hero": {
-    "totalFighter": 29,
+    "totalFighter": 44,
     "fightStyle": 6,
     "totalMatches": 0,
-    "discordOnline": 41,
+    "discordOnline": 54,
     "subTitle": "Turnanen bergengsi komunitas SSFC State Side Fighter Championship beberapa fighter terbaik bersaing untuk gelar Championship.",
     "discordUrl": "https://discord.gg/rsjda9ey5U"
   },
@@ -467,5 +467,5 @@
       "catatan": "test"
     }
   ],
-  "updatedAt": "2026-06-16T20:06:02.481Z"
+  "updatedAt": "2026-06-16T20:07:47.067Z"
 }
