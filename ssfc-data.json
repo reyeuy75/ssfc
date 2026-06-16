@@ -76,6 +76,15 @@
       "wins": 0,
       "badge": "b-new",
       "badgeLabel": "New"
+    },
+    {
+      "name": "Holywings Velocita Fighter Camp",
+      "alias": "HVFC • Kneehad",
+      "desc": "Holywings Velocita Fighter Camp adalah camp boxing profesional yang mengutamakan kekuatan, disiplin, dan mental juara dalam setiap pertarungan.",
+      "ko": 0,
+      "wins": 0,
+      "badge": "b-new",
+      "badgeLabel": "New"
     }
   ],
   "fighters": [
@@ -446,5 +455,5 @@
     }
   ],
   "matches": [],
-  "updatedAt": "2026-06-15T18:32:59.883Z"
+  "updatedAt": "2026-06-16T05:21:52.356Z"
 }
