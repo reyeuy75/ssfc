@@ -208,6 +208,21 @@
       "stat2": 50,
       "stat3Label": "PWR",
       "stat3": 50
+    },
+    {
+      "name": "Salvador Salvature",
+      "rank": 0,
+      "rankLabel": "Rank #0",
+      "rankClass": "",
+      "emoji": "🥊",
+      "Team/club": "Crimson Knuckle • Elbow",
+      "koRate": 0,
+      "stat1Label": "ELB",
+      "stat1": 50,
+      "stat2Label": "ACC",
+      "stat2": 50,
+      "stat3Label": "PWR",
+      "stat3": 50
     }
   ],
   "events": [
@@ -467,5 +482,5 @@
       "catatan": "test"
     }
   ],
-  "updatedAt": "2026-06-16T20:07:47.067Z"
+  "updatedAt": "2026-06-17T10:07:08.835Z"
 }
