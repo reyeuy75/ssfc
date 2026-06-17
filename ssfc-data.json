@@ -240,7 +240,91 @@
       "isLive": true
     }
   ],
-  "brackets": [],
+  "brackets": [
+    {
+      "name": "Night Fight Season 2",
+      "participants": [
+        {
+          "slot": 1,
+          "seed": 1,
+          "name": "Salvador Salvature",
+          "team": "Crimson Knuckle"
+        },
+        {
+          "slot": 2,
+          "seed": 2,
+          "name": "Lores Marcus",
+          "team": "The Warriors"
+        },
+        {
+          "slot": 3,
+          "seed": 3,
+          "name": "Meech Parker",
+          "team": "Aston Fight Academy"
+        },
+        {
+          "slot": 4,
+          "seed": 4,
+          "name": "Ronald Megumi",
+          "team": "Golden Camp"
+        },
+        {
+          "slot": 5,
+          "seed": 5,
+          "name": "Manuel Reyzz",
+          "team": "Manuel Knockout Club"
+        },
+        {
+          "slot": 6,
+          "seed": 6,
+          "name": "Celvin Valerica",
+          "team": "Holywings Velocita Fighter Camp"
+        },
+        {
+          "slot": 7,
+          "seed": 7,
+          "name": "Javyen Maurenna",
+          "team": "Wembley Fight Club"
+        },
+        {
+          "slot": 8,
+          "seed": 8,
+          "name": "Axton Barayev",
+          "team": "Xenon Brotherhood"
+        }
+      ],
+      "matches": [
+        {
+          "matchNum": 1,
+          "round": 1,
+          "p1Slot": 1,
+          "p2Slot": 2,
+          "winner": null
+        },
+        {
+          "matchNum": 2,
+          "round": 1,
+          "p1Slot": 3,
+          "p2Slot": 4,
+          "winner": null
+        },
+        {
+          "matchNum": 3,
+          "round": 1,
+          "p1Slot": 5,
+          "p2Slot": 6,
+          "winner": null
+        },
+        {
+          "matchNum": 4,
+          "round": 1,
+          "p1Slot": 7,
+          "p2Slot": 8,
+          "winner": null
+        }
+      ]
+    }
+  ],
   "halloffame": [],
   "rules": [],
   "changelog": [
@@ -398,5 +482,5 @@
       "catatan": "test"
     }
   ],
-  "updatedAt": "2026-06-17T10:09:51.491Z"
+  "updatedAt": "2026-06-17T10:12:48.257Z"
 }
