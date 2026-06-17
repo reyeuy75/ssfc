@@ -460,10 +460,9 @@
       "nama": "Aston Fight Academy",
       "deskripsi": "Aston Fight Academy\nAston Fight Academy adalah akademi beladiri profesional yang lahir dari dedikasi dan kerja keras. Berawal dari camp kecil sederhana di kawasan Marina bernama Aston Gym, tempat ini kini bertransformasi menjadi kawah candradimuka bagi para petarung tangguh yang siap mendominasi arena.",
       "leader": "1479625210624868402",
-      "coach": "1338488091085901876",
+      "coach": null,
       "members": [
         "1479625210624868402",
-        "1338488091085901876",
         "1510934580662636704",
         "878184692518637588",
         "808658895286829086",
@@ -482,5 +481,5 @@
       "catatan": "test"
     }
   ],
-  "updatedAt": "2026-06-17T10:12:48.257Z"
+  "updatedAt": "2026-06-17T16:14:02.110Z"
 }
