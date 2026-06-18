@@ -156,13 +156,13 @@
       "rankClass": "",
       "emoji": "⚡",
       "Team/club": "Golden Camp • Boxing",
-      "koRate": 0.3,
+      "koRate": 0,
       "stat1Label": "JAB",
-      "stat1": 70,
+      "stat1": 65,
       "stat2Label": "HOOK",
-      "stat2": 65,
+      "stat2": 61,
       "stat3Label": "PWR",
-      "stat3": 67
+      "stat3": 49
     },
     {
       "name": "Javyen Maurenna",
@@ -482,5 +482,5 @@
       "catatan": "test"
     }
   ],
-  "updatedAt": "2026-06-18T11:40:43.399Z"
+  "updatedAt": "2026-06-18T11:53:26.026Z"
 }
