@@ -38,7 +38,7 @@
       "alias": "AFC",
       "desc": "Aston Fight Academy adalah komunitas yang menyatukan seluru street fight local yang berada di marina, mereka tetap mempertahankan fight style setiap fighter dan di asah dengan beberapa tehnik dan arahan coach",
       "ko": 0,
-      "wins": 0,
+      "wins": 1,
       "badge": "b-new",
       "badgeLabel": "New"
     },
@@ -482,5 +482,5 @@
       "catatan": "test"
     }
   ],
-  "updatedAt": "2026-06-18T11:27:59.367Z"
+  "updatedAt": "2026-06-18T11:29:39.173Z"
 }
