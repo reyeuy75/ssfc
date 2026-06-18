@@ -124,15 +124,15 @@
       "rank": 0,
       "rankLabel": "Rank #0",
       "rankClass": "",
-      "emoji": "🥊",
-      "Team/club": "HVFC • Elbow",
+      "emoji": "⚡",
+      "Team/club": "Holywings Velocita Fighter Camp • Boxing",
       "koRate": 0,
-      "stat1Label": "ELB",
-      "stat1": 50,
-      "stat2Label": "ACC",
-      "stat2": 50,
+      "stat1Label": "JAB",
+      "stat1": 53,
+      "stat2Label": "HOOK",
+      "stat2": 49,
       "stat3Label": "PWR",
-      "stat3": 50
+      "stat3": 45
     },
     {
       "name": "Meech Parker",
@@ -482,5 +482,5 @@
       "catatan": "test"
     }
   ],
-  "updatedAt": "2026-06-18T15:22:17.971Z"
+  "updatedAt": "2026-06-18T15:23:37.015Z"
 }
