@@ -20,7 +20,7 @@
       "alias": "TW",
       "desc": "The Warriors yaitu Fighting Club yang mengutamakan kerja sama dan solidaritas",
       "ko": 0,
-      "wins": 0,
+      "wins": 1,
       "badge": "b-new",
       "badgeLabel": "New"
     },
@@ -482,5 +482,5 @@
       "catatan": "test"
     }
   ],
-  "updatedAt": "2026-06-17T17:17:31.998Z"
+  "updatedAt": "2026-06-18T11:27:59.367Z"
 }
