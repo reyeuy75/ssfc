@@ -28,7 +28,7 @@
       "name": "Golden Camp",
       "alias": "GC",
       "desc": "Golden Camp ialah camp yang menggunakan rulles campuran seperti mma",
-      "ko": 0,
+      "ko": 1,
       "wins": 0,
       "badge": "b-new",
       "badgeLabel": "New"
@@ -482,5 +482,5 @@
       "catatan": "test"
     }
   ],
-  "updatedAt": "2026-06-18T11:29:39.173Z"
+  "updatedAt": "2026-06-18T11:32:24.587Z"
 }
