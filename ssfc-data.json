@@ -139,15 +139,15 @@
       "rank": 0,
       "rankLabel": "Rank #0",
       "rankClass": "",
-      "emoji": "🦿",
-      "Team/club": "AFC • Grabkick",
-      "koRate": 0,
-      "stat1Label": "KNEE",
-      "stat1": 50,
-      "stat2Label": "ACC",
-      "stat2": 50,
+      "emoji": "⚡",
+      "Team/club": "Aston Fight Academy • Boxing",
+      "koRate": 0.5,
+      "stat1Label": "JAB",
+      "stat1": 78,
+      "stat2Label": "HOOK",
+      "stat2": 69,
       "stat3Label": "PWR",
-      "stat3": 50
+      "stat3": 71
     },
     {
       "name": "Ronald Megumi",
@@ -482,5 +482,5 @@
       "catatan": "test"
     }
   ],
-  "updatedAt": "2026-06-18T11:39:28.257Z"
+  "updatedAt": "2026-06-18T11:40:43.399Z"
 }
