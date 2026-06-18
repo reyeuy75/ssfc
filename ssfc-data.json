@@ -199,15 +199,15 @@
       "rank": 0,
       "rankLabel": "Rank #0",
       "rankClass": "",
-      "emoji": "🦿",
-      "Team/club": "MKC • Kneehad",
-      "koRate": 0,
-      "stat1Label": "KNEE",
-      "stat1": 50,
-      "stat2Label": "AGR",
-      "stat2": 50,
+      "emoji": "⚡",
+      "Team/club": "Manuel Knockout Club",
+      "koRate": 0.7,
+      "stat1Label": "JAB",
+      "stat1": 78,
+      "stat2Label": "HOOK",
+      "stat2": 73,
       "stat3Label": "PWR",
-      "stat3": 50
+      "stat3": 77
     },
     {
       "name": "Salvador Salvature",
@@ -482,5 +482,5 @@
       "catatan": "test"
     }
   ],
-  "updatedAt": "2026-06-18T11:54:18.943Z"
+  "updatedAt": "2026-06-18T15:18:58.675Z"
 }
