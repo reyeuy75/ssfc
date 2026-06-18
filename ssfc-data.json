@@ -240,7 +240,53 @@
       "isLive": true
     }
   ],
-  "brackets": [],
+  "brackets": [
+    {
+      "name": "Night Fight Season 2",
+      "participants": [
+        {
+          "slot": 1,
+          "seed": 1,
+          "name": "Lores Marcus",
+          "team": "The Warriors"
+        },
+        {
+          "slot": 2,
+          "seed": 2,
+          "name": "Meech Parker",
+          "team": "Aston Fight Academy"
+        },
+        {
+          "slot": 3,
+          "seed": 3,
+          "name": "Manuel Reyzz",
+          "team": "Manuel Knockout Club"
+        },
+        {
+          "slot": 4,
+          "seed": 4,
+          "name": "Axton Barayev",
+          "team": "Xenon Brotherhood"
+        }
+      ],
+      "matches": [
+        {
+          "matchNum": 1,
+          "round": 1,
+          "p1Slot": 1,
+          "p2Slot": 2,
+          "winner": null
+        },
+        {
+          "matchNum": 2,
+          "round": 1,
+          "p1Slot": 3,
+          "p2Slot": 4,
+          "winner": null
+        }
+      ]
+    }
+  ],
   "halloffame": [],
   "rules": [],
   "changelog": [
@@ -398,5 +444,5 @@
       "catatan": "test"
     }
   ],
-  "updatedAt": "2026-06-18T15:37:50.450Z"
+  "updatedAt": "2026-06-18T15:38:05.919Z"
 }
