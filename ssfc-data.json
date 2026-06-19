@@ -388,7 +388,7 @@
       "nama": "Golden camp",
       "deskripsi": "Golden Camp adalah sebuah camp yang di dirikan oleh Hozoa DeLancie dan Matthew Gonzales, camp ini mengarah ke rules campuran seperti mma, kickboxing, boxing, muathay. camp ini memiliki motto you ready to lose?.",
       "leader": "1118117983949168651",
-      "coach": null,
+      "coach": "1118117983949168651",
       "members": [
         "1118117983949168651",
         "1250630725666082844",
@@ -443,5 +443,5 @@
       "catatan": "test"
     }
   ],
-  "updatedAt": "2026-06-19T03:05:27.872Z"
+  "updatedAt": "2026-06-19T03:09:34.366Z"
 }
