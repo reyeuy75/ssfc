@@ -95,14 +95,14 @@
       "rankLabel": "Rank #0",
       "rankClass": "",
       "emoji": "⚡",
-      "Team/club": "The Warriors • Boxing",
+      "Team/club": "The Warriors",
       "koRate": 0,
       "stat1Label": "JAB",
-      "stat1": 50,
+      "stat1": 65,
       "stat2Label": "HOOK",
-      "stat2": 50,
-      "stat3Label": "PWR",
-      "stat3": 50
+      "stat2": 63,
+      "stat3Label": "HOOK",
+      "stat3": 63
     },
     {
       "name": "Nathan Jonshon",
@@ -426,5 +426,5 @@
       "catatan": "test"
     }
   ],
-  "updatedAt": "2026-06-20T20:25:49.654Z"
+  "updatedAt": "2026-06-20T20:26:50.002Z"
 }
