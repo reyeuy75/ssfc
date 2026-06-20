@@ -46,7 +46,7 @@
       "name": "Manuel Knockout Club",
       "alias": "MKC",
       "desc": "Manuel Knockout Club adalah klub tinju yang berfokus pada disiplin, kerja keras, dan semangat juang tinggi.",
-      "ko": 0,
+      "ko": 1,
       "wins": 1,
       "badge": "b-new",
       "badgeLabel": "New"
@@ -445,5 +445,5 @@
       "catatan": "test"
     }
   ],
-  "updatedAt": "2026-06-20T20:20:37.236Z"
+  "updatedAt": "2026-06-20T20:21:23.835Z"
 }
