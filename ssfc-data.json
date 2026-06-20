@@ -19,7 +19,7 @@
       "name": "The Warriors",
       "alias": "TW",
       "desc": "The Warriors yaitu Fighting Club yang mengutamakan kerja sama dan solidaritas",
-      "ko": 1,
+      "ko": 0,
       "wins": 1,
       "badge": "b-new",
       "badgeLabel": "New"
@@ -38,7 +38,7 @@
       "alias": "AFC",
       "desc": "Aston Fight Academy adalah komunitas yang menyatukan seluru street fight local yang berada di marina, mereka tetap mempertahankan fight style setiap fighter dan di asah dengan beberapa tehnik dan arahan coach",
       "ko": 0,
-      "wins": 2,
+      "wins": 1,
       "badge": "b-new",
       "badgeLabel": "New"
     },
@@ -46,7 +46,7 @@
       "name": "Manuel Knockout Club",
       "alias": "MKC",
       "desc": "Manuel Knockout Club adalah klub tinju yang berfokus pada disiplin, kerja keras, dan semangat juang tinggi.",
-      "ko": 1,
+      "ko": 0,
       "wins": 1,
       "badge": "b-new",
       "badgeLabel": "New"
@@ -65,7 +65,7 @@
       "alias": "XB",
       "desc": "Fighter tangguh dari jalanan Los Santos. Berani, disiplin, dan selalu siap menghadapi setiap tantangan. Kemenangan adalah tujuan, kehormatan adalah prinsip.",
       "ko": 0,
-      "wins": 2,
+      "wins": 0,
       "badge": "b-new",
       "badgeLabel": "New"
     },
@@ -73,7 +73,7 @@
       "name": "Crimson Knuckle",
       "alias": "CK",
       "desc": "Crimson Knuckles adalah tim boxing yang dikenal dengan semangat juang, disiplin, dan mental baja. Berdiri untuk mencetak petarung tangguh yang tidak pernah mundur dari tantangan, Crimson Knuckles mengusung slogan \"Fight with Honor, Win with Pride\" dan siap mendominasi setiap pertarungan di dalam maupun luar ring",
-      "ko": 1,
+      "ko": 0,
       "wins": 0,
       "badge": "b-new",
       "badgeLabel": "New"
@@ -95,14 +95,14 @@
       "rankLabel": "Rank #0",
       "rankClass": "",
       "emoji": "⚡",
-      "Team/club": "The Warriors",
+      "Team/club": "The Warriors • Boxing",
       "koRate": 0,
       "stat1Label": "JAB",
-      "stat1": 65,
+      "stat1": 50,
       "stat2Label": "HOOK",
-      "stat2": 63,
-      "stat3Label": "HOOK",
-      "stat3": 63
+      "stat2": 50,
+      "stat3Label": "PWR",
+      "stat3": 50
     },
     {
       "name": "Nathan Jonshon",
@@ -140,14 +140,14 @@
       "rankLabel": "Rank #0",
       "rankClass": "",
       "emoji": "⚡",
-      "Team/club": "Aston Fight Academy",
-      "koRate": 0.5,
+      "Team/club": "Aston Fight Academy • Boxing",
+      "koRate": 0,
       "stat1Label": "JAB",
       "stat1": 68,
       "stat2Label": "HOOK",
       "stat2": 64,
       "stat3Label": "PWR",
-      "stat3": 66
+      "stat3": 65
     },
     {
       "name": "Ronald Megumi",
@@ -184,15 +184,15 @@
       "rank": 0,
       "rankLabel": "Rank #0",
       "rankClass": "",
-      "emoji": "⚡",
-      "Team/club": "Xenon Brotherhood",
-      "koRate": 0.6,
-      "stat1Label": "JAB",
-      "stat1": 70,
-      "stat2Label": "HOOK",
-      "stat2": 67,
+      "emoji": "🦿",
+      "Team/club": "Xenon Brotherhood • Grabkick",
+      "koRate": 0,
+      "stat1Label": "KNEE",
+      "stat1": 50,
+      "stat2Label": "ACC",
+      "stat2": 50,
       "stat3Label": "PWR",
-      "stat3": 68
+      "stat3": 50
     },
     {
       "name": "Manuel Reyzz",
@@ -200,14 +200,14 @@
       "rankLabel": "Rank #0",
       "rankClass": "",
       "emoji": "⚡",
-      "Team/club": "Manuel Knockout Club • Boxing",
-      "koRate": 0.7,
+      "Team/club": "Manuel Knockout Club",
+      "koRate": 0.5,
       "stat1Label": "JAB",
-      "stat1": 78,
+      "stat1": 70,
       "stat2Label": "HOOK",
-      "stat2": 73,
+      "stat2": 67,
       "stat3Label": "PWR",
-      "stat3": 77
+      "stat3": 65
     },
     {
       "name": "Salvador Salvature",
@@ -247,12 +247,24 @@
         {
           "slot": 1,
           "seed": 1,
-          "name": "Meech Parker",
-          "team": "Aston Fight Academy"
+          "name": "Lores Marcus",
+          "team": "The Warriors"
         },
         {
           "slot": 2,
           "seed": 2,
+          "name": "Meech Parker",
+          "team": "Aston Fight Academy"
+        },
+        {
+          "slot": 3,
+          "seed": 3,
+          "name": "Manuel Reyzz",
+          "team": "Manuel Knockout Club"
+        },
+        {
+          "slot": 4,
+          "seed": 4,
           "name": "Axton Barayev",
           "team": "Xenon Brotherhood"
         }
@@ -263,6 +275,13 @@
           "round": 1,
           "p1Slot": 1,
           "p2Slot": 2,
+          "winner": null
+        },
+        {
+          "matchNum": 2,
+          "round": 1,
+          "p1Slot": 3,
+          "p2Slot": 4,
           "winner": null
         }
       ]
@@ -426,5 +445,5 @@
       "catatan": "test"
     }
   ],
-  "updatedAt": "2026-06-20T20:28:29.904Z"
+  "updatedAt": "2026-06-20T22:08:21.504Z"
 }
