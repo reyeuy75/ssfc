@@ -65,7 +65,7 @@
       "alias": "XB",
       "desc": "Fighter tangguh dari jalanan Los Santos. Berani, disiplin, dan selalu siap menghadapi setiap tantangan. Kemenangan adalah tujuan, kehormatan adalah prinsip.",
       "ko": 0,
-      "wins": 0,
+      "wins": 2,
       "badge": "b-new",
       "badgeLabel": "New"
     },
@@ -445,5 +445,5 @@
       "catatan": "test"
     }
   ],
-  "updatedAt": "2026-06-20T20:19:38.582Z"
+  "updatedAt": "2026-06-20T20:20:37.236Z"
 }
