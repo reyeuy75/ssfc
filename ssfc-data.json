@@ -184,15 +184,15 @@
       "rank": 0,
       "rankLabel": "Rank #0",
       "rankClass": "",
-      "emoji": "🦿",
-      "Team/club": "Xenon Brotherhood • Grabkick",
-      "koRate": 0,
-      "stat1Label": "KNEE",
-      "stat1": 50,
-      "stat2Label": "ACC",
-      "stat2": 50,
+      "emoji": "⚡",
+      "Team/club": "Xenon Brotherhood",
+      "koRate": 0.6,
+      "stat1Label": "JAB",
+      "stat1": 70,
+      "stat2Label": "HOOK",
+      "stat2": 67,
       "stat3Label": "PWR",
-      "stat3": 50
+      "stat3": 68
     },
     {
       "name": "Manuel Reyzz",
@@ -426,5 +426,5 @@
       "catatan": "test"
     }
   ],
-  "updatedAt": "2026-06-20T20:26:50.002Z"
+  "updatedAt": "2026-06-20T20:28:29.904Z"
 }
