@@ -140,14 +140,14 @@
       "rankLabel": "Rank #0",
       "rankClass": "",
       "emoji": "⚡",
-      "Team/club": "Aston Fight Academy • Boxing",
-      "koRate": 0,
+      "Team/club": "Aston Fight Academy",
+      "koRate": 0.5,
       "stat1Label": "JAB",
       "stat1": 68,
       "stat2Label": "HOOK",
       "stat2": 64,
       "stat3Label": "PWR",
-      "stat3": 65
+      "stat3": 66
     },
     {
       "name": "Ronald Megumi",
@@ -426,5 +426,5 @@
       "catatan": "test"
     }
   ],
-  "updatedAt": "2026-06-20T20:24:06.990Z"
+  "updatedAt": "2026-06-20T20:25:49.654Z"
 }
