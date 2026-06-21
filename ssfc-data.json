@@ -240,7 +240,34 @@
       "isLive": true
     }
   ],
-  "brackets": [],
+  "brackets": [
+    {
+      "name": "Night Fight Season 2",
+      "participants": [
+        {
+          "slot": 1,
+          "seed": 1,
+          "name": "Meech Parker",
+          "team": "Aston Fight Academy"
+        },
+        {
+          "slot": 2,
+          "seed": 2,
+          "name": "Axton Barayev",
+          "team": "Xenon Brotherhood"
+        }
+      ],
+      "matches": [
+        {
+          "matchNum": 1,
+          "round": 1,
+          "p1Slot": 1,
+          "p2Slot": 2,
+          "winner": null
+        }
+      ]
+    }
+  ],
   "halloffame": [],
   "rules": [],
   "changelog": [
@@ -399,5 +426,5 @@
       "catatan": "test"
     }
   ],
-  "updatedAt": "2026-06-21T07:39:47.540Z"
+  "updatedAt": "2026-06-21T07:40:10.654Z"
 }
