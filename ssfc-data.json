@@ -143,11 +143,11 @@
       "Team/club": "Aston Fight Academy",
       "koRate": 0.5,
       "stat1Label": "JAB",
-      "stat1": 68,
+      "stat1": 75,
       "stat2Label": "HOOK",
-      "stat2": 65,
+      "stat2": 71,
       "stat3Label": "PWR",
-      "stat3": 66
+      "stat3": 73
     },
     {
       "name": "Ronald Megumi",
@@ -426,5 +426,5 @@
       "catatan": "test"
     }
   ],
-  "updatedAt": "2026-06-21T07:40:10.654Z"
+  "updatedAt": "2026-06-21T07:44:06.569Z"
 }
