@@ -200,14 +200,14 @@
       "rankLabel": "Rank #0",
       "rankClass": "",
       "emoji": "⚡",
-      "Team/club": "Manuel Knockout Club • Boxing",
-      "koRate": 0.7,
+      "Team/club": "Manuel Knockout Club",
+      "koRate": 0.4,
       "stat1Label": "JAB",
-      "stat1": 78,
+      "stat1": 70,
       "stat2Label": "HOOK",
-      "stat2": 73,
+      "stat2": 67,
       "stat3Label": "PWR",
-      "stat3": 77
+      "stat3": 65
     },
     {
       "name": "Salvador Salvature",
@@ -445,5 +445,5 @@
       "catatan": "test"
     }
   ],
-  "updatedAt": "2026-06-21T07:29:33.691Z"
+  "updatedAt": "2026-06-21T07:30:17.071Z"
 }
