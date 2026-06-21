@@ -184,15 +184,15 @@
       "rank": 0,
       "rankLabel": "Rank #0",
       "rankClass": "",
-      "emoji": "🦿",
-      "Team/club": "Xenon Brotherhood • Grabkick",
-      "koRate": 0,
-      "stat1Label": "KNEE",
-      "stat1": 50,
-      "stat2Label": "ACC",
-      "stat2": 50,
+      "emoji": "⚡",
+      "Team/club": "Xenon Brotherhood",
+      "koRate": 0.6,
+      "stat1Label": "JAB",
+      "stat1": 78,
+      "stat2Label": "HOOK",
+      "stat2": 74,
       "stat3Label": "PWR",
-      "stat3": 50
+      "stat3": 76
     },
     {
       "name": "Manuel Reyzz",
@@ -200,14 +200,14 @@
       "rankLabel": "Rank #0",
       "rankClass": "",
       "emoji": "⚡",
-      "Team/club": "Manuel Knockout Club",
-      "koRate": 0.5,
+      "Team/club": "Manuel Knockout Club • Boxing",
+      "koRate": 0.7,
       "stat1Label": "JAB",
-      "stat1": 70,
+      "stat1": 78,
       "stat2Label": "HOOK",
-      "stat2": 67,
+      "stat2": 73,
       "stat3Label": "PWR",
-      "stat3": 65
+      "stat3": 77
     },
     {
       "name": "Salvador Salvature",
@@ -445,5 +445,5 @@
       "catatan": "test"
     }
   ],
-  "updatedAt": "2026-06-20T22:08:21.504Z"
+  "updatedAt": "2026-06-21T07:29:33.691Z"
 }
