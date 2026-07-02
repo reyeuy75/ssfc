@@ -352,24 +352,6 @@
       "createdAt": 1781182467245
     },
     {
-      "tag": "GC",
-      "nama": "Golden camp",
-      "deskripsi": "Golden Camp adalah sebuah camp yang di dirikan oleh Hozoa DeLancie dan Matthew Gonzales, camp ini mengarah ke rules campuran seperti mma, kickboxing, boxing, muathay. camp ini memiliki motto you ready to lose?.",
-      "leader": "1118117983949168651",
-      "coach": "1504105344920584243",
-      "members": [
-        "1118117983949168651",
-        "1250630725666082844",
-        "719816902356107305",
-        "759389470956716043",
-        "1470000334846820520",
-        "651396005157404692",
-        "1496159311527674007",
-        "1504105344920584243"
-      ],
-      "createdAt": 1781189899768
-    },
-    {
       "tag": "HVFC",
       "nama": "Hollywings Velocita Fighters Camp",
       "deskripsi": "Holywings Velocita Fighter Camp adalah simbol kekuatan, disiplin, dan ambisi tanpa batas dalam dunia boxing profesional. Dibangun dengan identitas yang modern dan penuh prestige, camp ini menjadi rumah bagi para fighter yang ingin berkembang menjadi petarung elit dengan mentalitas juara. Mengusung filosofi “Fight With Pride, Win With Honor”",
@@ -414,5 +396,5 @@
       "catatan": "test"
     }
   ],
-  "updatedAt": "2026-07-02T17:41:22.956Z"
+  "updatedAt": "2026-07-02T17:41:33.780Z"
 }
