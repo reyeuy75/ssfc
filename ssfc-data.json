@@ -338,22 +338,6 @@
       "createdAt": 1781171193521
     },
     {
-      "tag": "TW",
-      "nama": "The Warriors",
-      "deskripsi": "The Warriors merupakan tim yang berisi petarung petarung yang siap berkembang dan bersaing di SSFC. Dipimpin oleh Alexandro Ortegaz bersama dengan coach Beauregard Hawthorne. The Warriors mengedepankan kerja sama, disiplin dan mental juara. Bersama dengan fighter fighter yang kuat dan mengerikan yakni Alberto Castello, Lores Marcuz, dan Zare Shades, The Warriors siap menghadapi segala rintangan.",
-      "leader": "1381898272649777254",
-      "coach": "1265221387950227487",
-      "members": [
-        "1381898272649777254",
-        "1265221387950227487",
-        "1270700020781551693",
-        "1274284820238962698",
-        "1303941103979855907",
-        "934090513966071838"
-      ],
-      "createdAt": 1781173134837
-    },
-    {
       "tag": "XB",
       "nama": "XenonBrotherhood",
       "deskripsi": "Dengan menjunjung tinggi sportivitas, rasa hormat, dan kerja sama tim, setiap anggota Fighter Division diharapkan mampu menjadi pribadi yang kuat di dalam ring maupun di luar ring.\n\n**Fight with Honor, Win with Respect**",
@@ -430,5 +414,5 @@
       "catatan": "test"
     }
   ],
-  "updatedAt": "2026-06-29T03:02:09.443Z"
+  "updatedAt": "2026-07-02T17:41:22.956Z"
 }
